@@ -1,0 +1,72 @@
+variables:
+  ANGULAR_CLI_VERSION: "@angular/cli@8.3.25"
+
+# This job makes a testing build of the Angular client, almost ready for production environment.
+# Environment variables to be set:
+#   WORKLOG_TEST_SERVER_HOST
+#   WORKLOG_BACKEND_DOCKER_OUT
+frontend-test-build:
+  stage: build
+  tags:
+    - worklog-testing-docker
+  image: node:10
+  only:
+    - /^release.*/
+  script:
+    - npm i npm@latest -g
+    - npm install -g $ANGULAR_CLI_VERSION
+    - cd ./frontend/
+    - npm install
+    - echo "export const environment={production:false,apiHost:\"$WORKLOG_TEST_SERVER_HOST\",apiPort:\"$WORKLOG_BACKEND_DOCKER_OUT\"};" > src/environments/environment.prod.ts
+    - node --max_old_space_size=2024 ./node_modules/@angular/cli/bin/ng build --prod
+    - mv dist/bitacora/ frontend-dist/
+  artifacts:
+    paths:
+      - frontend/frontend-dist/
+
+# This job makes the main build (production) of the Angular client.
+# Environment variables to be set:
+#   WORKLOG_PROD_SERVER_HOST
+#   WORKLOG_BACKEND_CLIENT_PORT
+frontend-prod-build:
+  stage: build
+  tags:
+    - worklog-prod-docker
+  image: node:10
+  only:
+    - master
+    - /^hotfix.*/
+  script:
+    - npm i npm@latest -g
+    - npm install -g $ANGULAR_CLI_VERSION
+    - cd ./frontend/
+    - npm install
+    - echo "export const environment={production:true,apiHost:\"$WORKLOG_PROD_SERVER_HOST\",apiPort:\"$WORKLOG_BACKEND_CLIENT_PORT\"};" > src/environments/environment.prod.ts
+    - node --max_old_space_size=2024 ./node_modules/@angular/cli/bin/ng build --prod
+    - mv dist/bitacora/ frontend-dist/
+  artifacts:
+    paths:
+      - frontend/frontend-dist/
+
+test-api-base-image:
+  stage: build
+  tags:
+    - worklog-testing
+  only:
+    - /^release.*/
+  script:
+    - cd ./backend/!api-loopback
+    - chmod +x ./check-image.sh
+    - ./check-image.sh
+
+prod-api-base-image:
+  stage: build
+  tags:
+    - worklog-production
+  only:
+    - master
+    - /^hotfix.*/
+  script:
+    - cd ./backend/!api-loopback
+    - chmod +x ./check-image.sh
+    - ./check-image.sh

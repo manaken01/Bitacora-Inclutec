@@ -1,0 +1,60 @@
+$color-dark-green: #14666c;
+$color-white: #ffffff;
+$color-green: #207073;
+$color-gray: #d3d3d3;
+$color-black-light: #4b4b4b;
+$color-dark-gray: #4b4b4b;
+$color-warning-orange: #d8400e;
+$font-opificio: "Opificio-regular";
+$font-Monserrat: "Montserrat";
+
+.modal-title {
+  font-family: $font-opificio;
+  font-weight: bold;
+  font-size: 25px;
+  .icon-check {
+    font-size: 35px;
+  }
+  .icon-warning {
+    font-size: 35px;
+    color: $color-warning-orange;
+  }
+}
+.title-structure {
+  font-size: 18px;
+  text-align: justify;
+  font-family: $font-Monserrat;
+  font-weight: bold;
+  color: $color-green;
+}
+.color-warning {
+  color: $color-warning-orange;
+}
+.color-success {
+  color: $color-dark-green;
+}
+.body-text {
+  font-size: 14px;
+  text-align: justify;
+  font-family: $font-Monserrat;
+  color: $color-dark-gray;
+  margin-bottom: 0.5em;
+}
+.c-custom-btn {
+  background-color: $color-green;
+  color: $color-white;
+  border-radius: 15px;
+  width: 25%;
+}
+.c-custom-btn:disabled {
+  background-color: $color-gray;
+  color: $color-black-light;
+}
+#cancel {
+  background-color: $color-gray;
+  color: $color-black-light;
+}
+#add {
+  margin-left: 5%;
+  font-weight: bold;
+}

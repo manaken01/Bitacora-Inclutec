@@ -1,0 +1,57 @@
+.c-task{
+    margin-top:30px;
+    padding-top: 1px;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 1px 1px rgba(0,0,0,0.1);
+    .title{
+        background-color: #043F41;
+        color: white;
+        height: 50px;
+        border: none;
+        border-radius: 40px;
+        margin-top: 30px;
+        width: 100%;
+    }
+    .title-text{
+        margin-top: 14px;
+        margin-bottom: 5px;
+    }
+    .circle{
+        height: 60%;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        border: none;
+        border-radius: 50%;
+        background-color: #207073;
+    }
+    .pending-content{
+        margin-bottom: 15px;
+    }
+    .card-body{
+        border: none;
+        margin-top:  0px;
+        padding-bottom: 0px;
+    }
+    .card{
+        border: none;
+        padding: 0px;
+        margin-top:  0px;
+    }
+    hr#cardPending{
+        padding: 0px;
+        margin-top:  0px;
+    }
+    button{
+      background-color: transparent;
+      border:none;
+  }
+  h2{
+		margin-top: 2px;
+    font-size: 17px;
+  }
+  h3{
+		font-size: 16px;
+	}
+}

@@ -1,0 +1,16 @@
+include:
+  - local: "/ci/worklog-environment/build.yml"
+  #- local: "/ci/worklog-environment/test.yml" TEMPORALY OMITTED
+  #- local: "/ci/worklog-environment/deploy-develop.yml" TEMPORALY OMITTED
+  - local: "/ci/worklog-environment/deploy-release.yml"
+  - local: "/ci/worklog-environment/deploy-production.yml"
+
+stages:
+  - build
+  # - test TEMPORALY OMITTED
+  #- deploy-develop TEMPORALY OMITTED
+  - deploy-release
+  - deploy-production
+
+variables:
+  COMPOSE_PROJECT_NAME: "worklog"

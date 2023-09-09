@@ -1,0 +1,80 @@
+<div tabindex="-1" class="sr-only" role="alert">
+  Pagina de registro
+</div>
+<div class="c-login">
+  <div class="container d-flex h-100">
+    <div class="row align-self-center w-100">
+      <div class="col-10 mx-auto">
+        <div id="imgLogin" class="jumbotron">
+          <div class="row">
+            <div class="col-sm-12 col-md-4 mx-auto">
+              <img
+                src="./assets/images/media/inclutec_blanco.png"
+                alt="Icono Inclutec"
+              />
+            </div>
+          </div>
+          <div class="col-7 mx-auto">
+            <app-alerts
+              role="alert"
+              *ngIf="isReady"
+              [isShow]="isReady"
+              [typeSuccess]="typeSuccess"
+              [message]="message"
+              (notificationEvent)="handleNotificationEventEmitted($event)"
+            ></app-alerts>
+          </div>
+          <form [formGroup]="loginForm">
+            <div class="col-8 mx-auto">
+              <div class="row form-group">
+                <div class="col-4 text-right">
+                  <label for="emailInput" aria-hidden="true">Usuario</label>
+                </div>
+                <div class="col-6">
+                  <input
+                    id="emailInput"
+                    class="form-control"
+                    type="text"
+                    formControlName="email"
+                    placeholder="ingrese su nombre de usuario"
+                  />
+                </div>
+              </div>
+              <div class="row form-group">
+                <div class="col-4 text-right">
+                  <label for="passwordInput" aria-hidden="true"
+                    >Contraseña</label
+                  >
+                </div>
+                <div class="col-6">
+                  <input
+                    id="passwordInput"
+                    type="password"
+                    class="form-control"
+                    formControlName="password"
+                    placeholder="ingrese su contraseña"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-10 text-right">
+                  ¿No tengo una cuenta?
+                  <a [routerLink]="['register']">Crear cuenta</a>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-2 mx-auto">
+                  <button class="btnLogin" (click)="getLogin()">
+                    Iniciar Sesión
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

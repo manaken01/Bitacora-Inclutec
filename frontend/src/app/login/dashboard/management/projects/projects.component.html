@@ -1,0 +1,889 @@
+<div tabindex="-1" class="sr-only" role="alert">
+  Pagina edición de proyectos
+</div>
+<div class="c-management">
+  <div class="header-img"></div>
+  <div class="no-gutters">
+    <div class="row">
+      <div class="col-md-12">
+        <button
+          class="c-btn-back ml-5 mb-4"
+          (click)="allProjectsView()"
+          role="button"
+          aria-label="Ver todos los proyectos"
+        >
+          <i class="fas fa-chevron-left back-arrow"></i> Ver todos los Proyectos
+        </button>
+      </div>
+      <div class="col-md-6">
+        <h1 class="title-newProject ml-5 mb-5">PROYECTO {{ mode }}</h1>
+      </div>
+      <div class="col-md-6">
+        <button
+          *ngIf="!projectEditor"
+          class="btn-register"
+          role="button"
+          aria-label="Registrar proyecto"
+          role="alert"
+          [disabled]="manageSteps < 4"
+          (click)="
+            registerNewProject(
+              phaseForm.value,
+              activityForm.value,
+              taskForm.value
+            )
+          "
+        >
+          Registrar
+        </button>
+        <button
+          class="btn-cancel"
+          role="button"
+          (click)="resetData()"
+          aria-label="Eliminar toda la información"
+          *ngIf="!projectEditor"
+        >
+          <i class="fas fa-times icon-cancel"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <button
+          class="btn c-button-round ml-5"
+          (click)="projectSelected()"
+          aria-label="Desplegar sección de projectos"
+          [ngClass]="projectButton == true ? 'button-activated ' : ''"
+        >
+          <i class="fas fa-plus plus-icon"></i> Agregar Proyecto
+        </button>
+        <div *ngIf="projectButton">
+          <div tabindex="-1" class="sr-only" role="alert">
+            Sección de projecto desplegada.
+          </div>
+          <form class="col-features custom-height" #form="ngForm">
+            <h2 class="col-title">Nombre del Proyecto</h2>
+            <input
+              type="text"
+              placeholder="Ingrese el nombre del proyecto"
+              class="c-input-round"
+              name="projectName"
+              id="projectName"
+              maxlength="25"
+              [(ngModel)]="projectName"
+              [disabled]="manageSteps >= 1"
+              #nameProj="ngModel"
+              required
+            />
+            <div
+              *ngIf="nameProj.invalid && (nameProj.dirty || nameProj.touched)"
+              role="alert"
+              class="alert custom-alert mt-2"
+            >
+              <div *ngIf="nameProj.errors.required">
+                Ingrese el nombre del proyecto
+              </div>
+            </div>
+            <div class="bottom-buttons">
+              <button
+                (click)="projectSelected()"
+                [ngClass]="
+                  manageSteps >= 1 ? 'sr-only' : 'round-icon-btn cancel-button'
+                "
+                aria-label="Cancelar"
+              >
+                <i class="fas fa-times-circle" id="cancel-icon"></i>
+              </button>
+              <button
+                class="round-icon-btn"
+                [ngClass]="manageSteps >= 1 ? 'lg-ml' : 'continue-button'"
+                [disabled]="form.invalid || manageSteps >= 1"
+                (click)="nextStep(1)"
+                aria-label="Continuar"
+              >
+                <i class="fas fa-check-circle" id="continue-icon"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button
+          class="btn c-button-round ml-5"
+          (click)="phaseSelected()"
+          aria-label="Desplegar sección de fases"
+          [ngClass]="phaseButton == true ? 'button-activated ' : ''"
+        >
+          <i
+            class="fas fa-plus plus-icon"
+            aria-label="Desplegar sección de fases"
+          ></i>
+          Agregar Fase
+        </button>
+        <div *ngIf="phaseButton">
+          <div tabindex="-1" class="sr-only" role="alert">
+            Sección de Fase desplegada.
+          </div>
+          <form
+            [ngClass]="
+              phases.controls.length >= 4
+                ? 'col-features '
+                : 'col-features custom-height'
+            "
+            [formGroup]="phaseForm"
+            #formDir="ngForm"
+            *ngIf="projectName != '' && manageSteps >= 1; else warning"
+          >
+            <div *ngIf="projectName != '' && manageSteps >= 1">
+              <h2 class="col-title">Nombre del Proyecto</h2>
+              <input
+                type="text"
+                value="{{ projectName }}"
+                class="c-input-round"
+                [disabled]="true"
+              />
+            </div>
+            <h2 class="col-title">Nombre de la fase</h2>
+            <input
+              *ngIf="phaseForm.get('phaseName')"
+              type="text"
+              class="c-input-round"
+              placeholder="Nombre de la fase"
+              formControlName="phaseName"
+            />
+            <div *ngIf="phaseForm.get('phaseName')">
+              <div
+                *ngIf="
+                  phaseForm.controls['phaseName'].invalid &&
+                  (phaseForm.controls['phaseName'].dirty ||
+                    phaseForm.controls['phaseName'].touched)
+                "
+                class="smaller-alert mt-2"
+                role="alert"
+              >
+                <div
+                  *ngIf="phaseForm.controls['phaseName'].hasError('required')"
+                >
+                  Ingrese el nombre de la fase.
+                </div>
+                <div
+                  *ngIf="phaseForm.controls['phaseName'].hasError('maxlength')"
+                >
+                  Tamaño maximo 70 caracteres.
+                </div>
+              </div>
+            </div>
+
+            <div formArrayName="phases">
+              <div
+                *ngFor="let form_elem of phases.controls; let index = index"
+                class="text-center"
+              >
+                <input
+                  [formControlName]="index"
+                  class="c-input-round mt-2"
+                  id="new-inputs"
+                  placeholder="Nombre de la fase"
+                  type="text"
+                />
+                <div
+                  tabindex="-1"
+                  class="sr-only"
+                  aria-live="assertive"
+                  role="alert"
+                >
+                  Agregada {{ index + 1 }}
+                </div>
+                <button
+                  *ngIf="projectEditor"
+                  (click)="phaseEditSelected(phaseList[index])"
+                  class="btn-delete-inputs"
+                  [attr.aria-label]="'Ver estructura de la fase ' + (index + 1)"
+                >
+                  <i
+                    class="fas fa-search-plus icon-new-input"
+                    role="button"
+                  ></i>
+                </button>
+                <button
+                  *ngIf="!projectEditor; else confirm"
+                  class="btn-delete-inputs"
+                  (click)="deletePhaseInput(index)"
+                  [attr.aria-label]="'Eliminar fase agregada ' + (index + 1)"
+                >
+                  <i
+                    class="fas fa-minus-circle icon-new-input"
+                    role="button"
+                  ></i>
+                </button>
+                <ng-template #confirm>
+                  <button
+                    class="btn-delete-inputs"
+                    (click)="
+                      openConfirmAction(
+                        phaseList[index],
+                        'delete',
+                        'phase',
+                        projectName,
+                        index,
+                        0
+                      )
+                    "
+                    [attr.aria-label]="'Eliminar fase agregada ' + (index + 1)"
+                  >
+                    <i
+                      class="fas fa-minus-circle icon-new-input"
+                      role="button"
+                    ></i>
+                  </button>
+                </ng-template>
+                <div
+                  *ngIf="
+                    phaseForm.controls['phases'].controls[index].invalid &&
+                    (phaseForm.controls['phases'].controls[index].dirty ||
+                      phaseForm.controls['phases'].controls[index].touched)
+                  "
+                  class="smaller-alert mt-2"
+                  role="alert"
+                >
+                  <div
+                    *ngIf="
+                      phaseForm.controls['phases'].controls[index].hasError(
+                        'required'
+                      )
+                    "
+                  >
+                    Ingrese el nombre de la fase.
+                  </div>
+                  <div
+                    *ngIf="
+                      phaseForm.controls['phases'].controls[index].hasError(
+                        'maxlength'
+                      )
+                    "
+                  >
+                    Tamaño maximo 70 caracteres.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              (click)="addPhaseInput()"
+              class="btn-add-inputs"
+              role="button"
+              aria-label="agregar más fases"
+              [disabled]="manageSteps >= 2"
+            >
+              agregar más fases
+              <i class="fas fa-plus-circle"></i>
+            </button>
+            <div
+              [ngClass]="
+                phases.controls.length >= 4
+                  ? 'buttons-adjustable'
+                  : 'bottom-buttons'
+              "
+            >
+              <button
+                (click)="phaseSelected()"
+                [ngClass]="
+                  manageSteps >= 2 ? 'sr-only' : 'round-icon-btn cancel-button'
+                "
+                aria-label="Cancelar"
+              >
+                <i class="fas fa-times-circle" id="cancel-icon"></i>
+              </button>
+              <button
+                *ngIf="!projectEditor; else editable"
+                class="round-icon-btn"
+                [ngClass]="manageSteps >= 2 ? 'lg-ml' : 'continue-button'"
+                [disabled]="phaseForm.invalid || manageSteps >= 2"
+                (click)="newPhase(phaseForm.value); nextStep(2)"
+                aria-label="Continuar"
+              >
+                <i class="fas fa-check-circle" id="continue-icon"></i>
+              </button>
+              <ng-template #editable>
+                <button
+                  class="round-icon-btn"
+                  [ngClass]="manageSteps >= 2 ? 'lg-ml' : 'continue-button'"
+                  [disabled]="phaseForm.invalid || manageSteps >= 2"
+                  (click)="validateNewChanges(phaseForm.value, 'phases')"
+                  aria-label="Continuar"
+                >
+                  <i class="fas fa-check-circle" id="continue-icon"></i>
+                </button>
+              </ng-template>
+            </div>
+          </form>
+          <ng-template #warning>
+            <div class="col-features custom-height">
+              <h2 class="col-title" role="alert">
+                Ingrese el nombre del proyecto
+              </h2>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button
+          class="btn c-button-round ml-5"
+          (click)="activitySelected()"
+          aria-label="Desplegar sección de actividades"
+          [ngClass]="activityButton == true ? 'button-activated ' : ''"
+        >
+          <i class="fas fa-plus plus-icon"></i> Agregar Actividad
+        </button>
+        <div *ngIf="activityButton">
+          <div tabindex="-1" class="sr-only" role="alert">
+            Sección de Actividad desplegada.
+          </div>
+          <form [formGroup]="activityForm" #formDir="ngForm">
+            <div formArrayName="activities">
+              <div
+                *ngFor="
+                  let elemnt of activityForm.get('activities').controls;
+                  let index = index
+                "
+              >
+                <div
+                  [ngClass]="
+                    activityForm.controls['activities'].controls[index]
+                      .controls['inputActivites'].length >= 2
+                      ? 'col-features'
+                      : 'col-features custom-height'
+                  "
+                  *ngIf="phaseName !== '' && manageSteps >= 2; else warning"
+                  [formGroupName]="index"
+                >
+                  <div *ngIf="phaseName != '' && manageSteps >= 2">
+                    <div *ngIf="projectName != '' && manageSteps >= 2">
+                      <h2 class="col-title">Nombre del Proyecto</h2>
+                      <input
+                        type="text"
+                        value="{{ projectName }}"
+                        class="c-input-round"
+                        [disabled]="true"
+                      />
+                    </div>
+                    <h2 class="col-title">Nombre de la fase</h2>
+                    <input
+                      type="text"
+                      value="{{ phasesNames[index].phaseName }}"
+                      class="c-input-round"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <h2 class="col-title">Nombre de la actividad</h2>
+                  <div *ngIf="!projectEditor">
+                    <input
+                      class="c-input-round"
+                      placeholder="Nombre de la actividad"
+                      type="text"
+                      formControlName="activity"
+                    />
+                    <div
+                      *ngIf="
+                        activityForm.controls['activities'].controls[index]
+                          .controls['activity'].invalid &&
+                        (activityForm.controls['activities'].controls[index]
+                          .controls['activity'].dirty ||
+                          activityForm.controls['activities'].controls[index]
+                            .controls['activity'].touched)
+                      "
+                      class="smaller-alert mt-2"
+                      role="alert"
+                    >
+                      <div
+                        *ngIf="
+                          activityForm.controls['activities'].controls[
+                            index
+                          ].controls['activity'].hasError('required')
+                        "
+                      >
+                        Ingrese el nombre de la fase.
+                      </div>
+                      <div
+                        *ngIf="
+                          activityForm.controls['activities'].controls[
+                            index
+                          ].controls['activity'].hasError('maxlength')
+                        "
+                      >
+                        Tamaño maximo 100 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div formArrayName="inputActivites">
+                    <div
+                      *ngFor="
+                        let element of elemnt.get('inputActivites').controls;
+                        let indexY = index
+                      "
+                      class="text-center"
+                    >
+                      <div
+                        tabindex="-1"
+                        class="sr-only"
+                        aria-live="assertive"
+                        role="alert"
+                      >
+                        Agregada {{ indexY + 1 }}
+                      </div>
+                      <input
+                        type="text"
+                        [formControlName]="indexY"
+                        class="c-input-round mt-2"
+                        id="new-inputs"
+                        placeholder="Nombre de la actividad"
+                      />
+                      <button
+                        *ngIf="projectEditor"
+                        (click)="activityEditSelected(activityList[indexY])"
+                        class="btn-delete-inputs"
+                        [attr.aria-label]="
+                          'Ver estructura de la actividad ' + (index + 1)
+                        "
+                      >
+                        <i
+                          class="fas fa-search-plus icon-new-input"
+                          role="button"
+                        ></i>
+                      </button>
+                      <button
+                        *ngIf="!projectEditor; else confirm"
+                        (click)="deleteActivityInput(index, indexY)"
+                        class="btn-delete-inputs"
+                        [attr.aria-label]="
+                          'Eliminar actividad agregada ' + (indexY + 1)
+                        "
+                      >
+                        <i
+                          class="fas fa-minus-circle icon-new-input"
+                          role="button"
+                        ></i>
+                      </button>
+                      <ng-template #confirm>
+                        <button
+                          class="btn-delete-inputs"
+                          (click)="
+                            openConfirmAction(
+                              activityList[indexY],
+                              'delete',
+                              'activity',
+                              phasesNames[index],
+                              index,
+                              indexY
+                            )
+                          "
+                          [attr.aria-label]="
+                            'Eliminar actividad agregada ' + (index + 1)
+                          "
+                        >
+                          <i
+                            class="fas fa-minus-circle icon-new-input"
+                            role="button"
+                          ></i>
+                        </button>
+                      </ng-template>
+
+                      <div
+                        *ngIf="
+                          activityForm.controls['activities'].controls[index]
+                            .controls['inputActivites'].controls[indexY]
+                            .invalid &&
+                          (activityForm.controls['activities'].controls[index]
+                            .controls['inputActivites'].controls[indexY]
+                            .dirty ||
+                            activityForm.controls['activities'].controls[index]
+                              .controls['inputActivites'].controls[indexY]
+                              .touched)
+                        "
+                        class="smaller-alert mt-2"
+                        role="alert"
+                      >
+                        <div
+                          *ngIf="
+                            activityForm.controls['activities'].controls[
+                              index
+                            ].controls['inputActivites'].controls[
+                              indexY
+                            ].hasError('required')
+                          "
+                        >
+                          Ingrese el nombre de la fase.
+                        </div>
+                        <div
+                          *ngIf="
+                            activityForm.controls['activities'].controls[
+                              index
+                            ].controls['inputActivites'].controls[
+                              indexY
+                            ].hasError('maxlength')
+                          "
+                        >
+                          Tamaño maximo 100 caracteres.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    (click)="addInputActivites(index)"
+                    class="btn-add-inputs"
+                    id="activities-padding"
+                    role="button"
+                    aria-label="agregar más actividades"
+                    [disabled]="manageSteps >= 3"
+                  >
+                    agregar más actividades
+                    <i class="fas fa-plus-circle"></i>
+                  </button>
+
+                  <div
+                    [ngClass]="
+                      activityForm.controls['activities'].controls[index]
+                        .controls['inputActivites'].length >= 2
+                        ? 'buttons-adjustable'
+                        : 'bottom-buttons'
+                    "
+                  >
+                    <button
+                      (click)="activitySelected()"
+                      [ngClass]="
+                        manageSteps >= 3
+                          ? 'sr-only'
+                          : 'round-icon-btn cancel-button'
+                      "
+                      aria-label="Cancelar"
+                    >
+                      <i class="fas fa-times-circle" id="cancel-icon"></i>
+                    </button>
+                    <button
+                      *ngIf="!projectEditor; else editable"
+                      class="round-icon-btn"
+                      [ngClass]="manageSteps >= 3 ? 'lg-ml' : 'continue-button'"
+                      [disabled]="activityForm.invalid || manageSteps >= 3"
+                      (click)="newActivity(activityForm.value); nextStep(3)"
+                      aria-label="Continuar"
+                    >
+                      <i class="fas fa-check-circle" id="continue-icon"></i>
+                    </button>
+                    <ng-template #editable>
+                      <button
+                        class="round-icon-btn"
+                        [ngClass]="
+                          manageSteps >= 3 ? 'lg-ml' : 'continue-button'
+                        "
+                        [disabled]="activityForm.invalid || manageSteps >= 3"
+                        (click)="
+                          validateNewChanges(activityForm.value, 'activities')
+                        "
+                        aria-label="Continuar"
+                      >
+                        <i class="fas fa-check-circle" id="continue-icon"></i>
+                      </button>
+                    </ng-template>
+                  </div>
+                </div>
+                <ng-template #warning>
+                  <div class="col-features custom-height">
+                    <h2 *ngIf="!projectEditor; else select" class="col-title">
+                      Seleccione un Proyecto y una Fase
+                    </h2>
+                    <ng-template #select>
+                      <h2 class="col-title" role="alert">
+                        Seleccione una fase
+                      </h2>
+                    </ng-template>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <button
+          class="btn c-button-round ml-5"
+          (click)="taskSelected()"
+          aria-label="Desplegar sección de tareas"
+          [ngClass]="taskButton == true ? 'button-activated ' : ''"
+        >
+          <i class="fas fa-plus plus-icon"></i> Agregar Tarea
+        </button>
+        <div *ngIf="taskButton">
+          <div tabindex="-1" class="sr-only" role="alert">
+            Sección de Tarea desplegada.
+          </div>
+          <form [formGroup]="taskForm" #formDir="ngForm">
+            <div formArrayName="tasks">
+              <div
+                *ngFor="
+                  let elemnt of taskForm.get('tasks').controls;
+                  let index = index
+                "
+              >
+                <div
+                  class="col-features"
+                  [ngClass]="
+                    taskForm.controls['tasks'].controls[index].controls[
+                      'inputTasks'
+                    ].length >= 1
+                      ? 'col-features'
+                      : 'col-features custom-height'
+                  "
+                  [formGroupName]="index"
+                  *ngIf="phaseName != '' && manageSteps >= 3; else warning"
+                >
+                  <div *ngIf="phaseName != '' && manageSteps >= 2">
+                    <div *ngIf="projectName != '' && manageSteps >= 2">
+                      <h2 class="col-title">Nombre del Proyecto</h2>
+                      <input
+                        type="text"
+                        value="{{ projectName }}"
+                        class="c-input-round"
+                        [disabled]="true"
+                      />
+                    </div>
+                    <h2 class="col-title">Nombre de la fase</h2>
+                    <input
+                      type="text"
+                      value="{{ activitiesNames[index].phase }}"
+                      class="c-input-round"
+                      [disabled]="true"
+                    />
+                    <h2 class="col-title">Nombre de la actividad</h2>
+                    <input
+                      type="text"
+                      value="{{ activitiesNames[index].activity }}"
+                      class="c-input-round"
+                      [disabled]="true"
+                    />
+                  </div>
+                  <ng-template #select>
+                    <h2 class="col-title">Nombre de la actividad</h2>
+                    <select class="c-input-round" formControlName="activity">
+                      <option [selected]="true">Seleccionar actividad</option>
+                      <option *ngFor="let activity of activityList">
+                        {{ activity.activityName }}</option
+                      >
+                    </select>
+                  </ng-template>
+                  <h2 class="col-title">Nombre de la tarea</h2>
+                  <div *ngIf="!projectEditor">
+                    <input
+                      class="c-input-round"
+                      placeholder="Nombre de la tarea"
+                      type="text"
+                      formControlName="task"
+                    />
+                    <div
+                      *ngIf="
+                        taskForm.controls['tasks'].controls[index].controls[
+                          'task'
+                        ].invalid &&
+                        (taskForm.controls['tasks'].controls[index].controls[
+                          'task'
+                        ].dirty ||
+                          taskForm.controls['tasks'].controls[index].controls[
+                            'task'
+                          ].touched)
+                      "
+                      class="smaller-alert mt-2"
+                      role="alert"
+                    >
+                      <div
+                        *ngIf="
+                          taskForm.controls['tasks'].controls[index].controls[
+                            'task'
+                          ].hasError('required')
+                        "
+                      >
+                        Ingrese el nombre de la tarea.
+                      </div>
+                      <div
+                        *ngIf="
+                          taskForm.controls['tasks'].controls[index].controls[
+                            'task'
+                          ].hasError('maxlength')
+                        "
+                      >
+                        Tamaño maximo 100 caracteres.
+                      </div>
+                    </div>
+                  </div>
+
+                  <div formArrayName="inputTasks">
+                    <div
+                      *ngFor="
+                        let element of elemnt.get('inputTasks').controls;
+                        let indexY = index
+                      "
+                    >
+                      <div
+                        tabindex="-1"
+                        class="sr-only"
+                        aria-live="assertive"
+                        role="alert"
+                      >
+                        Agregada {{ indexY + 1 }}
+                      </div>
+                      <input
+                        type="text"
+                        [formControlName]="indexY"
+                        class="c-input-round mt-2 w-75"
+                        id="new-inputs"
+                        placeholder="Nombre de la tarea"
+                      />
+                      <button
+                        *ngIf="!projectEditor; else confirm"
+                        (click)="deleteTasksInput(index, indexY)"
+                        class="btn-delete-inputs"
+                        [attr.aria-label]="
+                          'Eliminar tarea agregada ' + (indexY + 1)
+                        "
+                      >
+                        <i class="fas fa-minus-circle icon-new-input"></i>
+                      </button>
+                      <ng-template #confirm>
+                        <button
+                          class="btn-delete-inputs"
+                          (click)="
+                            openConfirmAction(
+                              taskList[indexY],
+                              'delete',
+                              'task',
+                              activitiesNames[index],
+                              index,
+                              indexY
+                            )
+                          "
+                          [attr.aria-label]="
+                            'Eliminar tarea agregada ' + (indexY + 1)
+                          "
+                        >
+                          <i
+                            class="fas fa-minus-circle icon-new-input"
+                            role="button"
+                          ></i>
+                        </button>
+                      </ng-template>
+
+                      <div
+                        *ngIf="
+                          taskForm.controls['tasks'].controls[index].controls[
+                            'inputTasks'
+                          ].controls[indexY].invalid &&
+                          (taskForm.controls['tasks'].controls[index].controls[
+                            'inputTasks'
+                          ].controls[indexY].dirty ||
+                            taskForm.controls['tasks'].controls[index].controls[
+                              'inputTasks'
+                            ].controls[indexY].touched)
+                        "
+                        class="smaller-alert mt-2"
+                        role="alert"
+                      >
+                        <div
+                          *ngIf="
+                            taskForm.controls['tasks'].controls[index].controls[
+                              'inputTasks'
+                            ].controls[indexY].hasError('required')
+                          "
+                        >
+                          Ingrese el nombre de la tarea.
+                        </div>
+                        <div
+                          *ngIf="
+                            taskForm.controls['tasks'].controls[index].controls[
+                              'inputTasks'
+                            ].controls[indexY].hasError('maxlength')
+                          "
+                        >
+                          Tamaño maximo 100 caracteres.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    (click)="addInputTasks(index)"
+                    class="btn-add-inputs"
+                    id="activities-padding"
+                    role="button"
+                    aria-label="agregar más tareas"
+                    [disabled]="manageSteps >= 4"
+                  >
+                    agregar más tareas
+                    <i class="fas fa-plus-circle"></i>
+                  </button>
+
+                  <div
+                    [ngClass]="
+                      taskForm.controls['tasks'].controls[index].controls[
+                        'inputTasks'
+                      ].length >= 1
+                        ? 'buttons-adjustable'
+                        : 'bottom-buttons'
+                    "
+                  >
+                    <button
+                      (click)="taskSelected()"
+                      [ngClass]="
+                        manageSteps >= 4
+                          ? 'sr-only'
+                          : 'round-icon-btn cancel-button'
+                      "
+                      aria-label="Cancelar"
+                    >
+                      <i class="fas fa-times-circle" id="cancel-icon"></i>
+                    </button>
+                    <button
+                      *ngIf="!projectEditor; else editable"
+                      class="round-icon-btn"
+                      [ngClass]="manageSteps >= 4 ? 'lg-ml' : 'continue-button'"
+                      aria-label="Continuar"
+                      [disabled]="taskForm.invalid || manageSteps >= 4"
+                      (click)="newTask(taskForm.value)"
+                    >
+                      <i class="fas fa-check-circle" id="continue-icon"></i>
+                    </button>
+                    <ng-template #editable>
+                      <button
+                        class="round-icon-btn"
+                        [ngClass]="
+                          manageSteps >= 4 ? 'lg-ml' : 'continue-button'
+                        "
+                        [disabled]="taskForm.invalid || manageSteps >= 4"
+                        (click)="validateNewChanges(taskForm.value, 'tasks')"
+                        aria-label="Continuar"
+                      >
+                        <i class="fas fa-check-circle" id="continue-icon"></i>
+                      </button>
+                    </ng-template>
+                  </div>
+                </div>
+                <ng-template #warning>
+                  <div class="col-features custom-height">
+                    <h2 class="col-title" role="alert">
+                      Por favor realice los pasos anteriores.
+                    </h2>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="!(projectButton || phaseButton || activityButton || taskButton)"
+      class="row"
+    >
+      <div class="backgound-img mx-auto"></div>
+    </div>
+  </div>
+</div>

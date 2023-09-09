@@ -1,0 +1,131 @@
+<div tabindex="-1" class="sr-only" role="alert">
+  Pagina de estadisticas.
+</div>
+<div class="c-statistics">
+  <div class="header-img"></div>
+  <div class="no-gutters mb-5">
+    <form class="form w-100">
+      <div class="row">
+        <div class="col-md-5 offset-md-4">
+          <div class="d-inline">
+            <select
+              class="c-input-round"
+              (change)="projectChanged($event.target.value)"
+              aria-label="Seleccionar proyecto"
+            >
+              <option value="0">Proyectos</option>
+              <option
+                value="{{ project.idProjectsPk }}"
+                *ngFor="let project of projectList"
+              >
+                {{ project.projectName }}</option
+              >
+            </select>
+          </div>
+          <div class="d-inline">
+            <select
+              class="c-input-round"
+              (change)="yearChanged($event.target.value)"
+              aria-label="Seleccionar año"
+            >
+              <option value="0">Año</option>
+              <option *ngFor="let cyear of years">{{ cyear }} </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <select
+            *ngIf="roleAdmin"
+            class="c-input-round"
+            (change)="changedFilter($event.target.value)"
+            aria-label="Filtrar informarción"
+          >
+            <option value="0" aria-hidden="true">Filtrar</option>
+            <option value="1">Personal</option>
+            <option value="2">General</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-3 offset-md-1">
+          <div class="gray-container">
+            <div class="d-block text-center mt-2">
+              <i class="fas fa-chart-bar green-icon"></i>
+              <select
+                class="c-select-gray"
+                (change)="chartTypeChange($event.target.value)"
+                aria-label="Seleccionar el tipo de grafico"
+              >
+                <option value="column" aria-hidden="true"
+                  >Tipo de Gráfico</option
+                >
+                <option value="column">Columnas</option>
+                <option value="pie">Pastel</option>
+                <option value="bar">Barras</option>
+                <option value="donut">Dona</option>
+              </select>
+            </div>
+            <div class="d-block text-center mt-2">
+              <i class="fas fa-adjust green-icon"></i>
+              <button
+                class="c-select-gray text-left"
+                (click)="changeOptionsConstrast()"
+                attr.aria-label="Activar alto contraste: {{ highContrast }}"
+              >
+                Contraste
+              </button>
+            </div>
+            <div class="d-block text-center mt-2">
+              <i class="fas fa-stop green-icon" id="square"></i>
+              <button
+                class="c-select-gray text-left"
+                (click)="changeOptionsPattern()"
+                attr.aria-label="Aplicar patrones: {{ patthern }}"
+              >
+                Textura
+              </button>
+            </div>
+          </div>
+          <div class="gray-container mt-5">
+            <div class="d-block text-center mt-4">
+              <h2 class="container-title">Resultados</h2>
+            </div>
+            <div class="d-block mt-3">
+              <h3
+                class="result-container"
+                [attr.aria-label]="
+                  'Horas invertidas en el proyecto: ' + totalHours
+                "
+              >
+                Horas Invertidas:
+                <p class="result-value">{{ totalHours }}</p>
+              </h3>
+            </div>
+            <div class="d-block mt-2">
+              <h3
+                class="result-container"
+                [attr.aria-label]="
+                  'Personas involucradas en el proyecto: ' + collaborators
+                "
+              >
+                Personas involucradas:
+                <p class="result-value">{{ collaborators }}</p>
+              </h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div *ngIf="projectName == '' || hideGraph; else image">
+            <div
+              class="backgound-img img-fluid"
+              aria-label="Seleccione un proyecto para visualizar el gráfico."
+            ></div>
+          </div>
+          <ng-template #image>
+            <div [chart]="chart"></div>
+          </ng-template>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

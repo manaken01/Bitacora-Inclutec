@@ -1,0 +1,28 @@
+<h1
+  mat-dialog-title
+  class="text-center modal-title mb-4"
+  [ngClass]="data.type === 'success' ? 'color-success ' : 'color-warning'"
+>
+  <div *ngIf="data.type === 'success'; else warning">
+    <i class="fas fa-check-circle icon-check mb-4 d-block"></i>
+  </div>
+  <ng-template #warning>
+    <i class="fas fa-exclamation-circle icon-warning mb-4 d-block"></i>
+  </ng-template>
+  {{ data.title }}
+</h1>
+<div mat-dialog-content class="text-center mt-3 mb-3">
+  <p class="body-text">
+    {{ data.message }}
+  </p>
+</div>
+<div mat-dialog-actions class="mt-5 mb-4 text-center">
+  <button
+    mat-button
+    (click)="onNoClick()"
+    class="c-custom-btn mx-auto"
+    [attr.aria-label]="data.message + '. Continuar'"
+  >
+    Continuar
+  </button>
+</div>

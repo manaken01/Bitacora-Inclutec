@@ -1,0 +1,184 @@
+$color-light-green: #207073;
+$color-input-gray: #d8d8dd;
+$color-dark-green: #012021;
+$color-light-gray: #e7e7e7;
+$color-white: #ffffff;
+$color-black: #000000;
+$color-black-light: #4b4b4b;
+$color-green: #1e884b;
+$color-red: #860e35;
+$color-blue-green: #0f828a;
+$color-dark-gray: #9b9da8;
+$color-gray: #d3d3d3;
+$color-table-shadow: #00000029;
+$color-col-gray: #f0f0f0;
+$font-opificio: "Opificio";
+$font-Monserrat: "Montserrat";
+
+.row {
+  margin: 0;
+}
+.c-profile {
+  .header-img {
+    background: url(src/assets/images/media/Background2.png);
+    background-repeat: repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100%;
+    height: 130px;
+  }
+  .no-gutters {
+    font-family: $font-Monserrat;
+    .green-cicle {
+      width: 160px;
+      height: 160px;
+      background-color: $color-light-green;
+      border-radius: 50%;
+      text-align: center;
+
+      .nameInitials {
+        color: $color-white;
+        font-family: $font-Monserrat;
+        font-weight: bold;
+        font-size: 54px;
+        padding-top: 25%;
+      }
+    }
+    .personalInfo {
+      font-family: $font-Monserrat;
+      text-align: center;
+      margin-top: 25px;
+      .nameInfo {
+        font-size: 50px;
+        color: $color-light-green;
+        font-family: $font-Monserrat;
+        font-weight: bold;
+      }
+      .lastnameInfo {
+        color: $color-blue-green;
+        font-size: 30px;
+      }
+      .info-text {
+        font-size: 18px;
+        color: $color-black-light;
+      }
+      #roleUser {
+        font-family: $font-Monserrat;
+        font-weight: bold;
+      }
+      .cicle-icon {
+        font-size: 24px;
+        color: $color-light-green;
+      }
+      .mail-circle {
+        display: inline;
+        background-color: $color-light-green;
+        border-radius: 50%;
+        text-align: center;
+        .mail-icon {
+          font-size: 14px;
+          color: $color-white;
+          padding: 0.3em;
+          text-align: center;
+        }
+      }
+    }
+    .custom-form {
+      width: 400px;
+      height: 100%;
+      .c-form-input {
+        width: 100%;
+        font-family: $font-Monserrat;
+        text-align: right;
+      }
+      .left {
+        text-align: left;
+      }
+
+      .form-subtitle {
+        font-size: 20px;
+        color: $color-light-green;
+        font-family: $font-Monserrat;
+        font-weight: bold;
+      }
+      .c-custom-btn {
+        background-color: $color-light-green;
+        color: $color-white;
+        font-family: $font-Monserrat;
+        margin: 10px;
+        border-radius: 30px;
+        width: 185px;
+      }
+      .c-custom-btn:disabled {
+        background-color: $color-dark-gray;
+      }
+      #cancel {
+        background-color: $color-gray;
+        color: $color-black-light;
+      }
+      #add {
+        margin-left: 5%;
+        font-weight: bold;
+      }
+      .custom-margin-top {
+        margin-top: 15%;
+      }
+    }
+    .projects-info {
+      width: 400px;
+      height: 100%;
+      .project-subtitle {
+        font-size: 20px;
+        color: $color-light-green;
+        font-family: $font-Monserrat;
+        font-weight: bold;
+      }
+      table {
+        width: 80%;
+        box-shadow: 0px 3px 6px $color-table-shadow;
+        font-family: $font-Monserrat;
+        th {
+          background-color: $color-light-green;
+          font-family: $font-opificio;
+          color: $color-white;
+          font-size: 16px;
+          padding-bottom: 15px;
+          text-align: justify;
+          font-weight: bold;
+        }
+        .mat-row:nth-child(even) {
+          background-color: $color-col-gray;
+          padding-left: 10px;
+          padding-right: 10px;
+          text-align: justify;
+          border: none;
+        }
+        .mat-row:nth-child(odd) {
+          background-color: $color-white;
+          padding-left: 10px;
+          padding-right: 10px;
+          text-align: justify;
+          border: none;
+        }
+      }
+      .btn-add-inputs {
+        background-color: $color-white;
+        box-shadow: 0px 0px 0px transparent;
+        border: 0px solid transparent;
+        text-shadow: 0px 0px 0px transparent;
+        color: $color-red;
+        width: 80%;
+        font-family: $font-Monserrat;
+        font-size: 16px;
+      }
+      .btn-add-inputs:hover {
+        cursor: pointer;
+      }
+      .plus-icon {
+        font-size: 30px;
+      }
+    }
+  }
+}

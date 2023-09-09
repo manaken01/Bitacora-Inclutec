@@ -1,0 +1,24 @@
+<div tabindex="-1" class="sr-only" role="alert">
+  Página de gestión.
+</div>
+<div class="c-profile">
+  <div class="header-img"></div>
+  <div class="no-gutters">
+    <mat-tab-group class="tab-panel" mat-align-tabs="center">
+      <mat-tab class="text-primary" label="Proyectos">
+        <div class="row">
+          <button
+            class="btn btn-primary btn-right"
+            role="button"
+            (click)="redirectToProject()"
+          >
+            <i class="fas fa-plus-circle"></i>
+            Agregar nuevo
+          </button>
+        </div>
+        <app-projects-list></app-projects-list>
+      </mat-tab>
+      <mat-tab label="Usuarios"><app-users-list></app-users-list></mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

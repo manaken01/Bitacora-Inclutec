@@ -1,0 +1,57 @@
+$color-light-green: #207073;
+$color-input-gray: #d8d8dd;
+$color-dark-green: #043f41;
+$color-light-gray: #e7e7e7;
+$color-white: #ffffff;
+$color-black: #000000;
+$color-black-light: #4b4b4b;
+$color-green: #1e884b;
+$color-red: #860e35;
+$color-blue-green: #0f828a;
+$color-dark-gray: #9b9da8;
+$color-gray: #d3d3d3;
+$color-table-shadow: #00000029;
+$color-col-gray: #f0f0f0;
+$font-opificio-bold: "Opificio-bold";
+$font-opificio-regular: "Opificio-regular";
+$font-Monserrat: "Montserrat";
+.c-profile {
+  .header-img {
+    background: url(src/assets/images/media/Background2.png);
+    background-repeat: repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100%;
+    height: 130px;
+  }
+  .no-gutters {
+    .mat-tab-label {
+      background-color: transparent;
+      font-family: $font-opificio-regular;
+      color: $color-light-green;
+      font-size: 20px;
+    }
+    .mat-tab-header {
+      margin: auto;
+      width: 30%;
+    }
+    .mat-tab-label.mat-tab-label-active {
+      font-family: $font-opificio-bold;
+      font-weight: bold;
+    }
+    .mat-tab-group.mat-primary .mat-ink-bar,
+    .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+      background-color: $color-light-green;
+    }
+
+    .btn-right {
+      margin-left: auto;
+      margin-right: 80px;
+      background-color: $color-dark-green;
+      color: $color-white;
+      border-radius: 15px;
+    }
+  }
+}

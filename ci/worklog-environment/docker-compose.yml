@@ -1,0 +1,42 @@
+version: "3.3"
+
+services:
+  worklog-web-api:
+    build:
+      context: ../../backend/api-worklog/
+    image: worklog-web-api:${RELEASE_TAG}
+    container_name: worklog-api
+    ports:
+      - "${WORKLOG_BACKEND_DOCKER_OUT}:${WORKLOG_BACKEND_DOCKER_OUT}"
+    networks:
+      - net
+    restart: unless-stopped
+    environment:
+      - WORKLOG_DB_NAME=${WORKLOG_DB_NAME}
+      - EAW_DB_PASS=${EAW_DB_PASS}
+      - EAW_DB_OWNER=${EAW_DB_OWNER}
+      - WORKLOG_MAIL_HOST=${WORKLOG_MAIL_HOST}
+      - WORKLOG_MAIL_PORT=${WORKLOG_MAIL_PORT}
+      - WORKLOG_MAIL_USER=${WORKLOG_MAIL_USER}
+      - WORKLOG_MAIL_PASS=${WORKLOG_MAIL_PASS}
+
+  worklog-web-app:
+    build:
+      context: ../../frontend/
+    image: worklog-web-app:${RELEASE_TAG}
+    container_name: worklog-app
+    depends_on:
+      - worklog-web-api
+    ports:
+      - "${WORKLOG_FRONTEND_DOCKER_OUT}:80"
+    networks:
+      - net
+    restart: unless-stopped
+
+networks:
+  net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${WORKLOG_DOCKER_COMPOSE_SUBNET}

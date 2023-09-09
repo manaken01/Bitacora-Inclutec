@@ -1,0 +1,173 @@
+<div class="sr-only" role="alert">
+  Registrar pendiente
+</div>
+<h1 mat-dialog-title class="modal-title">
+  Registrar nuevo
+</h1>
+<div mat-dialog-content>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <app-notifications
+        role="alert"
+        *ngIf="isReady"
+        [isShow]="isReady"
+        [typeSuccess]="typeSuccess"
+        [message]="messageModal"
+        (notificationEvent)="handleNotificationEventEmitted($event)"
+      ></app-notifications>
+    </div>
+  </div>
+  <form class="form row" [formGroup]="pendingForm">
+    <div class="col-md-12 text-center">
+      <h2 class="label-control">
+        <i class="fas fa-circle labelIcon mt-4"></i>
+        Ingrese la fecha de inicio
+      </h2>
+      <mat-form-field appearance="outline" class="c-form-input">
+        <mat-label>Fecha de inicio</mat-label>
+        <input
+          matInput
+          [matDatepicker]="datepicker"
+          formControlName="startDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="datepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datepicker></mat-datepicker>
+        <mat-error *ngIf="pendingForm.controls.startDate.hasError('required')">
+          Seleccione la <strong>fecha de inicio.</strong>
+        </mat-error>
+      </mat-form-field>
+      <h2 class="label-control mt-5">
+        <i class="fas fa-circle labelIcon"></i>
+        Duración
+      </h2>
+      <div class="d-inline">
+        <mat-form-field class="c-select m-1">
+          <mat-label>Hora</mat-label>
+          <mat-select required formControlName="hours">
+            <mat-option *ngFor="let hour of hours" [value]="hour">
+              {{ hour }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="pendingForm.controls.hours.hasError('required')">
+            Seleccione la <strong>hora.</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="c-select m-1">
+          <mat-label>Minutos</mat-label>
+          <mat-select required formControlName="minutes">
+            <mat-option *ngFor="let minutes of minutes" [value]="minutes.value">
+              {{ minutes.minute }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="pendingForm.controls.minutes.hasError('required')">
+            Seleccione los <strong>minutos.</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <h2 class="label-control mt-4">
+        <i class="fas fa-circle labelIcon"></i>
+        Modalidad
+      </h2>
+      <div class="form-group">
+        <mat-radio-group
+          aria-label="Modalidad"
+          formControlName="modality"
+          required
+        >
+          <div class="d-inline">
+            <mat-radio-button class="m-1" value="0">Oficina</mat-radio-button>
+          </div>
+          <div class="d-inline">
+            <mat-radio-button class="m-1" value="1"
+              >Teletrabajo</mat-radio-button
+            >
+          </div>
+        </mat-radio-group>
+        <mat-error *ngIf="pendingForm.controls.modality.hasError('required')">
+          Seleccione la <strong>modalidad.</strong>
+        </mat-error>
+      </div>
+      <h2 class="label-control">
+        <i class="fas fa-circle labelIcon"></i>
+        Estado
+      </h2>
+      <mat-form-field appearance="outline" class="c-form-input">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status" required>
+          <mat-option value="0">Terminado</mat-option>
+          <mat-option value="1">Pendiente</mat-option>
+        </mat-select>
+        <mat-error *ngIf="pendingForm.controls.status.hasError('required')">
+          Seleccione el <strong>estado.</strong>
+        </mat-error>
+      </mat-form-field>
+      <h2 class="label-control mt-5">
+        <i class="fas fa-circle labelIcon"></i>
+        Colaboradores
+      </h2>
+      <mat-form-field appearance="outline" class="c-form-input">
+        <mat-label>Colaboradores</mat-label>
+        <mat-select formControlName="collaborators" multiple>
+          <mat-option
+            *ngFor="let collaborator of collaboratorsArray"
+            [value]="collaborator.idUsersPk"
+          >
+            {{ collaborator.name }} {{ collaborator.lastName }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+      <h2 class="label-control mt-5">
+        <i class="fas fa-circle labelIcon"></i>
+        Descripción
+      </h2>
+      <mat-form-field
+        hintLabel="250 caracteres max"
+        appearance="outline"
+        class="c-form-input"
+      >
+        <mat-label>Descripción</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          cdkTextareaAutosize
+          #input
+          maxlength="250"
+          placeholder="Ej. Reunión con.."
+          cdkAutosizeMinRows="1"
+          cdkAutosizeMaxRows="5"
+          required
+        ></textarea>
+        <mat-hint align="end">{{ input.value?.length || 0 }}/250</mat-hint>
+        <mat-error
+          *ngIf="pendingForm.controls.description.hasError('required')"
+        >
+          Ingrese una <strong>descripción.</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions class="row">
+  <div class="btn-group mx-auto">
+    <button
+      mat-button
+      class="c-custom-btn"
+      [disabled]="pendingForm.invalid"
+      (click)="updatePending(pendingForm.value)"
+      id="add"
+    >
+      Registrar
+    </button>
+    <button
+      mat-button
+      class="c-custom-btn"
+      (click)="onNoClick('cancel')"
+      id="exit"
+    >
+      Salir
+    </button>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+$color-dark-green: #153f41;
+$color-light-green: #aae3e5;
+$color-green: #207073;
+$color-white: white;
+$color-light-gray: #d4d5da;
+$color-black-light: #4b4b4b;
+$color-black: black;
+$color-gray: #d3d3d3;
+$color-dark-gray: #464646;
+$font-montserrat: "Montserrat";
+$font-opificio-bold: "Opificio-bold";
+$font-opificio-regular: "Opificio-regular";
+
+.title-modal {
+  font-family: $font-opificio-bold;
+  font-size: 18px;
+}
+.title-structure {
+  font-size: 16px;
+  font-family: $font-montserrat;
+  font-weight: bold;
+  color: $color-green;
+}
+.c-custom-btn {
+  background-color: $color-green;
+  color: $color-white;
+  border-radius: 15px;
+  width: 35%;
+}
+.c-custom-btn:disabled {
+  background-color: $color-gray;
+  color: $color-black-light;
+}
+#cancel {
+  background-color: $color-gray;
+  color: $color-black-light;
+}
+#add {
+  margin-left: 5%;
+  font-weight: bold;
+}
+.edit-link {
+  background-color: $color-white;
+  box-shadow: 0px 0px 0px transparent;
+  border: 0px solid transparent;
+  text-shadow: 0px 0px 0px transparent;
+  padding-left: 0px;
+  font-size: 15px;
+  text-decoration: underline;
+  color: $color-dark-gray;
+}
+.edit-icon {
+  font-size: 17px;
+  padding-left: 6px;
+}
+.edit-link:hover {
+  cursor: pointer;
+}

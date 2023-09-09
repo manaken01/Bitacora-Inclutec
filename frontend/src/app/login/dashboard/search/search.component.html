@@ -1,0 +1,333 @@
+<div tabindex="-1" class="sr-only" role="alert">
+  Pagina de busqueda. Vista lista activada
+</div>
+<div class="c-search" focus="true">
+  <div class="header-img"></div>
+  <div class="no-gutters">
+    <div class="row w-100">
+      <div class="col-md-4 offset-md-5">
+        <app-notifications
+          role="alert"
+          *ngIf="isReady"
+          [isShow]="isReady"
+          [typeSuccess]="typeSuccess"
+          [message]="message"
+          (notificationEvent)="handleNotificationEventEmitted($event)"
+        ></app-notifications>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="optionsView">
+          <button
+            class="pills"
+            id="listView"
+            aria-label="Ver información en modo tabla"
+            (click)="calendarViewActivated()"
+            [ngClass]="
+              calendarView == true ? 'viewDeactivated' : 'viewActivaded'
+            "
+          >
+            <i class="fas fa-list custom-icon"></i> Vista Lista
+          </button>
+          <button
+            class="pills"
+            id="calendarView"
+            aria-label="Ver informacion en modo calendario"
+            (click)="calendarViewActivated()"
+            [ngClass]="
+              calendarView == true ? 'viewActivaded' : 'viewDeactivated'
+            "
+          >
+            <i class="far fa-calendar custom-icon"></i> Vista Calendario
+          </button>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <form class="c-container-options" [formGroup]="searchForm">
+          <div class="row">
+            <div class="col-md-3">
+              <h2 class="container-title" aria-label="Sección de busqueda">
+                Búsqueda
+              </h2>
+              <div class="p-4">
+                <label for="project" class="label-select" aria-hidden="true"
+                  >Seleccione el proyecto</label
+                >
+                <select
+                  class="c-round-select"
+                  formControlName="project"
+                  aria-label="Seleccione el proyecto"
+                  (change)="onChangeProjects($event.target.value)"
+                >
+                  <option
+                    *ngFor="let project of projectList"
+                    value="{{ project.idProjectsPk }}"
+                    (click)="onChangeProjects(project.idProjectsPk)"
+                    (keydown.enter)="onChangeProjects(project.idProjectsPk)"
+                  >
+                    {{ project.projectName }}</option
+                  >
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <h2 class="title-hidden" aria-hidden="true">
+                  Busqueda
+                </h2>
+              </div>
+              <div class="p-4">
+                <label for="project" class="label-select" aria-hidden="true"
+                  >Seleccione la Fase</label
+                >
+                <select
+                  aria-label="Seleccione la fase del proyecto"
+                  id="project"
+                  class="c-round-select"
+                  formControlName="phase"
+                  (change)="onChangePhase($event.target.value)"
+                >
+                  <option
+                    *ngFor="let phase of phaseList"
+                    value="{{ phase.idPhasesPk }}"
+                    (click)="onChangePhase(phase.idPhasesPk)"
+                  >
+                    {{ phase.phaseName }}</option
+                  >
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <h2 class="title-hidden" aria-hidden="true">
+                  Busqueda
+                </h2>
+              </div>
+              <div class="p-4">
+                <label for="project" class="label-select" aria-hidden="true"
+                  >Seleccione la Actividad</label
+                >
+                <select
+                  aria-label="Seleccione la actividad del proyecto"
+                  id="project"
+                  class="c-round-select"
+                  formControlName="activity"
+                >
+                  <option
+                    *ngFor="let activity of activitiesList; let i = index"
+                    value="{{ activity.idActivityPk }}"
+                    tabindex="0"
+                  >
+                    {{ activity.activityName }}</option
+                  >
+                </select>
+              </div>
+            </div>
+            <div class="col-md-1 offset-md-1 bg-green">
+              <div *ngIf="!advanceSearch">
+                <button
+                  class="btn bg-green"
+                  [disabled]="!searchForm.valid"
+                  (click)="filterSearch(searchForm.value)"
+                  aria-label="Buscar información seleccionada"
+                >
+                  <i
+                    class="fas fa-search"
+                    [ngClass]="[
+                      advanceSearch == false ? 'custom-search' : 'sr-only',
+                      calendarView == true
+                        ? 'custom-search-calendar'
+                        : 'custom-search'
+                    ]"
+                  ></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="!calendarView" class="row">
+            <div class="col-md-9">
+              <div class="p-custom">
+                <input
+                  type="checkbox"
+                  class="c-checkBox"
+                  (click)="advancedSearchActivated()"
+                  aria-label="Activar busqueda avanzada"
+                />
+                <label class="labelCheckbox" aria-hidden="true">
+                  Búsqueda Avanzada</label
+                >
+              </div>
+            </div>
+            <div class="col-md-1 offset-md-1 bg-green">
+              <div *ngIf="advanceSearch">
+                <button
+                  class="btn bg-green"
+                  [disabled]="!searchForm.valid"
+                  (click)="filterSearch(searchForm.value)"
+                  aria-label="Buscar información seleccionada"
+                >
+                  <i
+                    class="fas fa-search"
+                    [ngClass]="
+                      advanceSearch == true ? 'advanced-ico' : 'sr-only'
+                    "
+                  ></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="advanceSearch">
+            <div role="alert" class="sr-only">
+              Busqueda avanzada activada por favor indicar la fecha de inicio y
+              fin de busqueda.
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <div role="started-date-form" role class="form-group">
+                  <label
+                    class="container-title pl-4"
+                    for="started-date"
+                    id="startDate"
+                    >Ingresar fecha de inicio</label
+                  >
+                  <div class="row">
+                    <div class="date pl-4">
+                      <label for="year" class="ml-4 d-block" aria-hidden="true"
+                        >Año</label
+                      >
+                      <select
+                        aria-describedby="startDate"
+                        id="year"
+                        class="c-select-date ml-20"
+                        (change)="onChangeYear($event.target.value)"
+                        formControlName="yearStart"
+                      >
+                        <option
+                          *ngFor="let cyear of years"
+                          [selected]="cyear == currentYear"
+                          >{{ cyear }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="date pl-4">
+                      <label for="month" class="ml-4 d-block" aria-hidden="true"
+                        >Mes</label
+                      >
+                      <select
+                        aria-label="Mes"
+                        id="month"
+                        class="c-select-date ml-20"
+                        (change)="onChangeMonth($event.target.value)"
+                        formControlName="monthStart"
+                      >
+                        <option
+                          *ngFor="let cmonth of months"
+                          [selected]="cmonth == currentMonth"
+                          >{{ cmonth }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="date pl-4">
+                      <label for="day" class="ml-4 d-block" aria-hidden="true"
+                        >Día</label
+                      >
+                      <select
+                        aria-label="Día"
+                        id="day"
+                        class="c-select-date ml-20"
+                        formControlName="dayStart"
+                      >
+                        <option
+                          *ngFor="let cday of days"
+                          [selected]="cday == currentDay"
+                          >{{ cday }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 offset-md-1">
+                <div role="started-date-form" role class="form-group">
+                  <label
+                    class="container-title pl-4"
+                    for="started-date"
+                    id="endDate"
+                    >Ingresar fecha de fin</label
+                  >
+                  <div class="row">
+                    <div class="date pl-4">
+                      <label for="year" class="ml-4 d-block">Año</label>
+                      <select
+                        aria-describedby="endDate"
+                        id="year"
+                        class="c-select-date"
+                        (change)="onChangeEndYear($event.target.value)"
+                        formControlName="yearEnd"
+                      >
+                        <option
+                          *ngFor="let cyear of years"
+                          [selected]="cyear == currentEndYear"
+                          >{{ cyear }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="date pl-4">
+                      <label for="month" class="ml-4 d-block">Mes</label>
+                      <select
+                        aria-label="Mes"
+                        id="month"
+                        class="c-select-date ml-20"
+                        (change)="onChangeEndMonth($event.target.value)"
+                        formControlName="monthEnd"
+                      >
+                        <option
+                          *ngFor="let cmonth of months"
+                          [selected]="cmonth == currentEndMonth"
+                          >{{ cmonth }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="date pl-4">
+                      <label for="day" class="ml-4 d-block">Día</label>
+                      <select
+                        aria-label="Día"
+                        id="day"
+                        class="c-select-date ml-20"
+                        formControlName="dayEnd"
+                      >
+                        <option
+                          *ngFor="let cday of days"
+                          [selected]="cday == currentEndDay"
+                          >{{ cday }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1 offset-md-1 bg-green"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div>
+      <div *ngIf="!calendarView; else calendar">
+        <app-list *ngIf="!hideTable; else warning"></app-list>
+        <ng-template #warning>
+          <div class="text-center not-found">
+            <span aria-label="Seleccione un proyecto, fase y actividad.">
+              No se encontraron registros.
+            </span>
+          </div>
+        </ng-template>
+      </div>
+      <ng-template #calendar>
+        <app-calendar></app-calendar>
+      </ng-template>
+    </div>
+  </div>
+</div>

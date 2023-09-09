@@ -1,0 +1,29 @@
+<h1 mat-dialog-title class="text-center modal-title mb-4 color-warning">
+  <i class="fas fa-exclamation-circle icon-warning mb-4 d-block"></i>
+  Confirmación
+</h1>
+<div mat-dialog-content class="text-center mt-3 mb-3">
+  <p class="body-text">
+    {{ description }}
+  </p>
+</div>
+<div mat-dialog-actions class="mt-5 mb-4 text-center">
+  <button
+    mat-button
+    id="cancel"
+    (click)="onNoClick('cancel')"
+    class="c-custom-btn mx-auto"
+    aria-label="Cancelar"
+  >
+    Cancelar
+  </button>
+  <button
+    mat-button
+    (click)="performAction()"
+    id="add"
+    class="c-custom-btn mx-auto"
+    [attr.aria-label]="description + ' Continuar'"
+  >
+    Continuar
+  </button>
+</div>

@@ -1,0 +1,70 @@
+{
+  "name": "DisabilitiesByUsers",
+  "options": {
+    "idInjection": false,
+    "mysql": {
+      "schema": "DS_Inclutec_Bitacoras_v3",
+      "table": "DisabilitiesByUsers"
+    },
+    "relations": {
+      "DisabilitiesByUsers_ibfk_1": {
+        "model": "Disabilities",
+        "type": "belongsTo",
+        "foreignKey": "idDisabilitiesFk"
+      },
+      "DisabilitiesByUsers_ibfk_2": {
+        "model": "Users",
+        "type": "belongsTo",
+        "foreignKey": "idUsersFk"
+      }
+    }
+  },
+  "properties": {
+    "id": {
+      "type": "Number",
+      "required": true,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "id": 1,
+      "mysql": {
+        "columnName": "id",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "N"
+      }
+    },
+    "idUsersFk": {
+      "type": "Number",
+      "required": true,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "usersIdFk",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "N"
+      }
+    },
+    "idDisabilitiesFk": {
+      "type": "Number",
+      "required": true,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "mysql": {
+        "columnName": "disabilitiesIdFk",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "N"
+      }
+    }
+  }
+}

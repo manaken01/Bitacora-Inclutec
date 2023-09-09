@@ -1,0 +1,254 @@
+<div class="c-task">
+  <div class="container">
+    <div class="row title mx-auto">
+      <div class="col-1 circle offset-1"></div>
+      <div class="col-7 title-text">
+        <h2>Tareas por hacer</h2>
+      </div>
+    </div>
+    <div class="row row-task-button">
+      <div class="col-12 row-new-task">
+        <button
+          role="button"
+          (click)="newTask()"
+          aria-label="Agregar nueva tarea por hacer"
+        >
+          <img
+            id="imgNewTask"
+            src="./assets/images/icons/plus_todo.png"
+            alt=""
+          />
+          <label for="imgNewTask">Agregar Nueva</label>
+        </button>
+        <app-modal-notifications></app-modal-notifications>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-7 offset-1">
+        <h3>Importante y Urgente</h3>
+      </div>
+      <div class="col-4">
+        <button
+          class="arrow"
+          (click)="isCollapsed1 = !isCollapsed1"
+          [attr.aria-expanded]="!isCollapsed1"
+        >
+          <img
+            src="./assets/images/icons/down_arrow.png"
+            *ngIf="isCollapsed1"
+            alt="Botón expandir"
+          />
+          <img
+            src="./assets/images/icons/up_arrow.png"
+            *ngIf="!isCollapsed1"
+            alt="Botón contraer"
+          />
+        </button>
+        <b>{{ resultsImportantUrgent.length }}</b>
+        <b class="sr-only">{{ resultsImportantUrgent.length }} elementos </b>
+      </div>
+    </div>
+    <div class="row" id="collapseTab1" [ngbCollapse]="isCollapsed1">
+      <div class="card">
+        <div class="card-body">
+          <div class="row" *ngFor="let item of resultsImportantUrgent">
+            <div class="col-2">
+              <button class="register-todo" aria-label="Botón Registrar">
+                <i class="fa fa-check"></i>
+              </button>
+            </div>
+            <div class="col-8 todo-content">
+              <div>Descripción: {{ item.description }}</div>
+              <div>Fecha: {{ item.toDoDate.slice(0, 10) }}</div>
+            </div>
+            <div class="col-2">
+              <button
+                role="button"
+                id="deleteToDoButton"
+                aria-label="Botón Eliminar"
+                type="button"
+                name="Botón Eliminar"
+                (click)="deleteTodo(item)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-7 offset-1">
+        <h3>Importante y No Urgente</h3>
+      </div>
+      <div class="col-4">
+        <button
+          class="arrow"
+          (click)="isCollapsed2 = !isCollapsed2"
+          [attr.aria-expanded]="!isCollapsed2"
+        >
+          <img
+            src="./assets/images/icons/down_arrow.png"
+            *ngIf="isCollapsed2"
+            alt="Botón expandir"
+          />
+          <img
+            src="./assets/images/icons/up_arrow.png"
+            *ngIf="!isCollapsed2"
+            alt="Botón contraer"
+          />
+        </button>
+        <b>{{ resultsImportantNoUrgent.length }}</b>
+        <b class="sr-only">{{ resultsImportantNoUrgent.length }} elementos </b>
+      </div>
+    </div>
+    <div class="row" id="collapseTab2" [ngbCollapse]="isCollapsed2">
+      <div class="card">
+        <div class="card-body">
+          <div class="row" *ngFor="let item of resultsImportantNoUrgent">
+            <div class="col-2">
+              <button class="register-todo" aria-label="Botón Registrar">
+                <i class="fa fa-check"></i>
+              </button>
+            </div>
+            <div class="col-8 todo-content">
+              <div>Descripción: {{ item.description }}</div>
+              <div>Fecha: {{ item.toDoDate.slice(0, 10) }}</div>
+            </div>
+            <div class="col-2">
+              <button
+                id="deleteToDoButton"
+                aria-label="Botón Eliminar"
+                type="button"
+                name="Botón Eliminar"
+                (click)="deleteTodo(item)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-7 offset-1">
+        <h3 class="taskTitle">No Importante y Urgente</h3>
+      </div>
+      <div class="col-4">
+        <button
+          class="arrow d-inline"
+          (click)="isCollapsed3 = !isCollapsed3"
+          [attr.aria-expanded]="!isCollapsed3"
+        >
+          <img
+            src="./assets/images/icons/down_arrow.png"
+            *ngIf="isCollapsed3"
+            alt="Botón expandir"
+          />
+          <img
+            src="./assets/images/icons/up_arrow.png"
+            *ngIf="!isCollapsed3"
+            alt="Botón contraer"
+          />
+        </button>
+        <b class="d-inline">{{ resultsNoImportantUrgent.length }}</b>
+        <b class="sr-only">{{ resultsNoImportantUrgent.length }} elementos </b>
+      </div>
+    </div>
+    <div class="row" id="collapseTab3" [ngbCollapse]="isCollapsed3">
+      <div class="card">
+        <div class="card-body">
+          <div class="row" *ngFor="let item of resultsNoImportantUrgent">
+            <div class="col-2">
+              <button class="register-todo" aria-label="Botón Registrar">
+                <i class="fa fa-check"></i>
+              </button>
+            </div>
+            <div class="col-8 todo-content">
+              <div>Descripción: {{ item.description }}</div>
+              <div>Fecha: {{ item.toDoDate.slice(0, 10) }}</div>
+            </div>
+            <div class="col-2">
+              <button
+                id="deleteToDoButton"
+                aria-label="Botón Eliminar"
+                type="button"
+                name="Botón Eliminar"
+                (click)="deleteTodo(item)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+    <hr />
+    <div class="row">
+      <div class="col-7 offset-1">
+        <h3>No Importante y No Urgente</h3>
+      </div>
+      <div class="col-4">
+        <button
+          class="arrow"
+          (click)="isCollapsed4 = !isCollapsed4"
+          [attr.aria-expanded]="!isCollapsed4"
+        >
+          <img
+            src="./assets/images/icons/down_arrow.png"
+            *ngIf="isCollapsed4"
+            alt="Contraído"
+          />
+          <img
+            src="./assets/images/icons/up_arrow.png"
+            *ngIf="!isCollapsed4"
+            alt="Expandido"
+          />
+        </button>
+        <b>{{ resultsNoImportantNoUrgent.length }}</b>
+        <b class="sr-only"
+          >{{ resultsNoImportantNoUrgent.length }} elementos
+        </b>
+      </div>
+    </div>
+    <div class="row" id="collapseTab4" [ngbCollapse]="isCollapsed4">
+      <div class="card">
+        <div class="card-body">
+          <div class="row" *ngFor="let item of resultsNoImportantNoUrgent">
+            <div class="col-2">
+              <button class="register-todo" aria-label="Botón Registrar">
+                <i class="fa fa-check"></i>
+              </button>
+            </div>
+            <div class="col-8 todo-content">
+              <div>Descripción: {{ item.description }}</div>
+              <div>Fecha: {{ item.toDoDate.slice(0, 10) }}</div>
+            </div>
+            <div class="col-2">
+              <button
+                id="deleteToDoButton"
+                aria-label="Botón Eliminar"
+                type="button"
+                name="Botón Eliminar"
+                (click)="deleteTodo(item)"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+    <div *ngIf="alert == 1" role="alert">
+      <p id="alert" aria-live="assertive" class="sr-only">
+        Tarea eliminada
+      </p>
+    </div>
+  </div>
+</div>

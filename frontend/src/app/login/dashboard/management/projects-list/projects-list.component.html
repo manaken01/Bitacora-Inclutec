@@ -1,0 +1,117 @@
+<div tabindex="-1" class="sr-only" role="alert">
+  Vista tabla projectos
+</div>
+<div class="mt-5 mb-5">
+  <div class="row search-filter mx-auto">
+    <div class="col-md-2 offset-md-9">
+      <mat-form-field>
+        <mat-label class="lable-search" aria-hidden="true">Buscar</mat-label>
+        <input
+          aria-label="Buscar en la tabla"
+          matInput
+          (keyup)="applyFilter($event)"
+          class="input-material"
+          placeholder="Ejemplo: Euler"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="table m-0 mx-auto">
+    <ng-container matColumnDef="projectName">
+      <th mat-header-cell *matHeaderCellDef>Proyecto</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.projectName }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="structure">
+      <th mat-header-cell *matHeaderCellDef>Fases - Actividades - Tareas</th>
+      <td mat-cell *matCellDef="let element">
+        <div
+          *ngFor="let phase of element.structure; let i = index"
+          class="row mt-2"
+        >
+          <div class="col-md-3">Fase {{ i + 1 }}: {{ phase.phaseName }}</div>
+          <div class="col-md-1">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+          <div class="col-md-3">{{ phase.activities.length }} Actividades</div>
+          <div class="col-md-1">
+            <i class="fas fa-chevron-right"></i>
+          </div>
+          <div class="col-md-1">
+            {{ numberOftasks(phase.activities) }} Tareas
+          </div>
+          <div class="col-md-1">
+            <button
+              role="button"
+              class="btn-edit"
+              aria-label="Ver más información"
+              (click)="phaseInfoModal(phase, i, element.projectName)"
+            >
+              <i class="fas fa-search moreInfo-icon"></i>
+            </button>
+          </div>
+          <div class="col-md-12">
+            <hr />
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdDate">
+      <th mat-header-cell *matHeaderCellDef>Fecha Creación</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.createdAt | date: "yyyy-MM-dd" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdBy">
+      <th mat-header-cell *matHeaderCellDef>Creado por</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.creator }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        <div *ngIf="element.status == 1; else inactive">Activo</div>
+        <ng-template #inactive>Inactivo</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="collaborators">
+      <th mat-header-cell *matHeaderCellDef>Colaboradores</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.collaborators }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="config">
+      <th mat-header-cell *matHeaderCellDef>
+        <i class="fas fa-cog" aria-label="Edición"></i>
+      </th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        <button
+          role="button"
+          class="btn-edit"
+          aria-label="Editar información del proyecto"
+          (click)="projectEditorModal(element)"
+        >
+          <i class="fas fa-edit edit-icon"></i>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <div class="row pagination-buttons mx-auto">
+    <mat-paginator
+      class="mx-auto"
+      [pageSizeOptions]="[5, 10, 20, 30, 40]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>

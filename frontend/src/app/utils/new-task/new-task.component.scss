@@ -1,0 +1,226 @@
+$color-wh: #ffffff;
+$color-background: #233d4d;
+$color-error: #ff7e79;
+$color-gray: #eaeaea;
+$color-darkgray: #4b4b4b;
+$color-light-blue: #12959e;
+$color-purple: #8100c2;
+$color-ultralight-gray: #f5f5f5;
+$color-green: #418c45;
+$color-dark-green: #153f41;
+$color-red: #872735;
+$color-orange: #d8620b;
+$color-dark-blue: #073174;
+$radioSize: 18px;
+$radioBorder: #707070;
+$radioActive: #233d4d;
+$color-light-gray: #f2f2f2;
+$color-black: #000;
+$font-opicio: "Opificio-regular";
+
+.c-noutline {
+  outline: none;
+}
+
+.modal-backdrop.show {
+  background-color: $color-background;
+  opacity: 0.8;
+}
+
+.modal-lg {
+  width: 550px;
+  max-width: 600px;
+}
+
+.title-modal {
+  color: $color-background;
+  font-weight: bold;
+  font-family: $font-opicio;
+  margin: 5% 0 5% 0;
+}
+
+.modal {
+  overflow-y: auto;
+}
+
+.v-content {
+  text-align: center;
+
+  .green-color {
+    color: $color-dark-green;
+  }
+  .c-tittle {
+    font-family: $font-opicio;
+    color: $color-dark-blue;
+  }
+
+  .controlLabel {
+    font-size: 14px;
+  }
+
+  .c-data {
+    .c-text {
+      font-size: 16px;
+    }
+  }
+  .labelTitle {
+    text-align: left;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: $font-opicio;
+    color: $color-dark-green;
+    .labelIcon {
+      font-size: 10px;
+    }
+  }
+  .controlLabel {
+    margin-left: 10px;
+  }
+  .c-button-round {
+    color: $color-wh;
+    font-family: $font-opicio;
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 5%;
+    border: none;
+    border-radius: 50px;
+    width: 35%;
+    height: 12%;
+  }
+
+  ::placeholder {
+    color: $color-dark-green;
+  }
+  .c-select-round {
+    border: solid 1px $color-gray;
+    background-color: $color-gray;
+    color: $color-dark-green;
+    padding: 10px;
+    font-family: $font-opicio;
+    font-size: 14px;
+    margin-left: 10px;
+    border-radius: 30px;
+    width: 70px;
+    height: 12%;
+  }
+  .radioSelected {
+    padding: 10px;
+    border: 1px solid $color-gray;
+    border-radius: 30px;
+    background-color: $color-gray;
+    color: $color-dark-green;
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+  .c-checkBox {
+    -webkit-appearance: none;
+    color: $color-dark-green;
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    background-color: $color-wh;
+    border: 1px solid $color-black;
+    border-radius: 50%;
+  }
+  .c-checkBox:checked {
+    background-color: $color-dark-green;
+    border: 1px solid $color-gray;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+      inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05),
+      inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+  }
+  #importanYes {
+    margin-left: 30px;
+  }
+  #importantNo {
+    margin-left: 80px;
+  }
+  #urgentYes {
+    margin-left: 58px;
+  }
+  #urgentNo {
+    margin-left: 80px;
+  }
+  .descArea {
+    border: solid 1px $color-gray;
+    resize: none;
+    background-color: $color-gray;
+    color: $color-dark-green;
+    padding-left: 15px;
+    border-radius: 20px;
+    text-align: left;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  #registerButton {
+    margin-left: 40px;
+    background-color: $color-green;
+  }
+
+  #exitButton {
+    margin-left: 90px;
+    background-color: $color-red;
+  }
+
+  .c-input-round {
+    background: $color-light-gray 0% 0% no-repeat padding-box;
+    color: $color-black;
+    font-family: $font-opicio;
+    font-size: 14px;
+    border: none;
+    border-radius: 30px;
+    width: 50%;
+    height: 40px;
+  }
+  .c-button-bg-transparent {
+    margin-left: 5%;
+    background-color: transparent;
+    color: $color-dark-blue !important;
+    border-width: 2px;
+    border-color: $color-dark-blue;
+  }
+
+  .c-button-round:disabled {
+    background-color: $color-gray !important;
+    border: 1px solid $color-dark-green;
+    color: $color-green;
+  }
+}
+
+.modal-content {
+  z-index: 10;
+}
+
+.modal-header {
+  display: inline-block;
+  text-align: center;
+  color: $color-wh;
+  height: 120px;
+  border-bottom: 1px solid transparent;
+  background-image: url("../../../assets/images/media/background3.png");
+  background-size: 550px 120px;
+  background-repeat: no-repeat;
+  h2 {
+    font-size: 24px;
+  }
+}
+
+.modal-footer {
+  display: block;
+  border-top: 1px solid transparent;
+}
+
+.modal-dialog {
+  overflow-y: initial !important;
+}
+
+.modal-body {
+  height: 440px;
+  overflow-y: auto;
+  width: 80%;
+  margin-right: 10%;
+  margin-left: 10%;
+}

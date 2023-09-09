@@ -1,0 +1,589 @@
+$color-white: #ffff;
+$color-gray: #d3d3d3;
+$color-light-gray: #f8f8f8;
+$color-dark-green: #043f41;
+$color-dark-gray: #9b9da8;
+$color-green: #078b44;
+$color-green-btn: #207073;
+$color-light-green: #55b157;
+$color-red: #860e35;
+$color-black: black;
+$font-opificio: "Opificio-regular";
+
+.img-container {
+  width: 100%;
+  height: 105px;
+  background: url(src/assets/images/media/Background2.png);
+  background-size: cover;
+  background-repeat: repeat;
+  background-color: linear-gradient(to left, $color-gray 50%, transparent 50%);
+  z-index: 1;
+}
+.green-navbar {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: $color-dark-green;
+  z-index: -1;
+}
+.gray-navbar {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  background-color: $color-white;
+  z-index: -1;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.text-center-vertically {
+  background-color: transparent;
+  color: $color-white;
+  padding-left: 25px;
+  text-align: center;
+  font-size: 26px;
+  margin-top: 10px;
+  margin-left: 35%;
+}
+
+.no-gutters {
+  width: 100%;
+  margin-left: 0px;
+  margin-right: 0px;
+  background-color: $color-white;
+
+  .registerList {
+    margin-top: 40px;
+  }
+
+  .c-custom-btn {
+    color: $color-white;
+    background-color: $color-green-btn;
+    width: 60%;
+  }
+
+  .registerItems {
+    color: $color-white;
+    font-size: 14px;
+    padding-left: 5px;
+    text-align: center;
+  }
+  .weekDays {
+    text-transform: capitalize;
+  }
+  .items-circles {
+    color: $color-white;
+    padding-left: 30px;
+    font-size: 14px;
+  }
+  .green {
+    background-color: $color-dark-green;
+  }
+  .white {
+    background-color: $color-white;
+  }
+  .side-text {
+    color: $color-white;
+    font-size: 18px;
+    margin-bottom: 30px;
+    padding-left: 15%;
+  }
+
+  .green-arrow {
+    background-color: $color-dark-green;
+  }
+  .green-arrow:hover {
+    background-color: $color-green-btn;
+  }
+  .group-btn {
+    display: flex;
+    .green-btn {
+      color: $color-white;
+      background-color: $color-dark-green;
+      margin-left: auto;
+      width: 40%;
+    }
+    .green-btn:hover {
+      background-color: $color-green-btn;
+    }
+  }
+  .btnToday:hover {
+    background-color: $color-green-btn;
+    color: $color-light-gray;
+  }
+  .c-dependencies {
+    background-color: $color-white;
+    width: 100%;
+    margin: 0px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+
+    .row {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .options-buttons {
+      margin-top: 15%;
+    }
+
+    .stepCircles {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .pill {
+      width: 100%;
+      text-align: left;
+      border: 1px solid $color-gray;
+      border-radius: 30px;
+      background-color: $color-light-gray;
+      margin-bottom: 10px;
+      margin-left: 10px;
+    }
+    label {
+      margin-right: 0px;
+      margin-top: 10px;
+    }
+    .circle {
+      margin: 0px;
+      background-color: $color-gray;
+      border-radius: 50%;
+      width: 40px;
+      height: 30px;
+    }
+
+    .circle-step {
+      margin: auto;
+      margin-top: 10px;
+      background-color: $color-dark-gray;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+    }
+
+    .b-cancel {
+      border-radius: 250px;
+      background-color: $color-dark-gray;
+      color: $color-white;
+    }
+
+    .b-next {
+      border-radius: 250px;
+      background-color: $color-green;
+      color: $color-white;
+    }
+    .b-next:disabled {
+      color: $color-dark-green;
+      background-color: $color-light-gray;
+      border: 1px solid $color-dark-green;
+    }
+
+    .labl {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .text {
+      margin-right: 0px;
+    }
+
+    .text > .labl > input {
+      /* HIDE RADIO */
+      visibility: hidden; /* Makes input not-clickable */
+      position: absolute; /* Remove input from document flow */
+    }
+    .text > .labl > input + div {
+      /* DIV STYLES */
+      cursor: pointer;
+      border: 2px solid transparent;
+    }
+    .text > .labl > input:checked + div {
+      /* (RADIO CHECKED) DIV STYLES */
+      background-color: $color-green-btn;
+      border: 1px solid $color-green-btn;
+    }
+  }
+  .side-title {
+    color: $color-white;
+    font-size: 20px;
+  }
+  .side-subtitle {
+    color: $color-white;
+    font-size: 16px;
+    text-align: left;
+  }
+  .side-value {
+    color: $color-gray;
+    font-size: 14px;
+    text-align: left;
+  }
+  .c-new-register {
+    form {
+      width: 100%;
+      text-align: center;
+      position: left;
+    }
+    .backBtn {
+      font-size: 20px;
+    }
+
+    .b-cancel {
+      margin-left: 30px;
+      text-align: center;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      background-color: $color-red;
+      color: $color-white;
+      padding: 0.1em;
+    }
+
+    .c-button-round {
+      background-color: $color-green;
+      color: $color-white;
+      font-weight: bold;
+      margin-bottom: 5%;
+      border: none;
+      border-radius: 50px;
+      width: 160px;
+      height: 40px;
+      padding: 0.2em;
+    }
+    .c-button-round:disabled {
+      background-color: $color-gray !important;
+      border: 1px solid $color-green;
+    }
+
+    .leftLabel {
+      color: $color-dark-green;
+    }
+
+    .spent-time {
+      color: $color-dark-green;
+      font-size: 20px;
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    .c-select-date {
+      border: solid 1px $color-gray;
+      background-color: $color-white;
+      color: $color-dark-green;
+      padding: 10px;
+      font-size: 14px;
+      margin-left: 10px;
+      border-radius: 30px;
+      width: 80px;
+      height: 12%;
+    }
+
+    .circle-cancel {
+      margin: 0px;
+      background-color: $color-green;
+      color: $color-white;
+      border-radius: 250px;
+      width: 25px;
+      height: 25px;
+    }
+
+    .c-select-state {
+      border: solid 1px $color-gray;
+      background-color: $color-white;
+      color: $color-dark-green;
+      padding: 10px;
+      font-size: 14px;
+      margin-left: 10px;
+      border-radius: 30px;
+      width: 130px;
+      height: 12%;
+    }
+    .c-select-collab {
+      border: solid 1px $color-gray;
+      background-color: $color-white;
+      color: $color-dark-green;
+      padding: 10px;
+      margin-right: 75px;
+      font-size: 14px;
+      border-radius: 30px;
+      width: 225px;
+      height: 40px;
+    }
+
+    .descArea {
+      border: solid 1px $color-gray;
+      resize: none;
+      background-color: $color-white;
+      color: $color-dark-green;
+      padding-left: 15px;
+      border-radius: 20px;
+      text-align: left;
+      font-size: 14px;
+      width: 100%;
+    }
+    .c-checkBox {
+      -webkit-appearance: none;
+      color: $color-dark-green;
+      width: 30px;
+      height: 25px;
+      background-color: $color-white;
+      border: 1px solid $color-black;
+      border-radius: 10px;
+    }
+    .c-checkBox:checked {
+      background-color: $color-dark-green;
+      border: 1px solid $color-gray;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+        inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05),
+        inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+    }
+    label {
+      margin: 0;
+      margin-left: 0px;
+      size: 16px;
+      color: $color-dark-green;
+    }
+    button {
+      background-color: $color-dark-gray;
+      color: $color-white;
+      position: center;
+      padding: 14px 20px;
+      margin: 2% 0;
+      border: none;
+      cursor: pointer;
+      width: 90%;
+    }
+
+    textarea {
+      height: 50px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    input[type="number"],
+    textarea {
+      width: 88%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 0px;
+      box-sizing: border-box;
+      background-color: $color-white;
+    }
+
+    input[type="radio"] {
+      margin-top: 5px;
+      margin-left: 15px;
+      margin-right: 5px;
+      border: none;
+      background-color: $color-white;
+    }
+
+    label[for="started-date"],
+    label[for="started-hour"],
+    label[for="dedicated-time"],
+    label[for="worklog-description"],
+    label[for="duration-time"],
+    label[for="contributors"],
+    label[for="status"] {
+      color: $color-dark-green;
+      text-align: left;
+      display: list-item;
+      list-style-type: disc;
+      list-style-position: inside;
+    }
+
+    label[for="initHour"],
+    label[for="endHour"] {
+      color: $color-dark-green;
+      margin-left: 10px;
+    }
+
+    label[for="initMinutes"],
+    label[for="endMinutes"] {
+      color: $color-dark-green;
+      margin-left: 40px;
+    }
+    .multiselect-dropdown[_ngcontent-c5] .dropdown-btn[_ngcontent-c5] {
+      display: inline-block;
+      border: 1px solid $color-dark-gray;
+      width: 100%;
+      padding: 6px 12px;
+      margin-bottom: 0;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.1;
+      text-align: left;
+      vertical-align: middle;
+      cursor: pointer;
+      background-image: none;
+      border-radius: 4px;
+    }
+    .circle-step {
+      margin: auto;
+      margin-top: 10px;
+      background-color: $color-dark-gray;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+    }
+    .green-circle {
+      margin: auto;
+      margin-top: 10px;
+      background-color: $color-dark-green;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+    }
+    .Date {
+      display: block;
+      text-align: left;
+      margin-left: 23px;
+    }
+
+    .init-hour {
+      margin-left: 8px;
+    }
+    .end-hour {
+      margin-left: 8px;
+    }
+    .year {
+      width: 15%;
+    }
+
+    .selectDate {
+      width: 12%;
+    }
+
+    .selectHour {
+      width: 43%;
+    }
+
+    .ml-15 {
+      margin-left: 15px;
+    }
+
+    .ml-20 {
+      margin-left: 20px;
+    }
+
+    .contributors {
+      width: 40%;
+    }
+
+    .status {
+      padding-left: 10px;
+    }
+
+    .btn-success {
+      width: 120px;
+      height: 30px;
+      padding-top: 3px;
+      margin-top: 0px;
+      margin-left: 0px;
+      border-radius: 50px;
+      border: none;
+      margin-right: 20%;
+    }
+
+    #btnBack {
+      padding: 0px;
+      margin: 0px;
+      margin-right: 5px;
+      width: 60px;
+      background-color: transparent;
+    }
+
+    .back-site {
+      padding: 0px;
+      margin: 0px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      float: left;
+      margin-left: 50px;
+    }
+
+    .main {
+      margin-top: 1%;
+      width: 100%;
+    }
+
+    .backColor {
+      color: #1e82a4;
+      margin: 0px;
+    }
+
+    .btn-cancel {
+      width: 120px;
+      height: 30px;
+      padding-top: 3px;
+      margin-top: 0px;
+      border-radius: 50px;
+      border: none;
+      background-color: $color-red;
+    }
+
+    #worklog-description {
+      border-radius: 5px;
+      width: 70%;
+    }
+
+    #dedicated-time {
+      width: 30%;
+      border-radius: 5px;
+    }
+
+    .circle-back {
+      background-color: $color-green-btn;
+      color: $color-white;
+      border-radius: 250px;
+      width: 25px;
+      height: 25px;
+      text-align: center;
+    }
+
+    .title-back {
+      color: #207073;
+      margin-top: 5px;
+      font-size: 14px;
+      margin-top: -23px;
+      margin-left: 30px;
+    }
+    .div-back {
+      margin-top: 10px;
+      margin-bottom: 5px;
+      margin-left: -15px;
+    }
+    .div-back:hover {
+      cursor: pointer;
+    }
+
+    /* Resposive */
+
+    @media screen and (max-width: 320px) {
+      form {
+        width: 90%;
+      }
+      h2 {
+        text-align: center;
+        color: $color-green;
+      }
+    }
+
+    @media screen and (max-width: 600px) and (min-width: 320px) {
+      form {
+        width: 90%;
+      }
+      h2 {
+        text-align: center;
+        color: blue;
+      }
+    }
+  }
+}

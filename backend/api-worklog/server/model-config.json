@@ -1,0 +1,132 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "../common/models/Activities",
+      "../common/models/Activitybyphases",
+      "../common/models/Disabilities",
+      "../common/models/DisabilitiesByUsers",
+      "../common/models/container",
+      "../common/models/Notificationbyusers",
+      "../common/models/Notifications",
+      "../common/models/Phasebyprojects",
+      "../common/models/Phases",
+      "../common/models/Projects",
+      "../common/models/Projectsbyusers",
+      "../common/models/Projectscolors",
+      "../common/models/Task",
+      "../common/models/Taskbyactivities",
+      "../common/models/Units",
+      "../common/models/Users",
+      "../common/models/WorklogByUser",
+      "../common/models/Worklogdependencies",
+      "../common/models/Worktodo",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "db",
+    "public": false,
+    "options": {
+      "emailVerificationRequired": true
+    }
+  },
+  "Email": {
+    "dataSource": "emailDS"
+  },
+  "ACL": {
+    "dataSource": "db",
+    "public": false
+  },
+  "AccessToken": {
+    "dataSource": "mysqlBitacorasDS",
+    "public": false,
+    "relations": {
+      "user": {
+        "type": "belongsTo",
+        "model": "Users",
+        "foreingKey": "userId"
+      }
+    }
+  },
+  "RoleMapping": {
+    "dataSource": "mysqlBitacorasDS",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "mysqlBitacorasDS",
+    "public": false
+  },
+  "Activities": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "ActivityByPhases": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "Disabilities": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "DisabilitiesByUsers": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "NotificationByUsers": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "Notifications": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "PhaseByProjects": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "Phases": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "Projects": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "ProjectsColors": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "Task": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "TaskByActivities": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "Units": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "Users": {
+    "dataSource": "mysqlBitacorasDS",
+    "options": {
+      "emailVerificationRequired": true
+    }
+  },
+  "WorkToDo": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "WorklogDependencies": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "WorklogByUser": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "ProjectsByUsers": {
+    "dataSource": "mysqlBitacorasDS"
+  },
+  "Container": {
+    "dataSource": "storage",
+    "public": true
+  }
+}

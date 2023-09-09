@@ -1,0 +1,75 @@
+$color-dark-green: #153f41;
+$color-light-green: #aae3e5;
+$color-green: #207073;
+$color-white: white;
+$color-light-gray: #d4d5da;
+$color-black: black;
+$color-gray: #707070;
+$font-montserrat: "Montserrat";
+
+.row {
+  margin: 0;
+}
+.search-filter {
+  width: 95%;
+  background-color: $color-dark-green;
+  .result-hours {
+    padding-top: 25px;
+    color: $color-white;
+    font-size: 14px;
+  }
+  .lable-search {
+    color: $color-white;
+  }
+  ::ng-deep .mat-form-field-underline {
+    background-color: $color-white;
+  }
+
+  .mat-form-field-outline,
+  .mat-form-field-empty.mat-form-field-label,
+  .mat-form-field-label,
+  .mat-form-field-underline,
+  .mat-input-element,
+  ::placeholder {
+    color: $color-white !important;
+  }
+}
+
+.mat-select-placeholder {
+  color: $color-white;
+}
+table {
+  width: 95%;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: $color-green;
+  font-family: $font-montserrat;
+  th {
+    background-color: $color-green;
+    color: $color-white;
+    font-size: 16px;
+    padding-bottom: 15px;
+    text-align: justify;
+    width: 25px;
+  }
+  .btn-img:hover {
+    cursor: pointer;
+  }
+}
+
+.btn-custom {
+  border: solid 1px $color-green;
+  border-radius: 15px;
+  background-color: $color-green;
+  color: $color-white;
+  margin-left: 15px;
+}
+
+.btn-custom:hover {
+  background-color: $color-light-green;
+  color: $color-dark-green;
+}
+
+.pagination-buttons {
+  width: 90%;
+}

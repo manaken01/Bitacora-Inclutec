@@ -1,0 +1,56 @@
+{
+  "name": "PhaseByProjects",
+  "options": {
+    "idInjection": false,
+    "mysql": {
+      "schema": "DS_Inclutec_Bitacoras_v3",
+      "table": "PhaseByProjects"
+    },
+    "relations": {
+      "fkPhasebyprojects1rel": {
+        "model": "Phases",
+        "type": "belongsTo",
+        "foreignKey": "idPhaseFk"
+      },
+      "fkPhasebyprojects2rel": {
+        "model": "Projects",
+        "type": "belongsTo",
+        "foreignKey": "idProjectsFk"
+      }
+    }
+  },
+  "properties": {
+    "idPhaseFk": {
+      "type": "Number",
+      "required": true,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "id": 1,
+      "mysql": {
+        "columnName": "idPhase_fk",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "N"
+      }
+    },
+    "idProjectsFk": {
+      "type": "Number",
+      "required": true,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "id": 2,
+      "mysql": {
+        "columnName": "idProjects_fk",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "N"
+      }
+    }
+  }
+}

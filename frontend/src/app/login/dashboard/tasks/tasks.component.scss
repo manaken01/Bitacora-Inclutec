@@ -1,0 +1,94 @@
+.c-task {
+  margin-top: 30px;
+  padding-top: 1px;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+  height: auto;
+  .title {
+    background-color: #043f41;
+    color: white;
+    height: 50px;
+    border: none;
+    border-radius: 40px;
+    margin-top: 30px;
+    width: 100%;
+  }
+  .title-text {
+    margin-top: 14px;
+    margin-bottom: 5px;
+  }
+  .circle {
+    height: 60%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border: none;
+    border-radius: 50%;
+    background-color: #207073;
+  }
+  .calend-icon {
+    margin-top: 8px;
+    margin-bottom: 5px;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+  }
+  button.arrow {
+    background-color: transparent;
+    border: none;
+    margin-bottom: 5px;
+  }
+  button#newToDoButton {
+    padding: 0px;
+  }
+  button.register-todo {
+    background-color: #078b44;
+    border: none;
+    border-radius: 50%;
+    padding-top: 3px;
+    color: white;
+  }
+  button.delete-todo {
+    bottom: 2em;
+    position: relative;
+    color: black;
+  }
+  label#newToDoLabel {
+    margin-top: 10px;
+  }
+  h2 {
+    font-size: 17px;
+    margin-top: 2px;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight: bold;
+  }
+  b {
+    font-size: 14px;
+    font-weight: normal;
+  }
+  #imgNewTask {
+    width: 20%;
+    margin-right: 10px;
+  }
+  .row-new-task {
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+  .todo-content {
+    margin-bottom: 15px;
+  }
+  .card-body {
+    border: none;
+  }
+  .card {
+    border: none;
+  }
+  hr {
+    padding: 0px;
+    margin-top: 0px;
+  }
+}

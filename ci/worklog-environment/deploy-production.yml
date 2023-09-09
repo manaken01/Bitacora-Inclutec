@@ -1,0 +1,28 @@
+# This job deploys the project to the prodution server.
+# It uses the code/docker-compose.yml file to deploy the modules as connected container services.
+# Environment variables to be set:
+#   WORKLOG_PROD_SERVER_HOST
+# Used in Compose:
+#   WORKLOG_FRONTEND_DOCKER_OUT
+prod-deployment:
+  stage: deploy-production
+  tags:
+  - worklog-production
+  only:
+    - /^master.*/
+    - /^hotfix.*/
+  dependencies:
+    - frontend-prod-build
+  variables:
+    RELEASE_TAG: "latest"
+  script:
+    - cd ./ci/worklog-environment/
+    - docker-compose down
+    - docker rmi worklog-web-api:${RELEASE_TAG} || true
+    - docker rmi worklog-web-app:${RELEASE_TAG} || true
+    - docker-compose up -d
+    - docker rmi $(docker images -f "dangling=true" -q) || true
+  environment:
+    name: "Worklog Production Server"
+    # This URL is assumed to be configured at the web server proxy.
+    url: "http://$WORKLOG_PROD_SERVER_HOST/bitacoras/"

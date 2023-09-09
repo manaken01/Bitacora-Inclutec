@@ -1,0 +1,50 @@
+<div class="c-navbar">
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark">
+      <a class="navbar-brand" [routerLink]="['register']">
+        <img
+          src="./assets/images/icons/Logo_inclutec.png"
+          alt="Logo inclutec"
+        />
+      </a>
+
+      <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" [ngClass]="{ show: navbarOpen }">
+        <ul
+          class="navbar-nav align"
+          *ngFor="let navbarElement of navbarElements"
+        >
+          <app-items
+            path="{{ navbarElement.path }}"
+            itemText="{{ navbarElement.text }}"
+          ></app-items>
+        </ul>
+      </div>
+      <div class="userMenu">
+        <h1 class="userDetail">{{ name }} {{ lastname[0] }}</h1>
+        <button mat-button [matMenuTriggerFor]="menu" class="settings-icon">
+          <i class="fas fa-cog"></i>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button
+            mat-menu-item
+            aria-label="Perfil"
+            class="menuItem"
+            [routerLink]="['profile']"
+          >
+            <i class="fas fa-user-circle menuIcon"></i>
+            <span class="menuText">Mi Perfil</span>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item aria-label="Cerrar sesión" (click)="logout()">
+            <i class="fas fa-sign-out-alt signOutIcon"></i>
+            <span class="menuText">Cerrar sesión</span>
+          </button>
+        </mat-menu>
+      </div>
+    </nav>
+  </div>
+</div>

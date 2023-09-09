@@ -1,0 +1,163 @@
+$color-dark-green: #153f41;
+$color-light-green: #aae3e5;
+$color-white: white;
+$color-light-gray: #d4d5da;
+$color-black: black;
+$color-gray: #707070;
+
+.bottom-left-shadow {
+  -webkit-box-shadow: -8px 8px 1px -6px $color-light-gray;
+  -moz-box-shadow: -8px 8px 1px -6px $color-light-gray;
+  box-shadow: -8px 8px 1px -6px $color-light-gray;
+}
+.top-left-shadow {
+  -webkit-box-shadow: -8px 0px 1px -6px $color-light-gray;
+  -moz-box-shadow: -8px 0px 1px -6px $color-light-gray;
+  box-shadow: -8px 0px 1px -6px $color-light-gray;
+}
+
+.row {
+  margin: 0;
+  flex-wrap: nowrap;
+}
+.c-search {
+  .header-img {
+    background: url(src/assets/images/media/Background2.png);
+    background-repeat: repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100%;
+    height: 130px;
+  }
+  .no-gutters {
+    .bg-green {
+      background-color: $color-dark-green;
+    }
+    .not-found {
+      height: 40vh;
+    }
+    .custom-padding {
+      padding-top: 15%;
+      margin-right: 0;
+    }
+    .optionsView {
+      width: 100%;
+      height: 25%;
+      .pills {
+        margin: auto;
+        display: block;
+        margin-top: 20px;
+        font-size: 14px;
+        width: 45%;
+        height: 50px;
+        border: 1px solid black;
+        border-radius: 200px;
+        text-align: justify;
+        padding-left: 20px;
+      }
+      .viewActivaded {
+        border-color: $color-dark-green;
+        background-color: $color-dark-green;
+        color: $color-white;
+      }
+      .viewDeactivated {
+        border-color: $color-light-green;
+        background-color: $color-light-green;
+        color: $color-dark-green;
+      }
+      .custom-icon {
+        font-size: 20px;
+        padding-right: 15px;
+      }
+    }
+    .c-container-options {
+      padding: 50xp;
+      height: 100%;
+      max-width: 900px;
+      border-radius: 5px;
+    }
+    .container-title {
+      margin-left: 25px;
+      font-size: 16px;
+    }
+    .title-hidden {
+      margin-left: 25px;
+      font-size: 14px;
+      visibility: hidden;
+    }
+    .ml-custom {
+      margin-left: 25px;
+    }
+    .p-custom {
+      padding-left: 1.5em;
+      padding-bottom: 5px;
+    }
+    .c-round-select {
+      border: 1px solid $color-light-gray;
+      background-color: $color-white;
+      height: 40px;
+      width: 200px;
+      padding-left: 20px;
+      text-decoration: none;
+      border-radius: 30px;
+    }
+    .label-select {
+      font-size: 13px;
+    }
+    .labelCheckbox {
+      margin-left: 10px;
+      font-size: 14px;
+    }
+    .c-checkBox {
+      margin: auto;
+      -webkit-appearance: none;
+      color: $color-dark-green;
+      width: 20px;
+      height: 20px;
+      background-color: $color-white;
+      border: 1px solid $color-black;
+      border-radius: 50%;
+    }
+    .c-checkBox:checked {
+      background-color: $color-gray;
+      border: 3px solid $color-light-gray;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05),
+        inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05),
+        inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+    }
+    .custom-search {
+      margin-top: 77px;
+      color: $color-white;
+      background-color: $color-dark-green;
+      font-size: 25px;
+    }
+    .custom-search-calendar {
+      margin-top: 55px;
+      color: $color-white;
+      background-color: $color-dark-green;
+      font-size: 25px;
+    }
+    .advanced-ico {
+      margin-bottom: 15px;
+      color: $color-white;
+      background-color: $color-dark-green;
+      font-size: 30px;
+    }
+    .c-select-date {
+      border: solid 1px $color-light-gray;
+      background-color: $color-white;
+      padding: 10px;
+      font-size: 12px;
+      margin-left: 10px;
+      border-radius: 30px;
+      width: 65px;
+      height: 40px;
+    }
+    .date {
+      display: block;
+      height: 60px;
+    }
+  }
+}

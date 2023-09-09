@@ -1,0 +1,42 @@
+<h1 mat-dialog-title class="text-center modal-title mb-4">
+  Estado
+  {{ username }}
+</h1>
+<div mat-dialog-content class="mt-4 mb-3">
+  <div class="w-75 mx-auto">
+    <p class="body-text">
+      Al <b>inactivar</b> a un colaborador, este no podrá ingresar a la
+      plataforma de Bitácora. Además ningún colaborador podrá incluirlo en
+      ningún proyecto ni registro de actividad nuevo.
+    </p>
+    <p class="body-text">
+      ¿Está seguro que sea actualizar el estado de {{ username }} a
+      <b class="color-warning">Inactivo</b>?
+    </p>
+  </div>
+  <form [formGroup]="editorForm" class="w-75 mx-auto mt-4">
+    <h2 class="title-structure mt-4 mb-3">Estado</h2>
+    <mat-radio-group aria-label="Estado del usuario" formControlName="status">
+      <mat-radio-button [value]="1">Activo</mat-radio-button>
+      <mat-radio-button [value]="0" class="ml-5">Inactivo</mat-radio-button>
+    </mat-radio-group>
+  </form>
+</div>
+<div mat-dialog-actions class="mt-5 mb-2 text-center">
+  <button
+    mat-button
+    id="cancel"
+    (click)="onNoClick('cancel')"
+    class="c-custom-btn mx-auto"
+  >
+    Cancelar
+  </button>
+  <button
+    mat-button
+    (click)="performAction(editorForm.value)"
+    id="add"
+    class="c-custom-btn mx-auto"
+  >
+    Continuar
+  </button>
+</div>

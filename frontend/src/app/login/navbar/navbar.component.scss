@@ -1,0 +1,52 @@
+$font-opicio: "Opificio-regular";
+$font-Monserrat: "Monserrat-regular";
+$green-color: #207073;
+$dark-gray-color: #626262;
+$white-color: white;
+
+.c-navbar {
+  font-family: $font-opicio;
+  nav {
+    background-color: $green-color;
+  }
+  .align {
+    margin-left: 5%;
+  }
+  .container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+
+  .userMenu {
+    margin-right: 100px;
+    display: flex;
+    flex-direction: row;
+    .userDetail {
+      margin-top: 15px;
+      color: $white-color;
+      font-size: 20px;
+    }
+    .settings-icon {
+      color: $white-color;
+      text-align: center;
+      font-size: 24px;
+      margin-left: 5px;
+    }
+  }
+}
+
+::ng-deep .mat-menu-panel .mat-menu-content .mat-menu-item {
+  font-family: $font-Monserrat;
+  .menuIcon {
+    color: $green-color;
+    font-size: 20px;
+  }
+  .menuText {
+    font-size: 15px;
+    margin-left: 10px;
+  }
+  .signOutIcon {
+    color: $dark-gray-color;
+    font-size: 20px;
+  }
+}

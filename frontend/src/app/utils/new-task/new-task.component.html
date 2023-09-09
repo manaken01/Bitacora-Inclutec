@@ -1,0 +1,217 @@
+<div class="sr-only" role="alert">
+  Nueva tarea por hacer
+</div>
+<div
+  *ngIf="message"
+  [ngClass]="message != null ? 'modal fade show' : 'modal fade'"
+  id="confirmationModal"
+  tabindex="-1"
+  role="dialog"
+  [style.display]="message != null ? 'block' : 'none'"
+  [attr.aria-describedBy]="modaldescription"
+  focus="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header" aria-hidden="true">
+        <h2 tabindex="1s">Nueva tarea por hacer</h2>
+      </div>
+      <div class="row">
+        <div class="col-7-md">
+          <app-notifications
+            role="alert"
+            *ngIf="isReady"
+            [isShow]="isReady"
+            [typeSuccess]="typeSuccess"
+            [message]="messageModal"
+            (notificationEvent)="handleNotificationEventEmitted($event)"
+          ></app-notifications>
+        </div>
+      </div>
+      <div class="v-content">
+        <form [formGroup]="taskForm" class="form row" appTrapFocus>
+          <div class="c-data modal-body">
+            <div class="col-12">
+              <div class="form-group green-color">
+                <h2 class="labelTitle">
+                  <i class="fas fa-circle labelIcon"></i> Ingresar la fecha de
+                  inicio
+                </h2>
+                <label for="year" class="controlLabel">Año</label>
+                <select
+                  id="year"
+                  class="c-select-round"
+                  name=""
+                  (change)="onChangeYear($event.target.value)"
+                  formControlName="year"
+                  tabindex="2"
+                >
+                  <option
+                    *ngFor="let cyear of years"
+                    [selected]="cyear == currentYear"
+                    >{{ cyear }}
+                  </option>
+                </select>
+                <label for="month" class="controlLabel">Mes</label>
+                <select
+                  id="month"
+                  class="c-select-round"
+                  name=""
+                  ng-init="currentMonth"
+                  (change)="onChangeMonth($event.target.value)"
+                  formControlName="month"
+                  tabindex="3"
+                >
+                  <option
+                    *ngFor="let cmonth of months"
+                    [selected]="cmonth == currentMonth"
+                    >{{ cmonth }}
+                  </option>
+                </select>
+                <label for="day" class="controlLabel">Día</label>
+                <select
+                  id="day"
+                  class="c-select-round"
+                  formControlName="day"
+                  tabindex="4"
+                >
+                  <option
+                    *ngFor="let cday of days"
+                    [selected]="cday == currentDay"
+                    >{{ cday }}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group green-color mt-4">
+                <h2 class="labelTitle">
+                  <i class="fas fa-circle labelIcon"></i> Descripción del
+                  trabajo
+                </h2>
+                <textarea
+                  aria-label="Descripción del trabajo"
+                  tabindex="5"
+                  class="descArea"
+                  rows="4"
+                  cols="30"
+                  placeholder="250 caracteres máximo"
+                  formControlName="description"
+                ></textarea>
+                <div
+                  *ngIf="taskForm.controls.description.hasError('maxlength')"
+                  role="alert"
+                  class="custom-danger-alert"
+                >
+                  La descripción debe tener un máximo de 250 caracteres.
+                </div>
+                <div
+                  *ngIf="
+                    taskForm.controls['description'].invalid &&
+                    (taskForm.controls['description'].dirty ||
+                      taskForm.controls['description'].touched)
+                  "
+                  aria-live="polite"
+                >
+                  <div
+                    *ngIf="taskForm.controls['description'].errors.required"
+                    role="alert"
+                  >
+                    Ingrese una descripción
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <h2 class="labelTitle">
+                    <i class="fas fa-circle labelIcon"></i> Importante
+                  </h2>
+                  <input
+                    tabindex="6"
+                    [checked]="true"
+                    type="radio"
+                    id="importanYes"
+                    name="important"
+                    value="1"
+                    (click)="onChangeImportant(1)"
+                    class="c-checkBox"
+                    formControlName="important"
+                  />
+                  <label for="importanYes">Sí</label>
+                  <input
+                    tabindex="7"
+                    type="radio"
+                    id="importantNo"
+                    name="important"
+                    value="0"
+                    (click)="onChangeImportant(0)"
+                    class="c-checkBox"
+                    formControlName="important"
+                  />
+                  <label for="importantNo">No</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <h2 class="labelTitle">
+                    <i class="fas fa-circle labelIcon"></i> Urgente
+                  </h2>
+                  <input
+                    tabindex="8"
+                    [checked]="true"
+                    type="radio"
+                    id="urgentYes"
+                    name="urgent"
+                    value="1"
+                    (click)="onChangeUrgent(1)"
+                    class="c-checkBox"
+                    formControlName="urgent"
+                  />
+                  <label for="urgentYes">Sí</label>
+                  <input
+                    tabindex="9"
+                    type="radio"
+                    id="urgentNo"
+                    name="urgent"
+                    value="0"
+                    (click)="onChangeUrgent(0)"
+                    class="c-checkBox"
+                    formControlName="urgent"
+                  />
+                  <label for="urgentNo">No</label>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="radioSelected" aria-live="assertive">
+                  <h2>{{ important }} y {{ urgent }}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer row w-100 h-100">
+            <button
+              tabindex="10"
+              role="button"
+              class="btn c-button-round mr-auto"
+              id="registerButton"
+              [disabled]="taskForm.invalid"
+              type="button"
+              (click)="postWorkToDo(taskForm.value)"
+            >
+              Registrar
+            </button>
+            <button
+              tabindex="11"
+              role="button"
+              class="btn c-button-round"
+              id="exitButton"
+              type="button"
+              (click)="message.siFn()"
+            >
+              Salir
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div [ngClass]="message != null ? 'modal-backdrop fade show' : ''"></div>

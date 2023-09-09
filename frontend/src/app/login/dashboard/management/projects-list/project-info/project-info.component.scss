@@ -1,0 +1,36 @@
+$color-dark-green: #153f41;
+$color-light-green: #aae3e5;
+$color-green: #207073;
+$color-white: white;
+$color-light-gray: #d4d5da;
+$color-black: black;
+$color-gray: #707070;
+$font-montserrat: "Montserrat";
+$font-opificio-bold: "Opificio-bold";
+$font-opificio-regular: "Opificio-regular";
+
+.title-modal {
+  font-family: $font-opificio-bold;
+  font-size: 18px;
+}
+.title-phase {
+  font-size: 16px;
+  font-family: $font-montserrat;
+  font-weight: bold;
+  color: $color-green;
+}
+.title-activity {
+  font-size: 14px;
+  font-family: $font-montserrat;
+  font-weight: bold;
+}
+.tasks-text {
+  font-size: 14px;
+  font-family: $font-montserrat;
+  margin-left: 20px;
+}
+.c-custom-btn {
+  background-color: $color-green;
+  color: $color-white;
+  border-radius: 15px;
+}

@@ -1,0 +1,60 @@
+$color-white: #ffffff;
+$color-background: #233d4d;
+$color-error: #ff7e79;
+$color-gray: #eaeaea;
+$color-dark-gray: #4b4b4b;
+$color-light-blue: #12959e;
+$color-purple: #8100c2;
+$color-ultralight-gray: #f5f5f5;
+$color-green-btn: #078b44;
+$color-dark-green: #153f41;
+$color-red: #872735;
+$color-orange: #d8620b;
+$color-dark-blue: #073174;
+$radioBorder: #707070;
+$radioActive: #233d4d;
+$color-light-gray: #f2f2f2;
+$color-black: #000;
+$font-opificio: "Opificio";
+
+.modal-title {
+  font-family: $font-opificio;
+  font-weight: bold;
+  text-align: center;
+  color: $color-dark-green;
+  font-size: 26px;
+}
+.label-control {
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  font-family: $font-opificio;
+  color: $color-dark-green;
+}
+.labelIcon {
+  font-size: 10px;
+  margin-right: 15px;
+}
+
+.c-form-input {
+  width: 80%;
+  height: 20px;
+  font-family: $font-opificio;
+}
+
+.c-custom-btn {
+  background-color: $color-green-btn;
+  color: $color-white;
+  font-family: $font-opificio;
+  margin: 20px;
+  border-radius: 30px;
+  width: 180px;
+}
+
+.c-custom-btn:disabled {
+  background-color: $color-light-gray;
+}
+#exit {
+  background-color: $color-red;
+  color: $color-white;
+}

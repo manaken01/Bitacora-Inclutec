@@ -1,0 +1,68 @@
+<h1 mat-dialog-title class="text-center mb-4">
+  <h1 class="title-modal">Editar Información</h1>
+  <h1 class="title-modal">{{ projectName }}</h1>
+</h1>
+<div mat-dialog-content>
+  <form [formGroup]="editorForm" class="w-75 mx-auto">
+    <h2 class="title-structure">Nombre Proyecto</h2>
+    <mat-form-field class="w-100" floatLabel="never" appearance="fill">
+      <input
+        matInput
+        placeholder="Nombre del proyecto"
+        formControlName="projectName"
+      />
+      <mat-error *ngIf="editorForm.controls.projectName.hasError('required')">
+        El proyecto es <strong>requerido.</strong>
+      </mat-error>
+    </mat-form-field>
+    <h2 class="title-structure mt-2">Fases - Actividades - Tareas</h2>
+    <button class="edit-link mt-3" (click)="redirectToProject()">
+      Editar distribución del proyecto <i class="fas fa-edit edit-icon"></i>
+    </button>
+    <h2 class="title-structure mt-4">Colaboradores</h2>
+    <div formArrayName="collaborators">
+      <div *ngFor="let form_elem of collaborators.controls; let index = index">
+        <mat-checkbox [formControlName]="index">
+          {{ collabList[index].name }} {{ collabList[index].lastName }}
+        </mat-checkbox>
+      </div>
+    </div>
+    <mat-form-field class="w-100" class="mt-2" appearance="fill">
+      <mat-label>- Añadir Colaborador -</mat-label>
+      <mat-select formControlName="newCollaborators" multiple>
+        <mat-option
+          *ngFor="let user of outsideCollaborators"
+          [value]="user.idUsersPk"
+        >
+          {{ user.name }} {{ user.lastName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <h2 class="title-structure mt-4">Estado del Proyecto</h2>
+    <mat-radio-group aria-label="Estado del proyecto" formControlName="status">
+      <mat-radio-button [value]="1">Activo</mat-radio-button>
+      <mat-radio-button [value]="0" class="ml-5">Inactivo</mat-radio-button>
+    </mat-radio-group>
+  </form>
+</div>
+<div mat-dialog-actions class="mt-3 mb-3">
+  <div class="btn-group w-100">
+    <button
+      mat-button
+      id="cancel"
+      class="c-custom-btn mx-auto"
+      (click)="onNoClick('cancel')"
+    >
+      Cancelar
+    </button>
+    <button
+      mat-button
+      id="add"
+      class="c-custom-btn mx-auto"
+      (click)="updateProject(editorForm.value)"
+      [disabled]="editorForm.invalid"
+    >
+      Actualizar
+    </button>
+  </div>
+</div>

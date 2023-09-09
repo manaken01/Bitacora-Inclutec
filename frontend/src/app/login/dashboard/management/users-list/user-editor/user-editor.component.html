@@ -1,0 +1,77 @@
+<h1 mat-dialog-title class="text-center mb-4">
+  <h1 class="title-modal">Editar Información</h1>
+  <h1 class="title-modal">{{ username }}</h1>
+</h1>
+<div mat-dialog-content>
+  <form [formGroup]="editorForm" class="w-75 mx-auto">
+    <h2 class="title-structure">Colaborador</h2>
+    <mat-form-field class="w-100" floatLabel="never" appearance="fill">
+      <input matInput placeholder="Nombre del colaborador" formControlName="username" />
+      <mat-error *ngIf="editorForm.controls.username.hasError('required')">
+        El nombre es <strong>requerido.</strong>
+      </mat-error>
+      <mat-error *ngIf="editorForm.controls.username.hasError('maxlength')">
+        El nombre debe ser inferior a <strong>90</strong> caracteres.
+      </mat-error>
+    </mat-form-field>
+    <h2 class="title-structure mt-2">Correo Electrónico</h2>
+    <mat-form-field class="w-100" floatLabel="never" appearance="fill">
+      <input matInput placeholder="Correo electrónico" formControlName="email" />
+      <mat-error *ngIf="editorForm.controls.email.hasError('required')">
+        Ingrese su <strong>correo electrónico.</strong>
+      </mat-error>
+      <mat-error *ngIf="editorForm.controls.email.hasError('pattern')">
+        El <strong>correo electrónico</strong> no es valido.
+      </mat-error>
+      <mat-error *ngIf="editorForm.controls.email.hasError('maxlength')">
+        El correo electrónico debe ser inferior a 60 caracteres.
+      </mat-error>
+    </mat-form-field>
+    <h2 class="title-structure mt-2">Rol</h2>
+    <mat-form-field class="w-100" floatLabel="never" appearance="fill">
+      <mat-select formControlName="typeUser">
+        <mat-option *ngFor="let type of usersTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="editorForm.controls.typeUser.hasError('required')">
+        El rol es <strong>requerido.</strong>
+      </mat-error>
+    </mat-form-field>
+    <h2 class="title-structure mt-2">Puesto</h2>
+    <mat-form-field class="w-100 mt-2" appearance="fill">
+      <mat-select formControlName="role">
+        <mat-option *ngFor="let role of roleList" [value]="role">
+          {{ role }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="editorForm.controls.role.hasError('required')">
+        El puesto es <strong>requerido.</strong>
+      </mat-error>
+    </mat-form-field>
+    <h2 class="title-structure mt-2">Proyectos Asociados</h2>
+    <mat-form-field class="w-100 mt-2" appearance="fill">
+      <mat-select formControlName="projects" multiple>
+        <mat-option *ngFor="let project of projectList" [value]="project.idProjectsPk">
+          {{ project.projectName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <h2 class="title-structure mt-2">Estado</h2>
+    <mat-radio-group aria-label="Estado del usuario" formControlName="status">
+      <mat-radio-button [value]="1">Activo</mat-radio-button>
+      <mat-radio-button [value]="0" class="ml-5">Inactivo</mat-radio-button>
+    </mat-radio-group>
+  </form>
+</div>
+<div mat-dialog-actions class="mt-1 mb-3">
+  <div class="btn-group w-100">
+    <button mat-button id="cancel" class="c-custom-btn mx-auto" (click)="onNoClick('cancel')">
+      Cancelar
+    </button>
+    <button mat-button id="add" class="c-custom-btn mx-auto" (click)="updateUser(editorForm.value)"
+      [disabled]="editorForm.invalid">
+      Actualizar
+    </button>
+  </div>
+</div>

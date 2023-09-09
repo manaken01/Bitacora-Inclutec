@@ -1,0 +1,211 @@
+<div tabindex="-1" class="sr-only" role="alert">
+  Perfil de usuario.
+</div>
+<div class="c-profile">
+  <div class="header-img"></div>
+  <div class="no-gutters">
+    <div class="row mt-3 mb-5">
+      <div class="col-md-3">
+        <div class="ml-3">
+          <div class="green-cicle mx-auto">
+            <h2 class="nameInitials align-middle">
+              {{ initialName }} {{ initialLastname }}
+            </h2>
+          </div>
+          <div class="mx-auto personalInfo">
+            <h2 class="nameInfo">
+              {{ userData.name }}
+            </h2>
+            <h3 class="lastnameInfo">
+              {{ userData.lastName }}
+            </h3>
+            <hr />
+            <div class="text-left mt-4">
+              <h4 class="info-text mt-2" id="roleUser">
+                <i class="fas fa-user-circle cicle-icon"></i>
+                {{ userData.role }}
+              </h4>
+              <h4 class="info-text mt-4">
+                <div class="mail-circle">
+                  <i class="fas fa-envelope mail-icon"></i>
+                </div>
+                {{ userData.email }}
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <form
+          class="custom-form mx-auto"
+          [formGroup]="profileForm"
+          aria-live="assertive"
+        >
+          <h3 class="form-subtitle mb-4">Información</h3>
+          <mat-form-field class="c-form-input mb-3">
+            <mat-label aria-hidden="true">Nombre</mat-label>
+            <input
+              required
+              matInput
+              placeholder="Nombre y apellidos"
+              class="left"
+              formControlName="name"
+            />
+            <mat-error *ngIf="profileForm.controls.name.hasError('required')">
+              Ingrese su <strong>nombre.</strong>
+            </mat-error>
+            <mat-error *ngIf="profileForm.controls.name.hasError('maxlength')">
+              El nombre debe ser inferior a <strong>90</strong> caracteres.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="c-form-input mb-3">
+            <mat-label aria-hidden="true">Correo electrónico</mat-label>
+            <input
+              required
+              matInput
+              placeholder="Correo electrónico"
+              class="left"
+              formControlName="email"
+            />
+            <mat-error *ngIf="profileForm.controls.email.hasError('required')">
+              Ingrese su <strong>correo electrónico.</strong>
+            </mat-error>
+            <mat-error *ngIf="profileForm.controls.email.hasError('pattern')">
+              El <strong>correo electrónico</strong> no es valido.
+            </mat-error>
+            <mat-error *ngIf="profileForm.controls.email.hasError('maxlength')">
+              El correo electrónico debe ser inferior a 60 caracteres.
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="c-form-input mb-3">
+            <mat-label aria-hidden="true">País</mat-label>
+            <input
+              matInput
+              placeholder="País"
+              class="left"
+              formControlName="country"
+            />
+            <mat-error
+              *ngIf="profileForm.controls.country.hasError('required')"
+            >
+              Ingrese el <strong>país.</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="c-form-input mb-3">
+            <mat-label aria-hidden="true">Código Postal</mat-label>
+            <input
+              matInput
+              placeholder="Código Postal"
+              class="left"
+              formControlName="postalCode"
+            />
+          </mat-form-field>
+          <mat-form-field class="c-form-input mb-3">
+            <mat-label aria-hidden="true">Puesto</mat-label>
+            <mat-select
+              aria-label="Puesto de trabajo"
+              required
+              formControlName="role"
+              class="left"
+            >
+              <mat-option *ngFor="let role of roleList" [value]="role">
+                {{ role }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="profileForm.controls.role.hasError('required')">
+              Seleccione su <strong>puesto.</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field
+            class="c-form-input"
+            *ngIf="profileForm.get('disabilities')"
+          >
+            <mat-label>Discapacidad</mat-label>
+            <mat-select
+              formControlName="disabilities"
+              name="disabilities"
+              class="left"
+              multiple
+              required
+            >
+              <mat-option
+                *ngFor="let disability of disabilitiesArray"
+                [value]="disability.id"
+              >
+                {{ disability.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="profileForm.controls.disabilities.hasError('required')"
+            >
+              Seleccione las <strong>discapacidades.</strong>
+            </mat-error>
+          </mat-form-field>
+          <div class="btn-group w-100 custom-margin-top">
+            <button
+              mat-button
+              class="c-custom-btn"
+              id="cancel"
+              (click)="openPasswordModal()"
+            >
+              Cambiar contraseña
+            </button>
+            <div *ngIf="editable; else notEditable" aria-live="assertive">
+              <p class="sr-only" role="alert">
+                Edición activada
+              </p>
+              <button
+                mat-button
+                class="c-custom-btn"
+                id="add"
+                [disabled]="profileForm.invalid"
+                (click)="editInfo(profileForm.value)"
+                aria-label="Aceptar cambios"
+              >
+                Aceptar
+              </button>
+            </div>
+            <ng-template #notEditable>
+              <button
+                mat-button
+                class="c-custom-btn"
+                id="add"
+                (click)="enabledEdit()"
+                aria-label="Activar edición"
+              >
+                Editar
+              </button></ng-template
+            >
+          </div>
+        </form>
+      </div>
+      <div class="col-md-4">
+        <div class="projects-info">
+          <h3 class="project-subtitle mb-4">Proyectos asociados</h3>
+          <table mat-table [dataSource]="dataSource" class="table">
+            <ng-container matColumnDef="projectName">
+              <th mat-header-cell *matHeaderCellDef>Proyecto</th>
+              <td mat-cell *matCellDef="let element" class="align-middle">
+                {{ element.projectName }}
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <button
+            class="btn-add-inputs"
+            role="button"
+            aria-label="Solicitar permiso para colaborar en un proyecto"
+            (click)="openRequestModal()"
+          >
+            <i class="fas fa-plus-circle plus-icon d-inline align-middle"></i>
+            <p class="d-inline align-middle">
+              Solicitar permiso para colaborar en un proyecto
+            </p>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

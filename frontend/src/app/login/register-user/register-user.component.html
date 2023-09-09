@@ -1,0 +1,421 @@
+<div tabindex="-1" class="sr-only" role="alert">
+  Pagina de registro
+</div>
+<div class="c-register">
+  <div class="row container-img">
+    <div class="back-icon">
+      <i
+        class="fas fa-chevron-circle-left custom-back-icon d-block"
+        tabindex="0"
+        role="button"
+        (click)="backClicked()"
+        aria-label="Atrás"
+        aria-labelledby="atras"
+      ></i>
+      <span aria-hidden="true" class="back-icon-text" id="atras">atrás</span>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row w-100">
+      <div class="col-5 mx-auto">
+        <app-alerts
+          role="alert"
+          *ngIf="isReady"
+          [isShow]="isReady"
+          [typeSuccess]="typeSuccess"
+          [message]="message"
+          (notificationEvent)="handleNotificationEventEmitted($event)"
+        ></app-alerts>
+      </div>
+    </div>
+    <div class="row w-100">
+      <div class="col-md-12">
+        <div class="d-block">
+          <h1 aria-label="Registrarme"><b>Registrarme</b></h1>
+        </div>
+        <div class="d-block">
+          <p>
+            Todos los campos en <b class="required-text">rosado</b> y con
+            <b class="required-text"
+              ><i
+                class="fas fa-asterisk"
+                title="Asterisco"
+                aria-label="Asterisco"
+              ></i
+            ></b>
+            son obligatorios
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-auto">
+      <form [formGroup]="registerForm" class="row w-100">
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label
+              for="name"
+              class="required-text col-sm-3 col-form-label"
+              aria-hidden="true"
+              >Nombre<b>*</b></label
+            >
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="c-input-round"
+                id="name"
+                formControlName="name"
+                placeholder="Ingrese su nombre"
+              />
+              <div
+                *ngIf="registerForm.controls.name.hasError('maxlength')"
+                role="alert"
+                class="custom-danger-alert"
+              >
+                El nombre debe tener un máximo de 90 caracteres.
+              </div>
+              <div
+                *ngIf="
+                  registerForm.controls['name'].invalid &&
+                  (registerForm.controls['name'].dirty ||
+                    registerForm.controls['name'].touched)
+                "
+              >
+                <div
+                  *ngIf="registerForm.controls['name'].errors.required"
+                  role="alert"
+                  class="custom-danger-alert"
+                >
+                  Por favor ingrese su nombre
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row mt-custom">
+            <label
+              for="bornDate"
+              class="col-sm-3 col-form-label w-100 required-text"
+              aria-hidden="true"
+              >Fecha de nacimiento*</label
+            >
+            <div class="col-sm-9 align-middle">
+              <input
+                type="date"
+                class="c-input-round form-control"
+                id="bornDate"
+                formControlName="bornDate"
+                placeholder="Ingrese su fecha de nacimiento"
+                [max]="maxDate"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label
+              for="email"
+              class="required-text col-sm-3 col-form-label"
+              aria-hidden="true"
+              >Correo electrónico<b>*</b></label
+            >
+            <div class="col-sm-9">
+              <input
+                type="email"
+                class="c-input-round"
+                id="email"
+                formControlName="email"
+                placeholder="Ingrese su correo"
+              />
+
+              <div
+                *ngIf="registerForm.controls.email.hasError('maxlength')"
+                aria-live="polite"
+                class="custom-danger-alert"
+                role="alert"
+              >
+                El correo debe tener un máximo de 60 caracteres.
+              </div>
+              <div
+                *ngIf="
+                  registerForm.controls.email.hasError('pattern') &&
+                  !registerForm.controls.email.hasError('required')
+                "
+                aria-live="assertive"
+                class="custom-danger-alert"
+                role="alert"
+              >
+                Por favor ingrese un correo válido.
+              </div>
+              <div
+                *ngIf="
+                  registerForm.controls['email'].invalid &&
+                  (registerForm.controls['email'].dirty ||
+                    registerForm.controls['email'].touched)
+                "
+                aria-live="polite"
+              >
+                <div
+                  *ngIf="registerForm.controls['email'].errors.required"
+                  class="custom-danger-alert"
+                  role="alert"
+                >
+                  Por favor ingrese su correo
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label
+              for="role"
+              class="required-text col-sm-3 col-form-label"
+              aria-hidden="true"
+              >Rol <b>*</b></label
+            >
+            <div class="col-sm-9">
+              <select
+                formControlName="role"
+                title="Seleccionar rol en la institución"
+                class="form-control c-input-round"
+              >
+                <option value="" disabled="true" [selected]="true"
+                  >Seleccione su rol</option
+                >
+                <option *ngFor="let role of roleList" value="{{ role }}">
+                  {{ role }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  registerForm.controls['role'].invalid &&
+                  (registerForm.controls['role'].dirty ||
+                    registerForm.controls['role'].touched)
+                "
+                aria-live="polite"
+                class="custom-danger-alert"
+              >
+                <div
+                  *ngIf="registerForm.controls['role'].errors.required"
+                  role="alert"
+                >
+                  Por favor seleccione su rol
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group mb-0">
+            <mat-checkbox
+              class="font-opificio mt-3"
+              (click)="activeDisabilities()"
+              >¿Cuenta con alguna discapacidad?</mat-checkbox
+            >
+          </div>
+          <div class="form-group">
+            <label
+              *ngIf="registerForm.get('disabilities')"
+              for="disabilities"
+              class="required-text col-form-label"
+              aria-hidden="true"
+              >Discapacidad <b>*</b></label
+            >
+            <mat-form-field
+              class="ml-5"
+              *ngIf="registerForm.get('disabilities')"
+            >
+              <mat-label>Discapacidad</mat-label>
+              <mat-select
+                formControlName="disabilities"
+                name="disabilities"
+                multiple
+                required
+              >
+                <mat-option
+                  *ngFor="let disability of disabilitiesArray"
+                  [value]="disability.id"
+                >
+                  {{ disability.name }}
+                </mat-option>
+              </mat-select>
+              <mat-error
+                *ngIf="registerForm.controls.disabilities.hasError('required')"
+              >
+                Seleccione las <strong>discapacidades.</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group row">
+            <label
+              for="password"
+              class="required-text col-sm-3 col-form-label"
+              aria-hidden="true"
+              >Contraseña<b>*</b></label
+            >
+            <div class="col-sm-9">
+              <input
+                type="password"
+                class="c-input-round"
+                id="password"
+                formControlName="password"
+                placeholder="Ingrese su contraseña"
+              />
+              <div aria-live="polite">
+                <div
+                  *ngIf="
+                    registerForm.controls.password.hasError('maxlength') &&
+                    !registerForm.controls.password.hasError('required')
+                  "
+                  class="custom-danger-alert"
+                  role="alert"
+                >
+                  La contraseña debe contener un máximo de 20 caracteres.
+                </div>
+                <div
+                  *ngIf="
+                    registerForm.controls['password'].invalid &&
+                    (registerForm.controls['password'].dirty ||
+                      registerForm.controls['password'].touched)
+                  "
+                  aria-live="polite"
+                  class="custom-danger-alert"
+                >
+                  <div
+                    *ngIf="registerForm.controls['password'].errors.required"
+                  >
+                    Por favor ingrese su contraseña
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row mt-custom">
+            <label
+              for="repeatPassword"
+              class="required-text col-sm-3 col-form-label"
+              aria-hidden="true"
+              >Repetir contraseña<b>*</b></label
+            >
+            <div class="col-sm-9">
+              <input
+                type="password"
+                class="c-input-round"
+                id="repeatPassword"
+                formControlName="repeatPassword"
+                aria-label="Repetir contraseña"
+                placeholder="Ingrese su contraseña"
+              />
+              <div aria-live="polite">
+                <div
+                  *ngIf="
+                    registerForm.controls.repeatPassword.hasError(
+                      'notEquivalent'
+                    ) &&
+                    !registerForm.controls.repeatPassword.hasError('required')
+                  "
+                  class="custom-danger-alert"
+                  role="alert"
+                >
+                  Las contraseñas no coinciden.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label
+              for="country"
+              class="col-sm-3 col-form-label"
+              aria-hidden="true"
+              >País</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="c-input-round"
+                id="country"
+                formControlName="country"
+                placeholder="Ingrese su país"
+              />
+              <div aria-live="polite">
+                <div
+                  *ngIf="
+                    registerForm.controls.country.hasError('maxlength') &&
+                    !registerForm.controls.country.hasError('required')
+                  "
+                  class="custom-danger-alert"
+                  role="alert"
+                >
+                  El país debe contener un máximo de 40 caracteres.
+                </div>
+                <div
+                  *ngIf="
+                    registerForm.controls['country'].invalid &&
+                    (registerForm.controls['country'].dirty ||
+                      registerForm.controls['country'].touched)
+                  "
+                  aria-live="polite"
+                  class="custom-danger-alert"
+                >
+                  <div *ngIf="registerForm.controls['country'].errors.required">
+                    Por favor ingrese su país.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row mt-custom">
+            <label
+              for="postalCode"
+              class="col-sm-3 col-form-label"
+              aria-hidden="true"
+              >Código postal</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="c-input-round"
+                id="postalCode"
+                formControlName="postalCode"
+                placeholder="Ingrese su código postal"
+              />
+              <div aria-live="polite">
+                <div
+                  *ngIf="
+                    registerForm.controls.postalCode.hasError('maxlength') &&
+                    !registerForm.controls.postalCode.hasError('required')
+                  "
+                  class="custom-danger-alert"
+                  role="alert"
+                >
+                  El código postal debe contener un máximo de 40 caracteres.
+                </div>
+                <div
+                  *ngIf="
+                    registerForm.controls['postalCode'].invalid &&
+                    (registerForm.controls['postalCode'].dirty ||
+                      registerForm.controls['postalCode'].touched)
+                  "
+                  aria-live="polite"
+                  class="custom-danger-alert"
+                >
+                  <div
+                    *ngIf="registerForm.controls['postalCode'].errors.required"
+                  >
+                    Por favor ingrese su país.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row w-100 mb-5">
+          <div class="col-2 mx-auto">
+            <button
+              class="btnRegister"
+              [disabled]="registerForm.invalid"
+              (click)="registerUser(registerForm.value)"
+            >
+              Registrarse
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

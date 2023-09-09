@@ -1,0 +1,121 @@
+<div tabindex="-1" class="sr-only" role="alert">
+  Vista tabla activada
+</div>
+<div class="mt-5 mb-5">
+  <div class="row search-filter mx-auto">
+    <div class="col-md-4">
+      <div class="row">
+        <h2 class="result-hours">Tiempo total:</h2>
+        <h3 class="result-hours ml-1">{{ totalHours }} horas</h3>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <h2 class="result-hours">Tiempo por página:</h2>
+        <h3 class="result-hours ml-1">{{ hoursPerPage }} horas</h3>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="w-75">
+        <mat-label class="lable-search" aria-hidden="true">Buscar</mat-label>
+        <input
+          aria-label="Buscar en la tabla"
+          matInput
+          (keyup)="applyFilter($event)"
+          class="input-material"
+          placeholder="Ejemplo: Euler"
+        />
+      </mat-form-field>
+      <button class="btn-custom" role="button" (click)="workLogList()">
+        Ver todo
+      </button>
+    </div>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="table m-0 mx-auto">
+    <ng-container matColumnDef="projectName">
+      <th mat-header-cell *matHeaderCellDef>Proyecto</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.projectName }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phaseName">
+      <th mat-header-cell *matHeaderCellDef>Fase</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.phaseName }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="activityName">
+      <th mat-header-cell *matHeaderCellDef>Actividad</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.activityName }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="taskName">
+      <th mat-header-cell *matHeaderCellDef>Tarea</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.taskName }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="startDate">
+      <th mat-header-cell *matHeaderCellDef>Fecha</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.startDate | date: "d/M/yyyy" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="modality">
+      <th mat-header-cell *matHeaderCellDef>Modalidad</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        <div *ngIf="element.modality == 1; else office">Teletrabajo</div>
+        <ng-template #office>Oficina</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        <div *ngIf="element.status == 1; else status">Pendiente</div>
+        <ng-template #status>Terminado</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="collaborator">
+      <th mat-header-cell *matHeaderCellDef>Colaboradores</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.collaborator }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Descripción</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.description }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="spentTime">
+      <th mat-header-cell *matHeaderCellDef>Tiempo</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.spentTime }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <div class="row pagination-buttons mx-auto">
+    <mat-paginator
+      class="mx-auto"
+      [pageSizeOptions]="[10, 20, 30, 40, 50]"
+      showFirstLastButtons
+      (page)="getNext($event)"
+    ></mat-paginator>
+    <div *ngIf="pageChanged" class="sr-only" aria-live="assertive">
+      Pagina de la lista cambiada
+    </div>
+  </div>
+</div>

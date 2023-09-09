@@ -1,0 +1,41 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "mysqlBitacorasDS": {
+    "host": "localhost",
+    "port": 3306,
+    "url": "",
+    "database": "DS_Inclutec_Bitacoras",
+    "password": "inclutecdev2020",
+    "name": "mysqlBitacorasDS",
+    "user": "root",
+    "connector": "mysql"
+  },
+  "emailDS": {
+    "name": "emailDS",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "host": "smtp.gmail.com",
+        "secure": true,
+        "port": 465,
+        "tls": {
+          "rejectUnauthorized": false
+        },
+        "auth": {
+          "user": "cosmictopo@gmail.com",
+          "pass": "jose1995"
+        }
+      }
+    ]
+  },
+  "storage": {
+    "name": "storage",
+    "connector": "loopback-component-storage",
+    "provider": "filesystem",
+    "root": "server/storage"
+  }
+}

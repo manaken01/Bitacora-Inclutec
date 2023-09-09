@@ -1,0 +1,50 @@
+<div class="c-alerts">
+  <div id="notification" class="row notification shadow over notificationBody">
+    <div *ngIf="typeSuccess" class="col-sm-1 mx-auto">
+      <div class="mx-auto">
+        <i class="fas fa-check-circle notificationIconSucces fa-2x"></i>
+      </div>
+    </div>
+    <div *ngIf="!typeSuccess" class="col-2 notificationIconError mx-auto">
+      <div class="mx-auto">
+        <i class="fas fa-times-circle fa-2x"></i>
+      </div>
+    </div>
+    <div id="notificationMessage" class="col-10 mx-auto">
+      <span
+        tabindex="-1"
+        role="alert"
+        *ngIf="isShow"
+        (close)="successMessage = null"
+        >{{ message }}</span
+      >
+    </div>
+  </div>
+
+  <div
+    *ngIf="typeSuccess"
+    id="notification"
+    class="row notification shadow over notificationBodySucces"
+  >
+    <div *ngIf="typeSuccess" class="col-2 mx-auto notificationBody">
+      <div class="text-center">
+        <i class="fas fa-check mt-2 fa-2x notificationIconSucces"></i>
+      </div>
+    </div>
+    <div *ngIf="!typeSuccess" class="col-2 notificationIconError mx-auto">
+      <div class="mx-auto">
+        <i class="fas fa-times-circle fa-2x"></i>
+      </div>
+    </div>
+    <div id="notificationMessage" class="col-10 mx-auto">
+      <span
+        class="text-message"
+        tabindex="-1"
+        role="alert"
+        *ngIf="isShow"
+        (close)="successMessage = null"
+        >{{ message }}</span
+      >
+    </div>
+  </div>
+</div>

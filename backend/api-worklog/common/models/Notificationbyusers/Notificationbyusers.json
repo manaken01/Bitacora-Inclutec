@@ -1,0 +1,56 @@
+{
+  "name": "NotificationByUsers",
+  "options": {
+    "idInjection": false,
+    "mysql": {
+      "schema": "DS_Inclutec_Bitacoras_v3",
+      "table": "NotificationByUsers"
+    },
+    "relations": {
+      "notificationFkrel": {
+        "model": "Notifications",
+        "type": "belongsTo",
+        "foreignKey": "idNotificationFk"
+      },
+      "userFkrel": {
+        "model": "Users",
+        "type": "belongsTo",
+        "foreignKey": "idUsersFk"
+      }
+    }
+  },
+  "properties": {
+    "idNotificationFk": {
+      "type": "Number",
+      "required": true,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "id": 1,
+      "mysql": {
+        "columnName": "idNotification_fk",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "N"
+      }
+    },
+    "idUsersFk": {
+      "type": "Number",
+      "required": true,
+      "length": null,
+      "precision": 10,
+      "scale": 0,
+      "id": 2,
+      "mysql": {
+        "columnName": "idUsers_fk",
+        "dataType": "int",
+        "dataLength": null,
+        "dataPrecision": 10,
+        "dataScale": 0,
+        "nullable": "N"
+      }
+    }
+  }
+}

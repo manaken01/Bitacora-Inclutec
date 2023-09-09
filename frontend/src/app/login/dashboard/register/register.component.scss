@@ -1,0 +1,43 @@
+$color-dark-green: #012021;
+$color-white: white;
+$regular-Opificio: "Opificio-regular";
+$bold-Opificio: "Opificio-bold";
+
+.c-register {
+  .no-gutters {
+    background: url(src/assets/images/media/Background.png);
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center;
+    min-height: 469px;
+    font-family: $regular-Opificio;
+  }
+  .btn-register {
+    margin-top: 40px;
+    font-family: $bold-Opificio;
+    width: 80%;
+    height: 50px;
+    background-color: $color-dark-green;
+    border: none;
+    border-radius: 50px;
+    color: $color-white;
+    font-size: 20px;
+  }
+  img {
+    padding-top: 65vh;
+    width: 100%;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  img#registerBtn {
+    padding-top: 0px;
+    width: 20px;
+    height: auto;
+    margin-right: 10px;
+    margin-left: auto;
+  }
+}

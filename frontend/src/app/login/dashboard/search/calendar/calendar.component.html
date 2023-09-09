@@ -1,0 +1,127 @@
+<div tabindex="-1" class="sr-only" role="alert">
+  Vista calendario activada
+</div>
+<div class="row mt-5">
+  <div class="col-md-3">
+    <div class="projectsColumn">
+      <h2 class="projectsTitle mb-3">Proyectos</h2>
+      <button
+        class="projectItem d-block"
+        id="name"
+        aria-label="Ver todos los proyectos"
+        (click)="getAppoiments()"
+      >
+        <i tabindex="2" class="fas fa-circle circle-icon"></i>
+        Ver todos
+      </button>
+      <button
+        class="projectItem d-block"
+        id="name"
+        [attr.aria-label]="'Filtar por proyecto ' + project.projectName"
+        *ngFor="let project of projectList"
+        (click)="filterProject(project.idProjectsPk)"
+      >
+        <i
+          tabindex="2"
+          class="fas fa-circle circle-icon"
+          [ngStyle]="{ color: project.primaryColor }"
+          (click)="filterProject(project.idProjectsPk)"
+        ></i>
+        {{ project.projectName }}
+      </button>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <div class="row text-center">
+      <div class="col-md-3">
+        <div class="btn-group">
+          <button
+            aria-label="Ir a el dia de hoy"
+            class="c-button-round"
+            mwlCalendarToday
+            [(viewDate)]="viewDate"
+            (click)="setView(CalendarView.Month)"
+          >
+            Hoy
+          </button>
+          <button
+            class="btn icon-arrow"
+            mwlCalendarPreviousView
+            [view]="view"
+            [(viewDate)]="viewDate"
+            (click)="delayMonthView()"
+            aria-label="Mes anterior"
+          >
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <div class="c-button-round" id="viewDateLabel">
+            <h2 class="viewActualDate" aria-hidden="true">
+              {{
+                viewDate | calendarDate: view + "ViewTitle":locale:weekStartsOn
+              }}
+            </h2>
+            <div aria-live="assertive" class="sr-only">
+              {{ monthToShow }}
+            </div>
+          </div>
+          <button
+            class="btn icon-arrow"
+            mwlCalendarNextView
+            [view]="view"
+            [(viewDate)]="viewDate"
+            (click)="advanceMonthView()"
+            aria-label="Mes siguiente"
+          >
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-3 offset-md-3">
+        <div class="row">
+          <h2 class="result-hours">Tiempo total:</h2>
+          <h3 class="result-hours ml-1">{{ totalHours }} horas</h3>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="row">
+          <h2 class="result-hours">Tiempo por mes:</h2>
+          <h3 class="result-hours ml-1">{{ hoursPerMonth }} horas</h3>
+        </div>
+      </div>
+    </div>
+    <div [ngSwitch]="view" class="pb-4">
+      <mwl-calendar-month-view
+        *ngSwitchCase="'month'"
+        class="weekDays"
+        [viewDate]="viewDate"
+        [events]="events"
+        [locale]="locale"
+        [refresh]="refreshCalendar"
+        [weekStartsOn]="weekStartsOn"
+        [weekendDays]="weekendDays"
+        [activeDayIsOpen]="activeDayIsOpen"
+        (dayClicked)="changeWeek($event.day.date)"
+      >
+      </mwl-calendar-month-view>
+      <mwl-calendar-week-view
+        *ngSwitchCase="'week'"
+        [viewDate]="viewDate"
+        [events]="events"
+        [locale]="locale"
+        [refresh]="refreshCalendar"
+        [weekStartsOn]="weekStartsOn"
+        [weekendDays]="weekendDays"
+        (dayHeaderClicked)="changeDay($event.day.date)"
+      >
+      </mwl-calendar-week-view>
+      <mwl-calendar-day-view
+        *ngSwitchCase="'day'"
+        [viewDate]="viewDate"
+        [events]="events"
+        [locale]="locale"
+        [refresh]="refreshCalendar"
+      >
+      </mwl-calendar-day-view>
+    </div>
+  </div>
+</div>

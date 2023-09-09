@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <app-notifications
+      role="alert"
+      *ngIf="isReady"
+      [isShow]="isReady"
+      [typeSuccess]="typeSuccess"
+      [message]="messageModal"
+      (notificationEvent)="handleNotificationEventEmitted($event)"
+    ></app-notifications>
+  </div>
+</div>
+<h1 mat-dialog-title class="title">Permiso para colaborar</h1>
+<div mat-dialog-content>
+  <form class="custom-form mx-auto" [formGroup]="requestForm">
+    <p class="sub-title">Seleccione el proyecto en el que desea colaborar</p>
+    <mat-form-field appearance="outline" class="c-form-input">
+      <mat-label>- Seleccionar Proyecto -</mat-label>
+      <mat-select formControlName="project" required>
+        <mat-option
+          *ngFor="let project of projectList"
+          [value]="project.projectName"
+          >{{ project.projectName }}</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <div class="btn-group mx-auto mb-4">
+    <button
+      mat-button
+      (click)="onNoClick('cancel')"
+      class="c-custom-btn"
+      id="cancel"
+    >
+      Cancelar
+    </button>
+    <button
+      mat-button
+      class="c-custom-btn"
+      id="add"
+      [disabled]="requestForm.invalid"
+      (click)="requestProject(requestForm.value)"
+    >
+      Solicitar
+    </button>
+  </div>
+</div>

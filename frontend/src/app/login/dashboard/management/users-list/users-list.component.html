@@ -1,0 +1,88 @@
+<div tabindex="-1" class="sr-only" role="alert">
+  Vista tabla usuarios
+</div>
+<div class="mt-5 mb-5">
+  <div class="row search-filter mx-auto">
+    <div class="col-md-2 offset-md-9">
+      <mat-form-field>
+        <mat-label class="lable-search" aria-hidden="true">Buscar</mat-label>
+        <input
+          aria-label="Buscar en la tabla"
+          matInput
+          (keyup)="applyFilter($event)"
+          class="input-material"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="table m-0 mx-auto">
+    <ng-container matColumnDef="username">
+      <th mat-header-cell *matHeaderCellDef>Colaboradores</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.name }} {{ element.lastName }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Correo electrónico</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.email }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="typeUser">
+      <th mat-header-cell *matHeaderCellDef>Rol</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.typeUser }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>Puesto</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.role }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        <div *ngIf="element.isActive == 1; else inactive">Activo</div>
+        <ng-template #inactive>Inactivo</ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>Fecha Creación</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.createdAt | date: "yyyy-MM-dd" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="edition">
+      <th mat-header-cell *matHeaderCellDef>
+        <i class="fas fa-cog" aria-label="Edición"></i>
+      </th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        <button
+          role="button"
+          class="btn-edit"
+          aria-label="Editar información del usuario"
+          (click)="openEditionModal(element)"
+        >
+          <i class="fas fa-edit edit-icon"></i>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <div class="row pagination-buttons mx-auto">
+    <mat-paginator
+      class="mx-auto"
+      [pageSizeOptions]="[10, 20, 30, 40]"
+      showFirstLastButtons
+    ></mat-paginator>
+  </div>
+</div>
