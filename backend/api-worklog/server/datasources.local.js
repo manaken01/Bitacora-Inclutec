@@ -1,11 +1,11 @@
 module.exports = {
   mysqlBitacorasDS: {
-    host: "18.218.192.250",
-    port: 5206,
+    host: "localhost",
+    port: 3306,
     url: "",
-    database: process.env.WORKLOG_DB_NAME,
-    password: process.env.EAW_DB_PASS,
-    user: process.env.EAW_DB_OWNER,
+    database: "ds_inclutec_bitacoras",
+    password: "12345",
+    user: "inclutec",
     name: "mysqlBitacorasDS",
     connector: "mysql",
     charset: "utf8",
