@@ -5,6 +5,9 @@ import { Error404Component } from './error404/error404.component';
 import { RegisterUserComponent } from './register-user/register-user.component';
 import { AuthGuard } from '../auth.guard';
 import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ChangePasswordComponent } from './dashboard/profile/change-password/change-password.component';
 
 const routes: Routes = [{
   path: '',
@@ -29,7 +32,7 @@ const routes: Routes = [{
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [RouterModule.forChild(routes),ReactiveFormsModule,CommonModule],
   exports: [RouterModule],
   declarations: [ForgottenPasswordComponent]
 })
