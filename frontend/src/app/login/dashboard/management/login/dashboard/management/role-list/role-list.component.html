@@ -1,1 +1,35 @@
-<p>role-list works!</p>
+<div tabindex="-1" class="sr-only" role="alert">
+    Vista tabla roles
+</div>
+<div class="mt-5 mb-5">
+    <table mat-table [dataSource]="dataSource" class="table m-0 mx-auto">
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef>Roles</th>
+          <td mat-cell *matCellDef="let element" class="align-middle">
+            {{ element.role }} 
+          </td>
+        </ng-container>
+
+        <!-- Define aquí tus otras columnas si es necesario -->
+
+        <!-- Encabezado de fila -->
+        <ng-container matColumnDef="edition">
+            <th mat-header-cell *matHeaderCellDef>
+              <i class="fas fa-cog" aria-label="Edición"></i>
+            </th>
+            <td mat-cell *matCellDef="let element" class="align-middle">
+              <button
+                role="button"
+                class="btn-edit"
+                aria-label="Editar información del usuario"
+              >
+                <i class="fas fa-edit edit-icon"></i>
+              </button>
+            </td>
+          </ng-container>
+          
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+</div>
