@@ -16,6 +16,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { RegisterModalComponent } from "./register-modal/register-modal.component";
 import { endOfWeek, addDays, addMinutes } from "date-fns";
 import { finalize, takeUntil } from "rxjs/operators";
+import { InfoTaskComponent } from "./info-task/info-task.component";
 
 @Component({
   selector: "app-reg-form",
@@ -312,6 +313,12 @@ export class RegFormComponent implements OnInit, OnDestroy {
             this.copyEvent(event);
           },
         },
+        {
+          label: '<i class="fas fa-info-circle text-white ml-2"></i>',
+          onClick: ({ event }: { event: CalendarEvent }): void => {
+            this.openDialogTask(event);
+          },
+        },
       ],
     };
     this.events = [...this.events, dragToSelectEvent];
@@ -480,6 +487,33 @@ export class RegFormComponent implements OnInit, OnDestroy {
         id: event.id,
       },
     });
+
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === "success") {
+        this.events = this.events.filter((iEvent) => iEvent !== event);
+        message = "Se registro correctamente la tarea!";
+        this.showSuccess(message);
+      } else if (result === "error") {
+        message = "Error al registrar la tarea";
+        this.showError(message);
+      }
+    });
+  }
+
+  openDialogTask(event: CalendarEvent): void {
+    let message = "";
+    const dialogRef = this.dialog.open(InfoTaskComponent, {
+      height: "700px",
+      width: "650px",
+      data: {
+        start: event.start,
+        end: event.end,
+        title: event.title,
+        id: event.id,
+      },
+    });
+
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === "success") {
