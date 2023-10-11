@@ -1,0 +1,31 @@
+
+    <div class="container">
+      <div class="row title mx-auto">
+        <div class="col-1 circle offset-1"></div>
+        <div class="col-8 title-text">
+          <h2>Tareas pendientes</h2>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="!loading">
+        <div class="card">
+          <div class="card-body" *ngFor="let item of list">
+            <div class="row">
+              <div class="col-2">
+                <button (click)="registerModal(item)">
+                  <img
+                    src="./assets/images/icons/pend.png"
+                    alt="Botón registrar pendiente"
+                  />
+                </button>
+              </div>
+              <div class="col-10 pending-content">
+                <div>Descripción: {{ item.description }}</div>
+                <div>Fecha: {{ item.startDate | date: "yyyy-MM-dd" }}</div>
+              </div>
+            </div>
+            <hr id="cardPending" />
+          </div>
+        </div>
+      </div>
+    </div>
