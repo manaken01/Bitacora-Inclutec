@@ -22,7 +22,6 @@ import { ConfirmEditsComponent } from "./projects/confirm-edits/confirm-edits.co
 import { getSpanishPaginator } from "./spanish-paginator";
 import { UserEditorComponent } from "./users-list/user-editor/user-editor.component";
 import { ConfirmChangeComponent } from "./users-list/confirm-change/confirm-change.component";
-import { RoleListComponent } from "./login/dashboard/management/role-list/role-list.component";
 
 @NgModule({
   declarations: [
@@ -36,7 +35,6 @@ import { RoleListComponent } from "./login/dashboard/management/role-list/role-l
     ConfirmEditsComponent,
     UserEditorComponent,
     ConfirmChangeComponent,
-    RoleListComponent,
   ],
   imports: [
     SearchRoutingModule,
