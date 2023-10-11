@@ -12,11 +12,12 @@ import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
 import localeEs from "@angular/common/locales/es";
 import { RegisterModalComponent } from "./register-modal/register-modal.component";
 import { MaterialModule } from "../../../../material.module";
+import { InfoTaskComponent } from './info-task/info-task.component';
 
 registerLocaleData(localeEs);
 
 @NgModule({
-  declarations: [RegFormComponent, RegisterModalComponent],
+  declarations: [RegFormComponent, RegisterModalComponent, InfoTaskComponent],
   imports: [
     CommonModule,
     NgbModule,
@@ -33,6 +34,6 @@ registerLocaleData(localeEs);
     }),
   ],
   providers: [],
-  entryComponents: [RegisterModalComponent],
+  entryComponents: [RegisterModalComponent,InfoTaskComponent],
 })
 export class RegFormModule { }
