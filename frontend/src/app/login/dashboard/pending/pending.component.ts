@@ -33,13 +33,6 @@ export class PendingComponent implements OnInit {
     this.loading = true;
     let projectsList: PendingModel[];
     let xList: PendingModel[];
-    this.worklogService.getProjectsByUsers(idUser).subscribe(
-      (data) => {
-        // La variable 'data' contiene los datos que devuelve el servicio
-        projectsList = data; // Guarda los datos en la lista
-
-      });
-    
     
     this.worklogService.getWorklogPendings(idUser).subscribe((x) => {
       this.worklogService.getProjectsByUsers(idUser).subscribe(
