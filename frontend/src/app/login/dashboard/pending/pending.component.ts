@@ -32,20 +32,33 @@ export class PendingComponent implements OnInit {
     const idUser = this.encryptService.desencrypt("idUser");
     this.loading = true;
     let projectsList: PendingModel[];
+    let xList: PendingModel[];
     this.worklogService.getProjectsByUsers(idUser).subscribe(
       (data) => {
         // La variable 'data' contiene los datos que devuelve el servicio
         projectsList = data; // Guarda los datos en la lista
-      });
 
+      });
+    
+    
     this.worklogService.getWorklogPendings(idUser).subscribe((x) => {
-      for (let i = 0; i < x.length; i++) {
-        if (x[i].Projects_fk == projectsList[i].projectName) {
-          x[i].projectName = projectsList[i].projectName
-        }
-      }
-      this.list = x;
-      this.loading = false;
+      this.worklogService.getProjectsByUsers(idUser).subscribe(
+        (data) => {
+          // La variable 'data' contiene los datos que devuelve el servicio
+          projectsList = data; // Guarda los datos en la lista
+          xList = x
+          for (let j = 0; j < xList.length; j++) {
+            for (let i = 0; i < projectsList.length; i++) {
+              console.log(xList[j].idProjectsFk)
+              if (xList[j].idProjectsFk == projectsList[i].idProjectsPk) {
+                xList[j].projectName = projectsList[i].projectName
+              }
+            }
+          }
+          this.list = x;
+          this.loading = false;
+      });
+      
     });
   }
 

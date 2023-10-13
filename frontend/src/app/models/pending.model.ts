@@ -2,6 +2,7 @@ export class PendingModel {
   public WorklogDependencies_pk: number;
   public worklogdependecies_users_fk: number;
   public Projects_fk: number;
+  public idProjectsFk: number;
   public idProjectsPk: number;
   public Phase_fk: number;
   public Activity_fk: number;
