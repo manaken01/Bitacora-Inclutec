@@ -72,6 +72,20 @@ export class WorklogService {
   }
 
   /**
+   * Gets all user's pending work filter by Date
+   * @param idUser
+   */
+  getWorklogPendingsDate(idUser: any, startDate: Date): Observable<PendingModel[]> {
+    const url = `${this.config.API_ENDPOINT_BITACORA}WorklogDependencies/allWorklogsPendingDate`;
+    const params = new HttpParams().set("idUser", idUser.toString()).set("startDate",startDate.toISOString());
+    const options = { Headers: headers, params: params };
+    return this.http.get<PendingModel[]>(url, options).pipe(
+      tap((indicator: PendingModel[]) => {}),
+      catchError(this.handleError<PendingModel[]>())
+    );
+  }
+
+  /**
    * Gets all projects
    * @param idUser
    */

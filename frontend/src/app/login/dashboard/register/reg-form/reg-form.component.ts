@@ -390,6 +390,12 @@ export class RegFormComponent implements OnInit, OnDestroy {
             this.copyEvent(event);
           },
         },
+        {
+          label: '<i class="fas fa-info-circle text-white ml-2"></i>',
+          onClick: ({ event }: { event: CalendarEvent }): void => {
+            this.openDialogTask(event);
+          },
+        },
       ],
     });
     this.refresh.next();

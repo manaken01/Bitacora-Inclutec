@@ -1,4 +1,4 @@
-
+<div class="c-task">
     <div class="container">
       <div class="row title mx-auto">
         <div class="col-1 circle offset-1"></div>
@@ -28,4 +28,51 @@
           </div>
         </div>
       </div>
+      <form class="form row" [formGroup]="registerForm">
+        <div class="col-md-5 offset-md-1">
+      <div *ngIf="accessibility" class="form-group">
+        <mat-form-field appearance="outline" class="c-form-input">
+          <mat-label>Fecha de inicio</mat-label>
+          <input
+            matInput
+            [matDatepicker]="datepicker"
+            formControlName="startDate"
+            (dateInput)="changeDate($event)"
+            (dateChange)="changeDate($event)"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="datepicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #datepicker></mat-datepicker>
+        </mat-form-field>
+        <div class="d-inline">
+          <mat-form-field class="c-select">
+            <mat-label>Hora</mat-label>
+            <mat-select required formControlName="startHours">
+              <mat-option *ngFor="let hour of hours" [value]="hour">
+                {{ hour }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="c-select">
+            <mat-label>Minutos</mat-label>
+            <mat-select required formControlName="startMinutes">
+              <mat-option *ngFor="let minutes of minutes" [value]="minutes">
+                {{ minutes }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="c-select">
+            <mat-label>Formato</mat-label>
+            <mat-select required formControlName="startFormat">
+              <mat-option value="AM">am</mat-option>
+              <mat-option value="PM">pm</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
     </div>
+  </form>
+    </div>
+</div>

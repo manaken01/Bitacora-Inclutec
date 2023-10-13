@@ -35,6 +35,37 @@ function ManageDependencies() {
   /**
    *  @param {*} idUser
    *  @param {*} cb
+   *  Gets all of users pending worklogs
+   */
+  this.getWorklogPerUserPendingDate = async function (idUser,date, cb) {
+    const worklogDepencies = app.models.WorklogDependencies;
+    const worklogInfo = app.models.WorklogByUser;
+    let result = [];
+    let info;
+    let dependeciesFilter;
+    let idUserFilter = {
+      where: {
+        idUsersFk: idUser,
+        startDate: date},
+    };
+    const dependecies = await worklogInfo.find(idUserFilter);
+    for (let worklog of dependecies) {
+      dependeciesFilter = {
+        where: {idWorklogDependenciesPk: worklog.idWorklogFk},
+      };
+      info = await worklogDepencies.findOne(dependeciesFilter);
+      if (info != null) {
+        if (info.status == 1) {
+          result.push(info);
+        }
+      }
+    }
+    return await result;
+  };
+
+  /**
+   *  @param {*} idUser
+   *  @param {*} cb
    *  Gets all of an users most commons projects and phases used
    */
   this.getMostCommonWorklog = function (userId, cb) {
