@@ -16,7 +16,6 @@ export class PendingComponent implements OnInit {
   public list: PendingModel[];
   public loading: boolean;
   public loadingCount: number;
-
   /**
    * Pending component constructor
    * @param worklogService
@@ -32,10 +31,18 @@ export class PendingComponent implements OnInit {
   ngOnInit() {
     const idUser = this.encryptService.desencrypt("idUser");
     this.loading = true;
+    let projectsList: PendingModel[];
+    this.worklogService.getProjectsByUsers(idUser).subscribe(
+      (data) => {
+        // La variable 'data' contiene los datos que devuelve el servicio
+        projectsList = data; // Guarda los datos en la lista
+      });
+
     this.worklogService.getWorklogPendings(idUser).subscribe((x) => {
       for (let i = 0; i < x.length; i++) {
-        const item = x[i];
-        console.log(`Elemento ${i + 1}:`, item);
+        if (x[i].Projects_fk == projectsList[i].projectName) {
+          x[i].projectName = projectsList[i].projectName
+        }
       }
       this.list = x;
       this.loading = false;

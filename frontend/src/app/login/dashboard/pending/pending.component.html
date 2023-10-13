@@ -3,7 +3,7 @@
     <div class="row title mx-auto">
       <div class="col-1 circle offset-1"></div>
       <div class="col-8 title-text">
-        <h2>Tareas pendientes</h2>
+        <h2>Registros pendientes</h2>
       </div>
     </div>
     <div class="row" *ngIf="!loading">
@@ -19,7 +19,6 @@
               </button>
             </div>
             <div class="col-10 pending-content">
-              <div>: {{ item.projectName }}</div>
               <div>Descripción: {{ item.description }}</div>
               <div>Fecha: {{ item.startDate | date: "yyyy-MM-dd" }}</div>
             </div>

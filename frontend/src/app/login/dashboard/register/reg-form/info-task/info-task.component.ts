@@ -64,10 +64,6 @@ export class InfoTaskComponent implements OnInit {
 
    
     this.worklogService.getWorklogPendings(idUser).subscribe((x) => {
-      for (let i = 0; i < x.length; i++) {
-        const item = x[i];
-        console.log(`Elemento ${i + 1}:`, item.startDate);
-      }
     
       this.list =  x.filter(item => item.startDate == startDate.toISOString());
       
