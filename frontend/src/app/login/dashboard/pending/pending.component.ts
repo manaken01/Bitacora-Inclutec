@@ -33,6 +33,10 @@ export class PendingComponent implements OnInit {
     const idUser = this.encryptService.desencrypt("idUser");
     this.loading = true;
     this.worklogService.getWorklogPendings(idUser).subscribe((x) => {
+      for (let i = 0; i < x.length; i++) {
+        const item = x[i];
+        console.log(`Elemento ${i + 1}:`, item);
+      }
       this.list = x;
       this.loading = false;
     });
