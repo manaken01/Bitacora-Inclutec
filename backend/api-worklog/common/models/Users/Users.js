@@ -101,6 +101,23 @@ module.exports = function (Users) {
     returns: { root: true, type: "Array" },
   });
 
+  Users.changePassword = async function (email) {
+    const manageUsers = new ManageUsers();
+    return await manageUsers.changePassword(email);
+  };
+
+  Users.remoteMethod("changePassword", {
+    description: "Changes password",
+    accepts: [
+      { arg: "email", type: "any", required: true }
+    ],
+    http: { path: "/changePassword", verb: "get" },
+
+  });
+
+  
+
+
   /**
    * Gets all the active collaborators
    */

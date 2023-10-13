@@ -54,7 +54,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             },
             (error) => {},
           );
-      }
+      }else if (params.pass !== undefined && params.pass === 'true') {
+        const message =
+          'Se envió una contraseña temporal a su correo electrónico.';
+        this.showSuccess(message);
+      } 
     });
   }
 

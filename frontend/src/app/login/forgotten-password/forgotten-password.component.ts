@@ -29,6 +29,9 @@ export class ForgottenPasswordComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
+
+
+
   ngOnInit() {
     this.formConfiguration();
   }
@@ -57,20 +60,15 @@ export class ForgottenPasswordComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-  requestForgottenPassword() {
-    // this.userService
-    //   .requestForgottenPassword(this.forgottenPasswordForm.value.email)
-    //   .pipe(takeUntil(this.onDestroy))
-    //   .subscribe(
-    //     (response) => {
-    //       this.router.navigate(['login'], {
-    //         queryParams: { passwordResetRequested: 'true' },
-    //       });
-    //     },
-    //     (error) => {
-    //       this.showError('Error: No se pudo solicitar la contraseña olvidada.');
-    //     }
-    //   );
+  changePassword() {
+    const email = this.forgottenPasswordForm.value.email;
+    this.userService
+       .newPassword(email)
+       .subscribe((response) => {
+        this.router.navigate(['login'], {
+          queryParams: { pass: 'true' },
+        });
+      });
   }
 
   showError(message) {

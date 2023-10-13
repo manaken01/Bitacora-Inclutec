@@ -71,6 +71,28 @@ function ManageUser() {
       }
     );
   };
+
+  this.changePassword = async function (email) {
+    const userData = await app.models.Users.findOne({
+      where: { email: email },
+    });
+    const users = app.models.Users;
+    users.app.models.Email.send(
+      {
+        to: email,
+        subject: "[Bitacora] Solicitud",
+        html:
+          "<h1>Saludos cordiales</h1> " +
+          `<p>Contraseña para uso temporal: hola</b></p>
+          
+          <h2>Gracias por su atención!</h2>`,
+        user: userData,
+      },
+      function (err) {
+        if (err) return console.log("> error sending password reset email");
+      }
+    );
+  };
 }
 
 module.exports = ManageUser;

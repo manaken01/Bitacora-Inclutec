@@ -91,6 +91,18 @@ export class UserService {
     return this.http.get<any>(url, httpOptions);
   }
 
+
+  /**
+   * Sends an email with a temporary password
+   * @param email
+   */
+  newPassword(email: string): Observable<any> {
+    const params = `email=${email}`;
+    const url = `${this.config.API_ENDPOINT_BITACORA}Users/changePassword?${params}`;
+    return this.http.get<any>(url, httpOptions); 
+  }
+  
+
   /**
    * Post a new user
    * @param user
