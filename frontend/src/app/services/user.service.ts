@@ -70,7 +70,7 @@ export class UserService {
     const url = `${this.config.API_ENDPOINT_BITACORA}Users/change-password?${params}`;
     return this.http.post<any>(url, modelData, httpOptions);
   }
-
+ 
   /**
    * Gets the projects the users its not working on
    */
