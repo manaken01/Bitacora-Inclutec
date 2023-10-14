@@ -8,6 +8,7 @@
     </div>
   </div>
 </div>
+
 <div class="no-gutters" focus="true" tabindex="-1">
   <div class="row h-100">
     <div class="col-md-3 green">
@@ -140,6 +141,7 @@
             <div class="cal-time">
               {{ segment.date | calendarDate: "dayViewHour":locale }}
             </div>
+            
           </div>
         </ng-template>
         <ng-template
@@ -161,6 +163,7 @@
             <div class="cal-time" *ngIf="isTimeLabel">
               {{ segment.date | calendarDate: "weekViewHour":locale }}
             </div>
+            
           </div>
         </ng-template>
         <div [ngSwitch]="view" class="pb-4">

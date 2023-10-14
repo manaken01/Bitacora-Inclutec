@@ -12,11 +12,25 @@ import {
 } from "angular-calendar";
 import { WeekViewHourSegment } from "calendar-utils";
 import { CommonConstants } from "../../../../common/common.constant";
-import { MatDialog } from "@angular/material/dialog";
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialog,
+} from "@angular/material/dialog";
 import { RegisterModalComponent } from "./register-modal/register-modal.component";
 import { endOfWeek, addDays, addMinutes } from "date-fns";
 import { finalize, takeUntil } from "rxjs/operators";
 import { InfoTaskComponent } from "./info-task/info-task.component";
+import { start } from "repl";
+
+
+
+export interface DialogData {
+  start: any;
+  end: any;
+  title: string;
+  id: any;
+}
 
 @Component({
   selector: "app-reg-form",
@@ -41,8 +55,9 @@ export class RegFormComponent implements OnInit, OnDestroy {
   public typeSuccess: boolean;
   public lastList: any;
   public commonList: any;
+  public allList: any;
   public accessibility: boolean;
-
+  public eventsPopulate: CalendarEvent[] = [];
   public view: CalendarView;
   public CalendarView: any;
   public locale: string;
@@ -50,6 +65,8 @@ export class RegFormComponent implements OnInit, OnDestroy {
   public events: CalendarEvent[] = [];
   public commonEvents: CalendarEvent[] = [];
   public lastEvents: CalendarEvent[] = [];
+  public allEvents: CalendarEvent[] = [];
+  public segments: any[] = [];
   public dragToCreateActive = false;
   public weekStartsOn: 0 = 0;
   public activeDayIsOpen = false;
@@ -69,24 +86,53 @@ export class RegFormComponent implements OnInit, OnDestroy {
     @Inject(DependenciesService) public dependenciesService: DependenciesService
   ) {
     this.view = CalendarView.Month;
-    this.locale = "es";
+    this.locale = "es-CR";
     this.CalendarView = CalendarView;
     this.lastList = [];
     this.commonList = [];
+    this.allList = [];
     this.accessibility = false;
   }
 
   ngOnInit() {
+    
+    this.worklogService.getWorklogPendings(this.encryptService.desencrypt("idUser")).subscribe((x) => {
+      
+      for(let i = 0; i < x.length; i++) {
+        const worklog = x[i]; // Supongamos que cada elemento en la lista representa un trabajo o evento
+
+        const calendarEvent: CalendarEvent = {
+            id: x.length,
+            title: `PRUEBA`,
+            start: new Date(worklog.startDate),
+            end: new Date(worklog.endDate),
+            meta: {
+              tmpEvent: true,
+            },
+            color: CommonConstants.CALENDAR_COLORS.green,
+            draggable: true,
+            resizable: {
+              beforeStart: true,
+              afterEnd: true,
+            },
+        };
+
+        this.events.push(calendarEvent);
+      }
+   
+    });
     this.commonWorklog();
     this.lastestWorklog();
     this.ValidateAccessibility();
   }
 
+  
   ngOnDestroy() {
     this.onDestroy.next();
     this.onDestroy.complete();
   }
 
+ 
   /**
    * Looks up for any disability linked to this user
    */
@@ -224,6 +270,7 @@ export class RegFormComponent implements OnInit, OnDestroy {
         });
       });
   }
+
   /**
    * Changes the calendar view to a week view
    * @param date
@@ -267,6 +314,16 @@ export class RegFormComponent implements OnInit, OnDestroy {
   ceilToNearest(amount: number, precision: number) {
     return Math.ceil(amount / 30) * precision;
   }
+
+  eventsMatch(segment: WeekViewHourSegment,
+    event) {
+
+    // Aquí debes implementar tu lógica para comparar las horas del segmento y el evento.
+    // Debes devolver true si coinciden, de lo contrario, false.
+    // Por ejemplo, si ambos tienen una propiedad 'date', podrías comparar segment.date y event.date.
+    return segment.date === event.starDate;
+  }
+  
   /**
    * Using the segment of the calendar view, the mouse event and html this function first creates
    * the event as a standar event this event its added to the array of events.
@@ -280,6 +337,7 @@ export class RegFormComponent implements OnInit, OnDestroy {
     mouseDownEvent: MouseEvent,
     segmentElement: HTMLElement
   ) {
+    console.log(segment.date)
     const dragToSelectEvent: CalendarEvent = {
       id: this.events.length,
       title: '<p class="ml-2 text-white">Nuevo registro</p>',
@@ -355,6 +413,8 @@ export class RegFormComponent implements OnInit, OnDestroy {
         this.refresh.next();
       });
   }
+
+
   /**
    * Gets the event which its gonna be copied and creates a push with the same data
    * @param event
@@ -504,6 +564,7 @@ export class RegFormComponent implements OnInit, OnDestroy {
         message = "Error al registrar la tarea";
         this.showError(message);
       }
+      this.refresh.next();
     });
   }
 

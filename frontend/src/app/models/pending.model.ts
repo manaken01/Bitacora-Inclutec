@@ -20,4 +20,5 @@ export class PendingModel {
   public idPhasesPk: any;
   public idTaskPk: any;
   public startDate: any;
+  public endDate: any;
 }
