@@ -168,9 +168,7 @@ export class RegisterPendingComponent implements OnInit, OnDestroy {
     const spentTime = credencials.hours + '.' + credencials.minutes;
     this.taskSelected.description = credencials.description;
     this.taskSelected.spentTime += Number(spentTime);
-    this.taskSelected.endDate = endHours.setHours(
-      endHours.getHours() + Number(spentTime),
-    );
+    this.taskSelected.endDate = new Date();
     this.taskSelected.startDate = credencials.startDate;
     this.taskSelected.status = credencials.status;
     this.worklogService
