@@ -34,7 +34,6 @@ export class PendingComponent implements OnInit {
     let projectsList: PendingModel[];
     let xList: PendingModel[];
     
-    
     this.worklogService.getWorklogPendings(idUser).subscribe((x) => {
       this.worklogService.getProjectsByUsers(idUser).subscribe(
         (data) => {

@@ -83,6 +83,7 @@ export class CommonConstants {
     "activityName",
     "taskName",
     "startDate",
+    "endDate",
     "modality",
     "status",
     "collaborator",

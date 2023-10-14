@@ -61,14 +61,33 @@ export class InfoTaskComponent implements OnInit {
     this.formConfig(); // Agregar esta línea para configurar el formulario
     this.registerForm.controls.startDate.setValue(this.data.start);
     const startDate = this.data.start;
-
+    let projectsList: PendingModel[];
    
-    this.worklogService.getWorklogPendings(idUser).subscribe((x) => {
     
-      this.list =  x.filter(item => item.startDate == startDate.toISOString());
+    let xList: PendingModel[];
+    
+    this.worklogService.getWorklogPendings(idUser).subscribe((x) => {
+      this.worklogService.getProjectsByUsers(idUser).subscribe(
+        (data) => {
+          // La variable 'data' contiene los datos que devuelve el servicio
+          projectsList = data; // Guarda los datos en la lista
+          xList = x
+          for (let j = 0; j < xList.length; j++) {
+            for (let i = 0; i < projectsList.length; i++) {
+              console.log(xList[j].idProjectsFk)
+              if (xList[j].idProjectsFk == projectsList[i].idProjectsPk) {
+                xList[j].projectName = projectsList[i].projectName
+              }
+            }
+          }
+          this.list =  x.filter(item => item.startDate == startDate.toISOString());
+
+          this.loading = false;
+      });
       
-      this.loading = false;
     });
+    
+    
   }
 
   formConfig() {

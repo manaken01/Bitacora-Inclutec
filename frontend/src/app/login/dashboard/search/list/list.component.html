@@ -1,5 +1,5 @@
 <div tabindex="-1" class="sr-only" role="alert">
-  Vista tabla activada
+  
 </div>
 <div class="mt-5 mb-5">
   <div class="row search-filter mx-auto">
@@ -64,6 +64,13 @@
       <th mat-header-cell *matHeaderCellDef>Fecha</th>
       <td mat-cell *matCellDef="let element" class="align-middle">
         {{ element.startDate | date: "d/M/yyyy" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="endDate">
+      <th mat-header-cell *matHeaderCellDef>Final</th>
+      <td mat-cell *matCellDef="let element" class="align-middle">
+        {{ element.endDate | date: "d/M/yyyy" }}
       </td>
     </ng-container>
 
