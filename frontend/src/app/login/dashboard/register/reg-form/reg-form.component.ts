@@ -97,14 +97,13 @@ export class RegFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
     
     this.worklogService.getWorklogPendings(this.encryptService.desencrypt("idUser")).subscribe((x) => {
-      
-      for(let i = 0; i < x.length; i++) {
+    for(let i = 0; i < x.length; i++) {
         const worklog = x[i]; // Supongamos que cada elemento en la lista representa un trabajo o evento
-
+        let startDate = new Date(worklog.startDate);
         const calendarEvent: CalendarEvent = {
             id: x.length,
-            title: `PRUEBA`,
-            start: new Date(worklog.startDate),
+            title: ``,
+            start: startDate,
             end: new Date(worklog.endDate),
             meta: {
               tmpEvent: true,
@@ -115,15 +114,42 @@ export class RegFormComponent implements OnInit, OnDestroy {
               beforeStart: true,
               afterEnd: true,
             },
+            actions: [
+              {
+                label: '<i class="fas fa-trash text-white ml-2"></i>',
+                onClick: ({ event }: { event: CalendarEvent }): void => {
+                  this.events = this.events.filter((iEvent) => iEvent !== event);
+                },
+              },
+              {
+                label: '<i class="fas fa-edit text-white ml-2"></i>',
+                onClick: ({ event }: { event: CalendarEvent }): void => {
+                  this.openDialog(event);
+                },
+              },
+              {
+                label: '<i class="fas fa-copy text-white ml-2"></i>',
+                onClick: ({ event }: { event: CalendarEvent }): void => {
+                  this.copyEvent(event);
+                },
+              },
+              {
+                label: '<i class="fas fa-info-circle text-white ml-2"></i>',
+                onClick: ({ event }: { event: CalendarEvent }): void => {
+                  this.openDialogTask(event);
+                },
+              },
+            ],
         };
-
         this.events.push(calendarEvent);
       }
-   
+      this.refresh.next(); // Actualiza la vista
     });
+
     this.commonWorklog();
     this.lastestWorklog();
     this.ValidateAccessibility();
+    
   }
 
   
@@ -337,7 +363,6 @@ export class RegFormComponent implements OnInit, OnDestroy {
     mouseDownEvent: MouseEvent,
     segmentElement: HTMLElement
   ) {
-    console.log(segment.date)
     const dragToSelectEvent: CalendarEvent = {
       id: this.events.length,
       title: '<p class="ml-2 text-white">Nuevo registro</p>',
@@ -559,12 +584,12 @@ export class RegFormComponent implements OnInit, OnDestroy {
       if (result === "success") {
         this.events = this.events.filter((iEvent) => iEvent !== event);
         message = "Se registro correctamente la tarea!";
+        this.refresh.next();
         this.showSuccess(message);
       } else if (result === "error") {
         message = "Error al registrar la tarea";
         this.showError(message);
       }
-      this.refresh.next();
     });
   }
 
