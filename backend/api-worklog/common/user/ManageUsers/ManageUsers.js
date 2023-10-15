@@ -80,19 +80,23 @@ function ManageUser() {
     }
     return password;
   };
-  function sha256(input) {
-    const hash = crypto.createHash('sha256');
-    hash.update(input);
-    return hash.digest('hex');
-  };
 
   this.changePassword = async function (email) {
-    const userData = await app.models.Users.findOne({
-      where: { email: email },
-    });
+    const userData = await app.models.Users.findOne({ where: { email: email } });
+    if(!userData){
+      return console.log("> This email was not found")
+    }
+
     const users = app.models.Users;
     const randomPassword = generateRandomPassword(8);
-    const encriptedPassword = sha256(randomPassword);
+    console.log(randomPassword);
+    userData.updateAttribute('password', randomPassword, function(err, user) {
+      if(err){
+        return console.log("> error sending password reset email");
+      }
+      console.log('> password reset processed successfully');
+    });
+
     users.app.models.Email.send(
       {
         to: email,
@@ -100,8 +104,7 @@ function ManageUser() {
         html:
           "<h1>Saludos cordiales</h1> " +
           `<p>Contraseña para uso temporal: ${randomPassword}</p>
-           <p>Contraseña encriptada: ${encriptedPassword}</p>
-           <p>Recuerde no compartir esta contraseña con nadie, además de cambiar luego de ingresar al sistema</p
+           <p>Por favor recuerde cambiar esta contraseña lo antes posible. Muchas gracias.</p>
           <h2>Gracias por su atención!</h2>`,
         user: userData,
       },
