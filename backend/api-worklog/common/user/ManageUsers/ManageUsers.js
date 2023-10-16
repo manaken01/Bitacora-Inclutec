@@ -86,10 +86,8 @@ function ManageUser() {
     if(!userData){
       return console.log("> This email was not found")
     }
-
     const users = app.models.Users;
     const randomPassword = generateRandomPassword(8);
-    console.log(randomPassword);
     userData.updateAttribute('password', randomPassword, function(err, user) {
       if(err){
         return console.log("> error sending password reset email");
