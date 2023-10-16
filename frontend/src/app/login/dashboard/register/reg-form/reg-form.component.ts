@@ -95,70 +95,72 @@ export class RegFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
-    this.worklogService.getWorklogPendings(this.encryptService.desencrypt("idUser")).subscribe((x) => {
-    for(let i = 0; i < x.length; i++) {
-        const worklog = x[i]; // Supongamos que cada elemento en la lista representa un trabajo o evento
-        let startDate = new Date(worklog.startDate);
-        const calendarEvent: CalendarEvent = {
-            id: x.length,
-            title: ``,
-            start: startDate,
-            end: new Date(worklog.endDate),
-            meta: {
-              tmpEvent: true,
-            },
-            color: CommonConstants.CALENDAR_COLORS.green,
-            draggable: true,
-            resizable: {
-              beforeStart: true,
-              afterEnd: true,
-            },
-            actions: [
-              {
-                label: '<i class="fas fa-trash text-white ml-2"></i>',
-                onClick: ({ event }: { event: CalendarEvent }): void => {
-                  this.events = this.events.filter((iEvent) => iEvent !== event);
-                },
-              },
-              {
-                label: '<i class="fas fa-edit text-white ml-2"></i>',
-                onClick: ({ event }: { event: CalendarEvent }): void => {
-                  this.openDialog(event);
-                },
-              },
-              {
-                label: '<i class="fas fa-copy text-white ml-2"></i>',
-                onClick: ({ event }: { event: CalendarEvent }): void => {
-                  this.copyEvent(event);
-                },
-              },
-              {
-                label: '<i class="fas fa-info-circle text-white ml-2"></i>',
-                onClick: ({ event }: { event: CalendarEvent }): void => {
-                  this.openDialogTask(event);
-                },
-              },
-            ],
-        };
-        this.events.push(calendarEvent);
-      }
-      this.refresh.next(); // Actualiza la vista
-    });
-
+    this.loadWorklogsPending();
     this.commonWorklog();
     this.lastestWorklog();
     this.ValidateAccessibility();
-    
   }
 
-  
   ngOnDestroy() {
     this.onDestroy.next();
     this.onDestroy.complete();
   }
 
- 
+  /**
+   * Loads all the worklogs pending of a user in the calendar
+   */
+  loadWorklogsPending() {
+    this.worklogService.getWorklogPendings(this.encryptService.desencrypt("idUser")).subscribe((x) => {
+      for(let i = 0; i < x.length; i++) {
+          const worklog = x[i]; // Supongamos que cada elemento en la lista representa un trabajo o evento
+          let startDate = new Date(worklog.startDate);
+          const calendarEvent: CalendarEvent = {
+              id: x.length,
+              title: ``,
+              start: startDate,
+              end: new Date(worklog.endDate),
+              meta: {
+                tmpEvent: true,
+              },
+              color: CommonConstants.CALENDAR_COLORS.green,
+              draggable: true,
+              resizable: {
+                beforeStart: true,
+                afterEnd: true,
+              },
+              actions: [
+                {
+                  label: '<i class="fas fa-trash text-white ml-2"></i>',
+                  onClick: ({ event }: { event: CalendarEvent }): void => {
+                    this.events = this.events.filter((iEvent) => iEvent !== event);
+                  },
+                },
+                {
+                  label: '<i class="fas fa-edit text-white ml-2"></i>',
+                  onClick: ({ event }: { event: CalendarEvent }): void => {
+                    this.openDialog(event);
+                  },
+                },
+                {
+                  label: '<i class="fas fa-copy text-white ml-2"></i>',
+                  onClick: ({ event }: { event: CalendarEvent }): void => {
+                    this.copyEvent(event);
+                  },
+                },
+                {
+                  label: '<i class="fas fa-info-circle text-white ml-2"></i>',
+                  onClick: ({ event }: { event: CalendarEvent }): void => {
+                    this.openDialogTask(event);
+                  },
+                },
+              ],
+          };
+          this.events.push(calendarEvent);
+        }
+        this.refresh.next(); // Actualiza la vista
+      });
+  }
+
   /**
    * Looks up for any disability linked to this user
    */
@@ -241,6 +243,12 @@ export class RegFormComponent implements OnInit, OnDestroy {
                   this.copyEvent(event);
                 },
               },
+              {
+                label: '<i class="fas fa-info-circle text-white ml-2"></i>',
+                onClick: ({ event }: { event: CalendarEvent }): void => {
+                  this.openDialogTask(event);
+                },
+              },
             ],
           });
         });
@@ -289,6 +297,12 @@ export class RegFormComponent implements OnInit, OnDestroy {
                 label: '<i class="fas fa-copy text-white ml-2"></i>',
                 onClick: ({ event }: { event: CalendarEvent }): void => {
                   this.copyEvent(event);
+                },
+              },
+              {
+                label: '<i class="fas fa-info-circle text-white ml-2"></i>',
+                onClick: ({ event }: { event: CalendarEvent }): void => {
+                  this.openDialogTask(event);
                 },
               },
             ],
@@ -593,6 +607,10 @@ export class RegFormComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Opens the dialog and sends the start date and end date of the current event selected, and loads all the worklogs that day and hour
+   * @param event
+   */
   openDialogTask(event: CalendarEvent): void {
     let message = "";
     const dialogRef = this.dialog.open(InfoTaskComponent, {
@@ -605,7 +623,6 @@ export class RegFormComponent implements OnInit, OnDestroy {
         id: event.id,
       },
     });
-
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === "success") {

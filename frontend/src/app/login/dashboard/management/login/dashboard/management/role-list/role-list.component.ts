@@ -16,7 +16,7 @@ import { UserEditorComponent } from "../../../../users-list/user-editor/user-edi
 })
 export class RoleListComponent implements OnInit {
   public dialog: MatDialog;
-  displayedColumns: string[] = ['role','edition']; // Agrega otras columnas aquí si es necesario
+  displayedColumns: string[] = ['role','edition']; //Columns to show
   dataSource = new MatTableDataSource<any>([
     { role: 'Desarrollador(a)' },
     { role: 'Asistente(a)' },
@@ -27,7 +27,6 @@ export class RoleListComponent implements OnInit {
     { role: 'Evaluador(a)' },
     { role: 'Investigador(a)' },
     
-    // Agrega más datos aquí si es necesario
   ]);
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -36,7 +35,10 @@ export class RoleListComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  
+  /**
+   * TODO, this component is not ready and is not finished
+   */
   openEditionModal() {
     const dialogRef = this.dialog.open(UserEditorComponent, {
       width: "600px",

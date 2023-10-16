@@ -1,5 +1,5 @@
 /**
- * Info task, nueva funcionalidad. Poder ver desde el calendario las tareas
+ * Info task, new functionality. Loads the worklogs pending of the user in the calendar
  */
 import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
 import { WorklogService } from "../../../../../services/worklog.service";
@@ -61,45 +61,41 @@ export class InfoTaskComponent implements OnInit {
   ngOnInit() {
     const idUser = this.encryptService.desencrypt("idUser");
     this.loading = true;
-    this.formConfig(); // Agregar esta línea para configurar el formulario
-    this.registerForm.controls.startDate.setValue(this.data.start);
+    this.formConfig(); // This line loads the form
+    this.registerForm.controls.startDate.setValue(this.data.start); //Sets the day
     const startDate = this.data.start;
     let projectsList: PendingModel[];
-   
-    
     let xList: PendingModel[];
     /**
-   * Info task, nueva funcionalidad. Poder ver desde el calendario las tareas
-   * Busca los nombres de los proyectos para enseñarlos
+   * Info task, new functionality. Loads the worklogs pending of the user in the calendar
+   * Search the name of the projects to shown them
    */
     this.worklogService.getWorklogPendings(idUser).subscribe((x) => {
       this.worklogService.getProjectsByUsers(idUser).subscribe(
         (data) => {
-          // La variable 'data' contiene los datos que devuelve el servicio
-          projectsList = data; // Guarda los datos en la lista
+          // Data have the data of the request
+          projectsList = data; // Save the data
           xList = x
           for (let j = 0; j < xList.length; j++) {
             for (let i = 0; i < projectsList.length; i++) {
-              console.log(xList[j].idProjectsFk)
               if (xList[j].idProjectsFk == projectsList[i].idProjectsPk) {
                 xList[j].projectName = projectsList[i].projectName
               }
             }
           }
           /**
-           * Info task, nueva funcionalidad. Poder ver desde el calendario las tareas
-           * Filtro de solo las tareas que estan en esas horas
+           * Info task, new functionality. Loads the worklogs pending of the user in the calendar
+           * Filter the registers by hours
            */
           this.list =  x.filter(item => item.startDate == startDate.toISOString());
-
           this.loading = false;
       });
-      
     });
-    
-    
   }
 
+  /**
+   * Set the values of the form
+   */
   formConfig() {
     this.registerForm = this.formBuilder.group({
       startDate: [""],
@@ -136,91 +132,5 @@ export class InfoTaskComponent implements OnInit {
     });
   }
 
-  /**
- * This function processes the provided hours, minutes, and format to create a valid date.
- * @param date Date to process.
- * @param hours Hours to set.
- * @param minutes Minutes to set.
- * @param format Format (AM or PM) for the time.
- */
-processDates(date: any, hours: any, minutes: any, format: any) {
-  const hour = this.processHour(hours, format);
-  date.setHours(hour);
-  date.setMinutes(minutes);
-  return date;
-}
-
-/**
- * This function processes the hours and returns a valid 24-hour format hour.
- * @param hours Hours to process.
- * @param format Format (AM or PM) for the time.
- */
-processHour(hours, format) {
-  let resultHour;
-  if (format === "PM") {
-    switch (hours) {
-      case 1:
-        resultHour = 13;
-        break;
-      case 2:
-        resultHour = 14;
-        break;
-      case 3:
-        resultHour = 15;
-        break;
-      case 4:
-        resultHour = 16;
-        break;
-      case 5:
-        resultHour = 17;
-        break;
-      case 6:
-        resultHour = 18;
-        break;
-      case 7:
-        resultHour = 19;
-        break;
-      case 8:
-        resultHour = 20;
-        break;
-      case 9:
-        resultHour = 21;
-        break;
-      case 10:
-        resultHour = 22;
-        break;
-      case 11:
-        resultHour = 23;
-        break;
-      case 12:
-        resultHour = 12;
-        break;
-      default:
-        break;
-    }
-  } else if (format === "AM") {
-    if (hours == 12) {
-      resultHour = 0;
-    } else {
-      resultHour = hours;
-    }
-  }
-  return resultHour;
-}
-
-accessibleTimes(credencials: any) {
-  credencials.startDate = this.processDates(
-    credencials.startDate,
-    credencials.startHours,
-    credencials.startMinutes,
-    credencials.startFormat
-  );
-  credencials.endDate = this.processDates(
-    credencials.endDate,
-    credencials.endHours,
-    credencials.endMinutes,
-    credencials.endFormat
-  );
-}
 
 }

@@ -19,26 +19,6 @@ module.exports = function (Worklogdependencies) {
   });
 
   /**
-   * Gets the pending worklog of a user filter by startDate
-   * 
-   */
-  Worklogdependencies.worklogPerUserPendingDate = async function (idUser, startDate, cb) {
-    const manageDependecies = new ManageDependencies();
-    return await manageDependecies.worklogPerUserPendingDate(idUser, startDate, cb);
-  };
-
-  Worklogdependencies.remoteMethod("worklogPerUserPendingDate", {
-    description: "Get all worklog pending filter by startDate",
-    accepts: [
-      { arg: "idUser", type: "number", required: true },
-      { arg: "startDate", type: "Date", required: true },
-    ],
-    http: { path: "/allWorklogsPendingDate", verb: "get" },
-    returns: { root: true, type: "array" }
-  });
-
-
-  /**
    * Gets the most common work an user has register
    */
   Worklogdependencies.getMostCommon = function (userId, cb) {
