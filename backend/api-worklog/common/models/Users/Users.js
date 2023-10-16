@@ -101,17 +101,17 @@ module.exports = function (Users) {
     returns: { root: true, type: "Array" },
   });
 
-  Users.changePassword = async function (email) {
+  Users.resetPassword = async function (email) {
     const manageUsers = new ManageUsers();
-    return await manageUsers.changePassword(email);
+    return await manageUsers.resetPassword(email);
   };
 
-  Users.remoteMethod("changePassword", {
+  Users.remoteMethod("resetPassword", {
     description: "Changes password",
     accepts: [
       { arg: "email", type: "any", required: true }
     ],
-    http: { path: "/changePassword", verb: "get" },
+    http: { path: "/resetPassword", verb: "get" },
 
   });
 

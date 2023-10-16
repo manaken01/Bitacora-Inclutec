@@ -81,7 +81,7 @@ function ManageUser() {
     return password;
   };
 
-  this.changePassword = async function (email) {
+  this.resetPassword = async function (email) {
     const userData = await app.models.Users.findOne({ where: { email: email } });
     if(!userData){
       return console.log("> This email was not found")

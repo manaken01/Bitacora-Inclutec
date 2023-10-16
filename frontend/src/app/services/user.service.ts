@@ -98,7 +98,7 @@ export class UserService {
    */
   newPassword(email: string): Observable<any> {
     const params = `email=${email}`;
-    const url = `${this.config.API_ENDPOINT_BITACORA}Users/changePassword?${params}`;
+    const url = `${this.config.API_ENDPOINT_BITACORA}Users/resetPassword?${params}`;
     return this.http.get<any>(url, httpOptions); 
   }
   
