@@ -1,3 +1,6 @@
+/**
+ * Info task, nueva funcionalidad. Poder ver desde el calendario las tareas
+ */
 import { Component, OnInit, Inject, OnDestroy } from "@angular/core";
 import { WorklogService } from "../../../../../services/worklog.service";
 import { PendingModel } from "../../../../../models/pending.model";
@@ -65,7 +68,10 @@ export class InfoTaskComponent implements OnInit {
    
     
     let xList: PendingModel[];
-    
+    /**
+   * Info task, nueva funcionalidad. Poder ver desde el calendario las tareas
+   * Busca los nombres de los proyectos para enseñarlos
+   */
     this.worklogService.getWorklogPendings(idUser).subscribe((x) => {
       this.worklogService.getProjectsByUsers(idUser).subscribe(
         (data) => {
@@ -80,6 +86,10 @@ export class InfoTaskComponent implements OnInit {
               }
             }
           }
+          /**
+           * Info task, nueva funcionalidad. Poder ver desde el calendario las tareas
+           * Filtro de solo las tareas que estan en esas horas
+           */
           this.list =  x.filter(item => item.startDate == startDate.toISOString());
 
           this.loading = false;

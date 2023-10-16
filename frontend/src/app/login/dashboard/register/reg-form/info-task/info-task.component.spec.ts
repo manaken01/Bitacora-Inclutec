@@ -1,3 +1,6 @@
+/**
+ * Spec de  info task, nueva funcionalidad. Poder ver desde el calendario las
+ */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InfoTaskComponent } from './info-task.component';

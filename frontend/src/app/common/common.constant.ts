@@ -83,6 +83,9 @@ export class CommonConstants {
     "activityName",
     "taskName",
     "startDate",
+    /**
+    * Nueva columna de fecha donde se termina tarea
+    */
     "endDate",
     "modality",
     "status",

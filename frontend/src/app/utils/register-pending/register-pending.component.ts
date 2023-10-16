@@ -169,6 +169,9 @@ export class RegisterPendingComponent implements OnInit, OnDestroy {
     this.taskSelected.description = credencials.description;
     this.taskSelected.spentTime += Number(spentTime);
     this.taskSelected.endDate = new Date();
+    /**
+    * Se cambia como se guardaba la fecha final, a la fecha donde se cambia a terminar
+    */
     this.taskSelected.startDate = credencials.startDate;
     this.taskSelected.status = credencials.status;
     this.worklogService
