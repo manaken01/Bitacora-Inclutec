@@ -29,6 +29,16 @@
           </div>
         </div>
       </div>
+      <button
+        mat-button
+        (click)="onNoClick('cancel')"
+        class="c-custom-btn"
+        id="cancelar"
+      >
+        Cancelar
+      </button>
+
+
       <form class="form row" [formGroup]="registerForm">
         <div class="col-md-5 offset-md-1">
       <div *ngIf="accessibility" class="form-group">

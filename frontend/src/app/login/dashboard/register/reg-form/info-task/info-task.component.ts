@@ -49,6 +49,7 @@ export class InfoTaskComponent implements OnInit {
     private worklogService: WorklogService,
     private encryptService: EncryptService,
     private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<InfoTaskComponent>,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {this.hours = CommonConstants.hours;
@@ -103,6 +104,10 @@ export class InfoTaskComponent implements OnInit {
       startMinutes: [""],
       startFormat: [""]
     });
+  }
+
+  onNoClick(message: string): void {
+    this.dialogRef.close(message);
   }
 
   /**
