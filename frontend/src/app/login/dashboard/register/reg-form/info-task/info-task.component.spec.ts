@@ -1,5 +1,5 @@
 /**
- * Spec de  info task, nueva funcionalidad. Poder ver desde el calendario las
+ * Spec de  info task, nueva funcionalidad. Poder ver desde el calendario las tareas
  */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
