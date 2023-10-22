@@ -9,3 +9,5 @@ frontend: ng serve
 If there is an error about scripts, use this command:
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
+Change datasources.local.js to run the backend, user and password.
+

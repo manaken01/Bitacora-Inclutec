@@ -114,11 +114,13 @@ export class RegFormComponent implements OnInit, OnDestroy {
       for(let i = 0; i < x.length; i++) {
           const worklog = x[i]; // Supongamos que cada elemento en la lista representa un trabajo o evento
           let startDate = new Date(worklog.startDate);
+          let endDate = new Date(worklog.startDate);
+          endDate.setMinutes(startDate.getMinutes() + 15);
           const calendarEvent: CalendarEvent = {
               id: x.length,
-              title: ``,
+              title: '<p class="ml-2 text-white">Nuevo registro</p>',
               start: startDate,
-              end: new Date(worklog.endDate),
+              end: endDate,
               meta: {
                 tmpEvent: true,
               },
@@ -130,25 +132,25 @@ export class RegFormComponent implements OnInit, OnDestroy {
               },
               actions: [
                 {
-                  label: '<i class="fas fa-trash text-white ml-2"></i>',
+                  label: '<i class="fas fa-trash text-white ml-2" aria-label="Eliminar registro" role="button"></i>',
                   onClick: ({ event }: { event: CalendarEvent }): void => {
                     this.events = this.events.filter((iEvent) => iEvent !== event);
                   },
                 },
                 {
-                  label: '<i class="fas fa-edit text-white ml-2"></i>',
+                  label: '<i class="fas fa-edit text-white ml-2" aria-label="Crear registro" role="button"></i>',
                   onClick: ({ event }: { event: CalendarEvent }): void => {
                     this.openDialog(event);
                   },
                 },
                 {
-                  label: '<i class="fas fa-copy text-white ml-2"></i>',
+                  label: '<i class="fas fa-copy text-white ml-2" aria-label="Copiar registro" role="button"></i>',
                   onClick: ({ event }: { event: CalendarEvent }): void => {
                     this.copyEvent(event);
                   },
                 },
                 {
-                  label: '<i class="fas fa-info-circle text-white ml-2"></i>',
+                  label: '<i class="fas fa-info text-white ml-2" aria-label="Ver registros" role="button"></i>',
                   onClick: ({ event }: { event: CalendarEvent }): void => {
                     this.openDialogTask(event);
                   },
@@ -224,27 +226,25 @@ export class RegFormComponent implements OnInit, OnDestroy {
             },
             actions: [
               {
-                label: '<i class="fas fa-trash text-white ml-2"></i>',
+                label: '<i class="fas fa-trash text-white ml-2" aria-label="Eliminar registro" role="button"></i>',
                 onClick: ({ event }: { event: CalendarEvent }): void => {
-                  this.events = this.events.filter(
-                    (iEvent) => iEvent !== event
-                  );
+                  this.events = this.events.filter((iEvent) => iEvent !== event);
                 },
               },
               {
-                label: '<i class="fas fa-edit text-white ml-2"></i>',
+                label: '<i class="fas fa-edit text-white ml-2" aria-label="Crear registro" role="button"></i>',
                 onClick: ({ event }: { event: CalendarEvent }): void => {
                   this.openDialog(event);
                 },
               },
               {
-                label: '<i class="fas fa-copy text-white ml-2"></i>',
+                label: '<i class="fas fa-copy text-white ml-2" aria-label="Copiar registro" role="button"></i>',
                 onClick: ({ event }: { event: CalendarEvent }): void => {
                   this.copyEvent(event);
                 },
               },
               {
-                label: '<i class="fas fa-info-circle text-white ml-2"></i>',
+                label: '<i class="fas fa-info text-white ml-2" aria-label="Ver registros" role="button"></i>',
                 onClick: ({ event }: { event: CalendarEvent }): void => {
                   this.openDialogTask(event);
                 },
@@ -280,27 +280,25 @@ export class RegFormComponent implements OnInit, OnDestroy {
             },
             actions: [
               {
-                label: '<i class="fas fa-trash text-white ml-2"></i>',
+                label: '<i class="fas fa-trash text-white ml-2" aria-label="Eliminar registro" role="button"></i>',
                 onClick: ({ event }: { event: CalendarEvent }): void => {
-                  this.events = this.events.filter(
-                    (iEvent) => iEvent !== event
-                  );
+                  this.events = this.events.filter((iEvent) => iEvent !== event);
                 },
               },
               {
-                label: '<i class="fas fa-edit text-white ml-2"></i>',
+                label: '<i class="fas fa-edit text-white ml-2" aria-label="Crear registro" role="button"></i>',
                 onClick: ({ event }: { event: CalendarEvent }): void => {
                   this.openDialog(event);
                 },
               },
               {
-                label: '<i class="fas fa-copy text-white ml-2"></i>',
+                label: '<i class="fas fa-copy text-white ml-2" aria-label="Copiar registro" role="button"></i>',
                 onClick: ({ event }: { event: CalendarEvent }): void => {
                   this.copyEvent(event);
                 },
               },
               {
-                label: '<i class="fas fa-info-circle text-white ml-2"></i>',
+                label: '<i class="fas fa-info text-white ml-2" aria-label="Ver registros" role="button"></i>',
                 onClick: ({ event }: { event: CalendarEvent }): void => {
                   this.openDialogTask(event);
                 },
@@ -393,25 +391,25 @@ export class RegFormComponent implements OnInit, OnDestroy {
       },
       actions: [
         {
-          label: '<i class="fas fa-trash text-white ml-2"></i>',
+          label: '<i class="fas fa-trash text-white ml-2" aria-label="Eliminar registro" role="button"></i>',
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.events = this.events.filter((iEvent) => iEvent !== event);
           },
         },
         {
-          label: '<i class="fas fa-edit text-white ml-2"></i>',
+          label: '<i class="fas fa-edit text-white ml-2" aria-label="Crear registro" role="button"></i>',
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.openDialog(event);
           },
         },
         {
-          label: '<i class="fas fa-copy text-white ml-2"></i>',
+          label: '<i class="fas fa-copy text-white ml-2" aria-label="Copiar registro" role="button"></i>',
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.copyEvent(event);
           },
         },
         {
-          label: '<i class="fas fa-info-circle text-white ml-2"></i>',
+          label: '<i class="fas fa-info text-white ml-2" aria-label="Ver registros" role="button"></i>',
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.openDialogTask(event);
           },
@@ -472,25 +470,25 @@ export class RegFormComponent implements OnInit, OnDestroy {
       },
       actions: [
         {
-          label: '<i class="fas fa-trash text-white ml-2"></i>',
+          label: '<i class="fas fa-trash text-white ml-2" aria-label="Eliminar registro" role="button"></i>',
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.events = this.events.filter((iEvent) => iEvent !== event);
           },
         },
         {
-          label: '<i class="fas fa-edit text-white ml-2"></i>',
+          label: '<i class="fas fa-edit text-white ml-2" aria-label="Crear registro" role="button"></i>',
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.openDialog(event);
           },
         },
         {
-          label: '<i class="fas fa-copy text-white ml-2"></i>',
+          label: '<i class="fas fa-copy text-white ml-2" aria-label="Copiar registro" role="button"></i>',
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.copyEvent(event);
           },
         },
         {
-          label: '<i class="fas fa-info-circle text-white ml-2"></i>',
+          label: '<i class="fas fa-info text-white ml-2" aria-label="Ver registros" role="button"></i>',
           onClick: ({ event }: { event: CalendarEvent }): void => {
             this.openDialogTask(event);
           },
