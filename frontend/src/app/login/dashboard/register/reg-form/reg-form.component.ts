@@ -118,7 +118,7 @@ export class RegFormComponent implements OnInit, OnDestroy {
           endDate.setMinutes(startDate.getMinutes() + 15);
           const calendarEvent: CalendarEvent = {
               id: x.length,
-              title: '<p class="ml-2 text-white">Nuevo registro</p>',
+              title: 'Nuevo registro',
               start: startDate,
               end: endDate,
               meta: {
@@ -377,7 +377,7 @@ export class RegFormComponent implements OnInit, OnDestroy {
   ) {
     const dragToSelectEvent: CalendarEvent = {
       id: this.events.length,
-      title: '<p class="ml-2 text-white">Nuevo registro</p>',
+      title: 'Nuevo registro',
       start: segment.date,
       end: addMinutes(segment.date, 15),
       meta: {
